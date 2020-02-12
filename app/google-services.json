@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "342861465694",
+    "firebase_url": "https://carrying-65b79.firebaseio.com",
+    "project_id": "carrying-65b79",
+    "storage_bucket": "carrying-65b79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342861465694:android:0453ccb1bdad99c2cbcccf",
+        "android_client_info": {
+          "package_name": "kr.hs.emirim.lyn.carrying"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "342861465694-a70dbca25miegngbuic86896npgs3n1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI2UFeMtSv3JOxursCP9dtmrna0XV-tjs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "342861465694-a70dbca25miegngbuic86896npgs3n1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
