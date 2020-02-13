@@ -102,4 +102,5 @@ public class DataAdapter {
             throw mSQLException;
         }
     }
+public class DataAdapter {
 }
