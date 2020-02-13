@@ -39,6 +39,7 @@ public class SignInActivity extends BaseActivity {
 //                        .addOnCompleteListener(LoginActivity.this, task -> {
 //
 //                            if (task.isSuccessful()) {
+//                                Toast.makeText(LoginActivity.this, "환영합니다", Toast.LENGTH_SHORT).show();
 //                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                                startActivity(intent);
 //                            } else {
