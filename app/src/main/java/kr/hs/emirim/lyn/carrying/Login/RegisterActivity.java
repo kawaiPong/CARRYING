@@ -1,4 +1,4 @@
-package kr.hs.emirim.lyn.carrying;
+package kr.hs.emirim.lyn.carrying.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class RegisterActivity extends AppCompatActivity {
+import kr.hs.emirim.lyn.carrying.R;
+
+public class RegisterActivity extends BaseActivity {
 
     private FirebaseAuth auth;
 
@@ -18,6 +20,21 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         auth = FirebaseAuth.getInstance();
+
+        String email = "ghddnjf2901@gmail.com".trim();
+        String pw = "dnjs290112sb*".trim();
+
+        auth.createUserWithEmailAndPassword(email, pw)
+                .addOnCompleteListener(RegisterActivity.this, task -> {
+                    if (task.isSuccessful()) {
+                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "등록 에러", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                });
 
 //        buttonLister();
     }
