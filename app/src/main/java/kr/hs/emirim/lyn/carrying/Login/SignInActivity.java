@@ -1,4 +1,4 @@
-package kr.hs.emirim.lyn.carrying;
+package kr.hs.emirim.lyn.carrying.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class SignInActivity extends AppCompatActivity {
+import kr.hs.emirim.lyn.carrying.R;
+
+public class SignInActivity extends BaseActivity {
 
     private FirebaseAuth auth;
 
@@ -32,7 +35,7 @@ public class SignInActivity extends AppCompatActivity {
 //                String email = sign_in_id.getText().toString().trim();
 //                String pw = sign_in_pw.getText().toString().trim();
 //
-//                firebaseAuth.signInWithEmailAndPassword(email, pw)
+//                auth.signInWithEmailAndPassword(email, pw)
 //                        .addOnCompleteListener(LoginActivity.this, task -> {
 //
 //                            if (task.isSuccessful()) {
@@ -47,7 +50,25 @@ public class SignInActivity extends AppCompatActivity {
 //
 //        });
     }
-//
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = auth.getCurrentUser();
+        updateUI(currentUser);
+    }
+
+    private void updateUI(FirebaseUser user) {
+        hideProgressDialog();
+        if (user != null) {
+
+        } else {
+
+        }
+    }
+
+    //
 //    private void init() {
 //
 //        sign_in_btn = findViewById(R.id.sign_in_btn);
@@ -59,7 +80,7 @@ public class SignInActivity extends AppCompatActivity {
 //
 //    private void buttonListener() {
 //        register_Text.setOnClickListener(view -> {
-//            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+//            startActivity(new Intent(SignInActivity.this, RegisterActivity.class));
 //        });
 //    }
 }
