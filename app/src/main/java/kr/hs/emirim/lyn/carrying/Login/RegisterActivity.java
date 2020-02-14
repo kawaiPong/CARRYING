@@ -4,7 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -37,6 +44,18 @@ public class RegisterActivity extends BaseActivity {
                 });
 
 //        buttonLister();
+        Button joinbtn = (Button)findViewById(R.id.joinbtn);
+
+        final RadioGroup rg = (RadioGroup)findViewById(R.id.radioGroup1);
+        joinbtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                int id = rg.getCheckedRadioButtonId();
+                //getCheckedRadioButtonId() 의 리턴값은 선택된 RadioButton 의 id 값.
+                RadioButton rb = (RadioButton) findViewById(id);
+            }
+        }); 
     }
 
     private void buttonListener() {
