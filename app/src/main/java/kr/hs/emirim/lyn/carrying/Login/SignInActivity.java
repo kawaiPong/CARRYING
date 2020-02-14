@@ -23,10 +23,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -94,30 +92,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
-
-//        sign_in_btn.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//
-//                String email = sign_in_id.getText().toString().trim();
-//                String pw = sign_in_pw.getText().toString().trim();
-//
-//                auth.signInWithEmailAndPassword(email, pw)
-//                        .addOnCompleteListener(LoginActivity.this, task -> {
-//
-//                            if (task.isSuccessful()) {
-//                                Toast.makeText(LoginActivity.this, "환영합니다", Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                                startActivity(intent);
-//                            } else {
-//                                Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        });
-//            }
-//
-//        });
 
     }
 
