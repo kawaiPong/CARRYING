@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import kr.hs.emirim.lyn.carrying.API.OpenWeatherAPITask;
 import kr.hs.emirim.lyn.carrying.API.Weather;
 
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,10 +24,21 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,10 +56,30 @@ public class MainActivity extends AppCompatActivity {
     Button emailText;
     Button pwText;
 
+    private FirebaseAuth auth;
+    private FirebaseUser user;
+
+    Button signOut_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        signOut_btn = (Button)findViewById(R.id.signOut);
+        signOut_btn.setOnClickListener(view -> {
+            auth.signOut();
+            Log.d(TAG, "로그아웃 버튼");
+            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+            startActivity(intent);
+        });
+
+        //익명 인증일 경우 user.getDisplayName == NULL;
+        // Log.d(TAG, user.getUid()); 페이스북 로그인에 에러
+
         initLoadDB();
         this.InitializeView();
         this.SetListener();
