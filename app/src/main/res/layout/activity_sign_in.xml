@@ -19,10 +19,10 @@
         app:layout_constraintVertical_bias="0.524"
         app:srcCompat="@drawable/login_path" />
 
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:id="@+id/fb"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
+        android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="15dp"

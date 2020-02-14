@@ -66,14 +66,15 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
 
         initLoadDB();
-        this.InitializeView();
+        init();
         this.SetListener();
 
         auth = FirebaseAuth.getInstance();
 
-        init();
+
 
         callbackManager = CallbackManager.Factory.create();
+        fb_btn = (LoginButton) findViewById(R.id.fb);
         fb_btn.setReadPermissions("email", "public_profile");
         fb_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -127,15 +128,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         // [END check_current_user]
     }
 
-    private void init() {
-//        sign_in_email = (EditText) findViewById(R.id.sign_in_email);
-//        sign_in_pw = (EditText) findViewById(R.id.sign_in_pw);
-//        findViewById(R.id.sign_in_btn).setOnClickListener(this);
-//        findViewById(R.id.register_btn).setOnClickListener(this);
-//        findViewById(R.id.google_btn).setOnClickListener(this);
-//        findViewById(R.id.anonymous_btn).setOnClickListener(this);
-    }
-
     @Override
     public void onClick(View view) {
         int i = view.getId();
@@ -151,16 +143,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 //            signInAnonymously();
 //        }
     }
-
-    //
-//    private void init() {
-//
-//        sign_in_btn = findViewById(R.id.sign_in_btn);
-//        register_Text = findViewById(R.id.register_Text);
-//        sign_in_id = findViewById(R.id.sign_in_id);
-//        sign_in_pw = findViewById(R.id.sign_in_pw);
-//
-//    }
 //
 //    private void buttonListener() {
 //        register_Text.setOnClickListener(view -> {
@@ -171,35 +153,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
 
     private void SetListener() {
-        SignIn_btn=(Button)(findViewById(R.id.Signin));
-        SignIn_email=(EditText) (findViewById(R.id.signin_email));
-        SignIn_pw=(EditText)(findViewById(R.id.signIn_pw));
-        checkPW_btn=(Button)(findViewById(R.id.check));
-        SignUp_btn=(Button)(findViewById(R.id.signup));
-        tt_btn=(Button)(findViewById(R.id.tt));
-        gg_btn=(Button)(findViewById(R.id.gg));
-        anonymous=(Button)(findViewById(R.id.anonymous));
 
-    }
-
-    private void InitializeView() {
         SignIn_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        SignIn_email.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        SignIn_pw.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
@@ -215,13 +170,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
-        fb_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
-            }
-        });
 
         tt_btn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -254,6 +202,22 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
+
+
+    }
+
+    private void init() {
+
+        SignIn_btn=(Button)(findViewById(R.id.Signin));
+        SignIn_email=(EditText) (findViewById(R.id.signin_email));
+        SignIn_pw=(EditText)(findViewById(R.id.signIn_pw));
+        checkPW_btn=(Button)(findViewById(R.id.check));
+        SignUp_btn=(Button)(findViewById(R.id.signup));
+        tt_btn=(Button)(findViewById(R.id.tt));
+        gg_btn=(Button)(findViewById(R.id.gg));
+        anonymous=(Button)(findViewById(R.id.anonymous));
+
+
 
     }
 
