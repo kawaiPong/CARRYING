@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 //       
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        init();
 
 //        signOut_btn = (Button)findViewById(R.id.signOut);
 //        signOut_btn.setOnClickListener(view -> {

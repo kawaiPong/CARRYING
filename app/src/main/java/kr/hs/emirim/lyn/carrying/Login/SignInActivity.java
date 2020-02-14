@@ -47,21 +47,12 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private FirebaseAuth auth;
     private FirebaseUser user;
 
-
-    EditText sign_in_email;
-    EditText sign_in_pw;
-    Button sign_in_btn;
-    Button register_btn;
-    Button google_btn;
-    LoginButton facebook_btn;
-    Button anonymous_btn;
-
-    Button SignIn_email;
-    Button SignIn_pw;
+    EditText SignIn_email;
+    EditText SignIn_pw;
     Button SignIn_btn;
     Button checkPW_btn;
     Button SignUp_btn;
-    Button fb_btn;
+    LoginButton fb_btn;
     Button tt_btn;
     Button gg_btn;
     Button anonymous;
@@ -83,9 +74,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         init();
 
         callbackManager = CallbackManager.Factory.create();
-        facebook_btn = findViewById(R.id.facebook_btn);
-        facebook_btn.setReadPermissions("email", "public_profile");
-        facebook_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        fb_btn.setReadPermissions("email", "public_profile");
+        fb_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
@@ -182,14 +172,13 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     private void SetListener() {
         SignIn_btn=(Button)(findViewById(R.id.Signin));
-        SignIn_email=(Button)(findViewById(R.id.signin_email));;
-        SignIn_pw=(Button)(findViewById(R.id.signIn_pw));;
-        checkPW_btn=(Button)(findViewById(R.id.check));;
-        SignUp_btn=(Button)(findViewById(R.id.signup));;
-        fb_btn=(Button)(findViewById(R.id.fb));;
-        tt_btn=(Button)(findViewById(R.id.tt));;
-        gg_btn=(Button)(findViewById(R.id.gg));;
-        anonymous=(Button)(findViewById(R.id.anonymous));;
+        SignIn_email=(EditText) (findViewById(R.id.signin_email));
+        SignIn_pw=(EditText)(findViewById(R.id.signIn_pw));
+        checkPW_btn=(Button)(findViewById(R.id.check));
+        SignUp_btn=(Button)(findViewById(R.id.signup));
+        tt_btn=(Button)(findViewById(R.id.tt));
+        gg_btn=(Button)(findViewById(R.id.gg));
+        anonymous=(Button)(findViewById(R.id.anonymous));
 
     }
 
@@ -292,8 +281,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     private void signIn_email() {
 
-        String email = sign_in_email.getText().toString().trim();
-        String password = sign_in_pw.getText().toString().trim();
+        String email = SignIn_email.getText().toString().trim();
+        String password = SignIn_pw.getText().toString().trim();
 
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
