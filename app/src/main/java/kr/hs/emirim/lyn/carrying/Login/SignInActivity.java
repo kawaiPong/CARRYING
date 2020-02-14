@@ -88,6 +88,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
         // [END config_signin]
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -115,28 +116,28 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void init() {
-        sign_in_email = (EditText) findViewById(R.id.sign_in_email);
-        sign_in_pw = (EditText) findViewById(R.id.sign_in_pw);
-        findViewById(R.id.sign_in_btn).setOnClickListener(this);
-        findViewById(R.id.register_btn).setOnClickListener(this);
-        findViewById(R.id.google_btn).setOnClickListener(this);
-        findViewById(R.id.anonymous_btn).setOnClickListener(this);
+//        sign_in_email = (EditText) findViewById(R.id.sign_in_email);
+//        sign_in_pw = (EditText) findViewById(R.id.sign_in_pw);
+//        findViewById(R.id.sign_in_btn).setOnClickListener(this);
+//        findViewById(R.id.register_btn).setOnClickListener(this);
+//        findViewById(R.id.google_btn).setOnClickListener(this);
+//        findViewById(R.id.anonymous_btn).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         int i = view.getId();
-        if (i == R.id.sign_in_btn) {
-            signIn_email();
-        } else if (i == R.id.register_btn) {
-            Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
-            startActivity(intent);
-            Log.d(TAG, "회원가입 버튼");
-        } else if (i == R.id.google_btn){
-            signIn_google();
-        } else if (i == R.id.anonymous_btn) {
-            signInAnonymously();
-        }
+//        if (i == R.id.sign_in_btn) {
+//            signIn_email();
+//        } else if (i == R.id.register_btn) {
+//            Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
+//            startActivity(intent);
+//            Log.d(TAG, "회원가입 버튼");
+//        } else if (i == R.id.google_btn){
+//            signIn_google();
+//        } else if (i == R.id.anonymous_btn) {
+//            signInAnonymously();
+//        }
     }
 
     private void signIn_google() {
@@ -211,12 +212,10 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-
+                            FirebaseUser user = auth.getCurrentUser();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(SignInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
                         }
 
                         // ...
@@ -224,12 +223,10 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 });
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Pass the activity result back to the Facebook SDK
-        callbackManager.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -244,6 +241,10 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 // ...
             }
         }
+
+        // Pass the activity result back to the Facebook SDK
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
     }
 
     private void signInAnonymously() {
