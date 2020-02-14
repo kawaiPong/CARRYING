@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        signOut_btn = (Button)findViewById(R.id.signOut);
+//        signOut_btn = (Button)findViewById(R.id.signOut);
         signOut_btn.setOnClickListener(view -> {
             auth.signOut();
             Log.d(TAG, "로그아웃 버튼");
