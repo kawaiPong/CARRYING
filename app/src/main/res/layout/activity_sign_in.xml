@@ -4,6 +4,182 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login.SignInActivity">
+    android:background="@color/colorBlue"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/whiteBox"
+        android:layout_width="360dp"
+        android:layout_height="350dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.524"
+        app:srcCompat="@drawable/login_path" />
+
+    <Button
+        android:id="@+id/fb"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/facebook"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/facebook" />
+
+    <Button
+        android:id="@+id/tt"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/twitter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fb"
+        app:srcCompat="@drawable/twitter" />
+
+    <Button
+        android:id="@+id/gg"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/gg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/gg" />
+
+    <Button
+        android:id="@+id/anonymous"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="53dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/guest_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/guest_login" />
+
+    <Button
+        android:id="@+id/check"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="51dp"
+        android:layout_height="13dp"
+        android:layout_marginTop="290dp"
+        android:background="@drawable/find_password"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/signup" />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="53dp"
+        android:layout_height="13dp"
+        android:layout_marginTop="290dp"
+        android:layout_marginEnd="212dp"
+        android:background="@drawable/signup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/find_password" />
+
+    <Button
+        android:id="@+id/Signin"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="35dp"
+        android:layout_height="21dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/login"
+        app:layout_constraintBottom_toBottomOf="@+id/whiteBox"
+        app:layout_constraintEnd_toEndOf="@+id/whiteBox"
+        app:layout_constraintStart_toStartOf="@+id/whiteBox"
+        app:layout_constraintTop_toBottomOf="@+id/signIn_pw"
+        app:srcCompat="@drawable/login" />
+
+    <EditText
+        android:id="@+id/signin_email"
+        android:layout_width="277dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="145dp"
+        android:ems="10"
+        android:hint="이메일 주소"
+        android:inputType="textEmailAddress"
+        android:textColor="#000000"
+        android:textColorHint="#797575"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/signIn_pw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/whiteBox" />
+
+    <EditText
+        android:id="@+id/signIn_pw"
+        android:layout_width="277dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="#797575"
+        android:textSize="15sp"
+        android:background="@null"
+        app:layout_constraintBottom_toTopOf="@+id/Signin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signin_email" />
+
+    <ImageView
+        android:id="@+id/welcome"
+        android:layout_width="220dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="301dp"
+        android:layout_marginBottom="368dp"
+        android:background="@null"
+        app:layout_constraintBottom_toTopOf="@+id/anonymous"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/welcome" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="330dp"
+        app:layout_constraintBottom_toTopOf="@+id/anonymous"
+        app:layout_constraintEnd_toEndOf="@+id/whiteBox"
+        app:layout_constraintStart_toStartOf="@+id/whiteBox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/carrying_info" />
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="230dp"
+        android:layout_height="18dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.817"
+        app:srcCompat="@drawable/sns_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
