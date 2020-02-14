@@ -95,6 +95,30 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
+//        sign_in_btn.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//
+//                String email = sign_in_id.getText().toString().trim();
+//                String pw = sign_in_pw.getText().toString().trim();
+//
+//                auth.signInWithEmailAndPassword(email, pw)
+//                        .addOnCompleteListener(LoginActivity.this, task -> {
+//
+//                            if (task.isSuccessful()) {
+//                                Toast.makeText(LoginActivity.this, "환영합니다", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                                startActivity(intent);
+//                            } else {
+//                                Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                        });
+//            }
+//
+//        });
+
     }
 
     @Override
