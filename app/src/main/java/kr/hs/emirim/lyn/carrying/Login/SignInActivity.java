@@ -84,7 +84,7 @@ public class SignInActivity extends BaseActivity {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 Log.d(TAG, "페북 로그인 버튼");
-                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
 
@@ -100,12 +100,9 @@ public class SignInActivity extends BaseActivity {
         });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken(getString(R.string.web_client_id))
                 .requestEmail()
                 .build();
-
-        // [END config_signin]
-
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
     }
