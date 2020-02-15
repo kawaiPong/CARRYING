@@ -19,31 +19,32 @@
         app:layout_constraintVertical_bias="0.524"
         app:srcCompat="@drawable/login_path" />
 
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:id="@+id/fb"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
+        android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="100dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="70dp"
-        android:background="@drawable/facebook"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="45dp"
+        app:layout_constraintBottom_toBottomOf="@id/tt"
         app:layout_constraintEnd_toStartOf="@+id/tt"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/facebook" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView20"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/tt"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="0dp"
         android:layout_height="60dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="176dp"
-        android:layout_marginBottom="70dp"
         android:background="@drawable/twitter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/fb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fb"
+        app:layout_constraintTop_toBottomOf="@+id/imageView20"
         app:srcCompat="@drawable/twitter" />
 
     <Button
@@ -51,11 +52,16 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginBottom="70dp"
         android:background="@drawable/gg"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tt"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tt"
+        app:layout_constraintTop_toTopOf="@+id/tt"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/gg" />
 
     <Button
@@ -63,11 +69,13 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="53dp"
         android:layout_height="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="44dp"
         android:background="@drawable/guest_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tt"
         app:srcCompat="@drawable/guest_login" />
 
     <Button
@@ -129,13 +137,13 @@
         android:id="@+id/signIn_pw"
         android:layout_width="277dp"
         android:layout_height="50dp"
+        android:background="@null"
         android:ems="10"
         android:hint="비밀번호"
         android:inputType="textPassword"
         android:textColor="#000000"
         android:textColorHint="#797575"
         android:textSize="15sp"
-        android:background="@null"
         app:layout_constraintBottom_toTopOf="@+id/Signin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
