@@ -1,34 +1,50 @@
 {
   "project_info": {
-    "project_number": "342861465694",
-    "firebase_url": "https://carrying-65b79.firebaseio.com",
-    "project_id": "carrying-65b79",
-    "storage_bucket": "carrying-65b79.appspot.com"
+    "project_number": "767462067446",
+    "firebase_url": "https://carrying.firebaseio.com",
+    "project_id": "carrying",
+    "storage_bucket": "carrying.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:342861465694:android:0453ccb1bdad99c2cbcccf",
+        "mobilesdk_app_id": "1:767462067446:android:7c782577e3384dfaf470d7",
         "android_client_info": {
           "package_name": "kr.hs.emirim.lyn.carrying"
         }
       },
       "oauth_client": [
         {
-          "client_id": "342861465694-a70dbca25miegngbuic86896npgs3n1d.apps.googleusercontent.com",
+          "client_id": "767462067446-e6kp880pfa96gfugeslt322fddgeiu50.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.hs.emirim.lyn.carrying",
+            "certificate_hash": "48ba530e96263c66ec0742dfb8ca960c470dfa31"
+          }
+        },
+        {
+          "client_id": "767462067446-un8vitoeptqek3i45iveja13e49mt0u4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.hs.emirim.lyn.carrying",
+            "certificate_hash": "e72dd6877193fd70def0b30a3e5a73f9d494fe84"
+          }
+        },
+        {
+          "client_id": "767462067446-9nn8rucc8nplnd99sav71ctd60ci75d7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAI2UFeMtSv3JOxursCP9dtmrna0XV-tjs"
+          "current_key": "AIzaSyBet1icRxfeAy5CNYRnNOJBlcUnOIBavpE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "342861465694-a70dbca25miegngbuic86896npgs3n1d.apps.googleusercontent.com",
+              "client_id": "767462067446-9nn8rucc8nplnd99sav71ctd60ci75d7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

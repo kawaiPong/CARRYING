@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Carrying</string>
-    <string name="facebook_app_id">2236775369964085</string>
-    <string name="fb_login_protocol_scheme">fb2236775369964085</string>
-    <string name="api_key">ea055b19951a1369222227e310411249</string>
-    <string name="com_facebook_loginview_log_in_button"></string>
-    <string name="com_facebook_loginview_log_out_button"></string>
+<string name="app_name">Carrying</string>
+<string name="facebook_app_id">2236775369964085</string>
+<string name="fb_login_protocol_scheme">fb2236775369964085</string>
+<string name="web_client_id">767462067446-9nn8rucc8nplnd99sav71ctd60ci75d7.apps.googleusercontent.com</string>
+<string name="weather_api_key">ea055b19951a1369222227e310411249</string>
+<string name="com_facebook_loginview_log_in_button"></string>
+<string name="com_facebook_loginview_log_out_button"></string>
 </resources>
