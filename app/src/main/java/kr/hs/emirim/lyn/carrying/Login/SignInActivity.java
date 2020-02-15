@@ -181,8 +181,6 @@ public class SignInActivity extends BaseActivity {
                 Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
-
-
     }
     //find
     private void init() {
