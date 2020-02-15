@@ -38,7 +38,7 @@ import kr.hs.emirim.lyn.carrying.MainActivity;
 import kr.hs.emirim.lyn.carrying.R;
 import kr.hs.emirim.lyn.carrying.User;
 
-public class SignInActivity extends BaseActivity implements View.OnClickListener {
+public class SignInActivity extends BaseActivity {
 
     private final static String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -46,6 +46,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private GoogleSignInClient googleSignInClient;
     private FirebaseAuth auth;
     private FirebaseUser user;
+
+    public List<User> userList ;
 
     EditText SignIn_email;
     EditText SignIn_pw;
@@ -56,8 +58,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     Button tt_btn;
     Button gg_btn;
     Button anonymous;
-    Button emailText;
-    Button pwText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,23 +67,25 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
         initLoadDB();
         init();
-        this.SetListener();
+        SetListener();
 
         auth = FirebaseAuth.getInstance();
 
-
-
         callbackManager = CallbackManager.Factory.create();
-        fb_btn = (LoginButton) findViewById(R.id.fb);
-        fb_btn.setReadPermissions("email", "public_profile");
+        fb_btn.setBackgroundResource(R.drawable.facebook);
+        fb_btn.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        fb_btn.setCompoundDrawablePadding(0);
+        fb_btn.setPadding(0, 0, 0, 0);
+        fb_btn.setText("");
+        fb_btn.setPermissions("email", "public_profile");
         fb_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                Log.d(TAG, "페북 로그인 버튼");
                 Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                 startActivity(intent);
-                Log.d(TAG, "페북 로그인 버튼");
             }
 
             @Override
@@ -106,14 +108,12 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
         user = auth.getCurrentUser();
-
         checkCurrentUser(user);
     }
 
@@ -128,36 +128,13 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         // [END check_current_user]
     }
 
-    @Override
-    public void onClick(View view) {
-        int i = view.getId();
-//        if (i == R.id.sign_in_btn) {
-//            signIn_email();
-//        } else if (i == R.id.register_btn) {
-//            Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
-//            startActivity(intent);
-//            Log.d(TAG, "회원가입 버튼");
-//        } else if (i == R.id.google_btn){
-//            signIn_google();
-//        } else if (i == R.id.anonymous_btn) {
-//            signInAnonymously();
-//        }
-    }
-//
-//    private void buttonListener() {
-//        register_Text.setOnClickListener(view -> {
-//            startActivity(new Intent(SignInActivity.this, RegisterActivity.class));
-//        });
-//    }
-
-
-
     private void SetListener() {
 
         SignIn_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
+                signIn_email();
                 Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
@@ -169,7 +146,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
-
 
         tt_btn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -183,6 +159,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View view)
             {
+                signIn_google();
                 Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
@@ -191,6 +168,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View view)
             {
+                signInAnonymously();
                 Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
@@ -199,30 +177,23 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View view)
             {
+                startActivity(new Intent(SignInActivity.this, RegisterActivity.class));
                 Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
-
-
     }
-
+    //find
     private void init() {
-
         SignIn_btn=(Button)(findViewById(R.id.Signin));
         SignIn_email=(EditText) (findViewById(R.id.signin_email));
         SignIn_pw=(EditText)(findViewById(R.id.signIn_pw));
         checkPW_btn=(Button)(findViewById(R.id.check));
         SignUp_btn=(Button)(findViewById(R.id.signup));
+        fb_btn = (LoginButton) (findViewById(R.id.fb));
         tt_btn=(Button)(findViewById(R.id.tt));
         gg_btn=(Button)(findViewById(R.id.gg));
         anonymous=(Button)(findViewById(R.id.anonymous));
-
-
-
     }
-
-
-    public List<User> userList ;
 
     private void initLoadDB() {
 
@@ -235,7 +206,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
         mDbHelper.close();
     }
-
 
     private void signIn_google() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
@@ -325,6 +295,11 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+        // Pass the activity result back to the Facebook SDK
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -338,9 +313,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 // ...
             }
         }
-
-        // Pass the activity result back to the Facebook SDK
-        callbackManager.onActivityResult(requestCode, resultCode, data);
 
     }
 

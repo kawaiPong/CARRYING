@@ -12,11 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
-
-        <activity android:name=".Login.GuestActivity">
-
-        </activity>
-        <activity android:name=".Login.RegisterActivity"/>
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
         <activity android:name="com.facebook.FacebookActivity"
@@ -33,6 +28,13 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+
+        <activity android:name=".Login.GuestActivity">
+
+        </activity>
+        <activity android:name=".Login.RegisterActivity"/>
+
         <activity android:name=".MainActivity">
 
         </activity>
@@ -44,7 +46,4 @@
             </intent-filter>
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-
 </manifest>

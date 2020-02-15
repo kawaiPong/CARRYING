@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private FirebaseAuth auth;
-    private FirebaseUser user;
+    FirebaseUser user;
 
     Button signOut_btn;
 
@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 //       
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+        Log.d(TAG, "Really create");
 
 //        signOut_btn = (Button)findViewById(R.id.signOut);
 //        signOut_btn.setOnClickListener(view -> {
