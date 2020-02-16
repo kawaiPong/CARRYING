@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhile"
     tools:context=".Login.RegisterActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/TopLayout"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:layout_marginTop="19.3dp"
-        app:layout_constraintBottom_toBottomOf=""
+        android:layout_marginTop="19dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <Button
             android:id="@+id/imageView3"
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="114dp"
+            android:background="@drawable/backward"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,7 +36,7 @@
             android:layout_gravity="center|center_horizontal"
             android:letterSpacing="0.05"
             android:lineSpacingExtra="7.7sp"
-            android:textColor="#1081DF"
+            android:textColor="#555555"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +65,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="닉네임"
-            android:textColor="#3b3b3b" />
+            android:textColor="#0281ff" />
 
         <EditText
             android:id="@+id/et_name"
@@ -74,7 +75,8 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="16dp"
-            android:hint="닉네임을 입력하세요" />
+            android:hint="닉네임을 입력하세요"
+            android:textColor="#999999" />
 
         <TextView
             android:id="@+id/tv_email"
@@ -83,7 +85,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="이메일"
-            android:textColor="#3b3b3b" />
+            android:textColor="#0281ff" />
 
         <EditText
             android:id="@+id/et_eamil"
@@ -94,7 +96,8 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="16dp"
             android:hint="이메일을 입력하세요"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="#999999" />
 
         <TextView
             android:id="@+id/tv_password"
@@ -105,7 +108,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="비밀번호"
-            android:textColor="#3b3b3b" />
+            android:textColor="#0281ff" />
 
         <EditText
             android:id="@+id/et_password"
@@ -116,7 +119,8 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="16dp"
             android:hint="비밀번호를 8자 이상 입력하세요"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="#999999" />
 
         <TextView
             android:id="@+id/tv_passwordre"
@@ -127,7 +131,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="비밀번호 확인"
-            android:textColor="#3b3b3b" />
+            android:textColor="#0281ff" />
 
         <EditText
             android:id="@+id/et_passwordre"
@@ -137,7 +141,8 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="16dp"
             android:hint="비밀번호를 다시 입력하세요"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="#999999" />
 
         <TextView
             android:id="@+id/tv_gender"
@@ -148,7 +153,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="성별"
-            android:textColor="#3b3b3b" />
+            android:textColor="#0281FF" />
 
         <RadioGroup
             android:id="@+id/radioGroup1"
@@ -157,6 +162,8 @@
             android:layout_below="@id/tv_gender"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:buttonTint="#0281ff
+"
             android:layout_marginBottom="16dp">
 
             <RadioButton
@@ -164,41 +171,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="남자" />
+                android:text="남자"
+                android:textColor="#999999"
+                android:textColorLink="#0281ff" />
 
             <RadioButton
                 android:id="@+id/radio1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="여자" />
+                android:text="여자"
+                android:textColor="#999999"
+                android:textColorLink="#0281ff" />
 
             <RadioButton
                 android:id="@+id/radio2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="둘 다" />
+                android:text="둘 다"
+                android:textColor="#999999"
+                android:textColorLink="#0281ff" />
 
             <RadioButton
                 android:id="@+id/radio3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="상관 없음" />
+                android:text="상관 없음"
+                android:textColor="#999999"
+                android:textColorLink="#0281ff" />
 
         </RadioGroup>
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="2sp"
-        android:textColor="#555555"
-        android:textSize="9.3sp"
-        tools:text="이미 계정이 있으신가요?" />
+
 
     <Button
         android:id="@+id/joinbtn"
