@@ -8,6 +8,21 @@
     android:background="@color/colorWhile"
     tools:context=".Login.RegisterActivity">
 
+    <TextView
+        android:id="@+id/tv_shelter_intro"
+        android:layout_width="61dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center|center_horizontal"
+        android:letterSpacing="0.05"
+        android:lineSpacingExtra="8sp"
+        android:textColor="#555555"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/TopLayout"
+        app:layout_constraintEnd_toEndOf="@+id/TopLayout"
+        app:layout_constraintStart_toStartOf="@+id/TopLayout"
+        app:layout_constraintTop_toTopOf="@+id/TopLayout"
+        tools:text="회원가입" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/TopLayout"
         android:layout_width="match_parent"
@@ -29,21 +44,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?attr/actionModeCloseDrawable" />
-
-        <TextView
-            android:id="@+id/tv_shelter_intro"
-            android:layout_width="61.3dp"
-            android:layout_height="23.7dp"
-            android:layout_gravity="center|center_horizontal"
-            android:letterSpacing="0.05"
-            android:lineSpacingExtra="7.7sp"
-            android:textColor="#555555"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="회원가입" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -77,7 +77,8 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="16dp"
             android:hint="닉네임을 입력하세요"
-            android:textColor="#999999" />
+            android:textColor="#999999"
+            android:textColorLink="#0281ff" />
 
         <TextView
             android:id="@+id/tv_email"
@@ -98,7 +99,8 @@
             android:layout_marginBottom="16dp"
             android:hint="이메일을 입력하세요"
             android:inputType="textEmailAddress"
-            android:textColor="#999999" />
+            android:textColor="#999999"
+            android:textColorLink="#0281ff" />
 
         <TextView
             android:id="@+id/tv_password"
@@ -121,7 +123,8 @@
             android:layout_marginBottom="16dp"
             android:hint="비밀번호를 8자 이상 입력하세요"
             android:inputType="textPassword"
-            android:textColor="#999999" />
+            android:textColor="#999999"
+            android:textColorLink="#0281ff" />
 
         <TextView
             android:id="@+id/tv_passwordre"
@@ -143,7 +146,8 @@
             android:layout_marginBottom="16dp"
             android:hint="비밀번호를 다시 입력하세요"
             android:inputType="textPassword"
-            android:textColor="#999999" />
+            android:textColor="#999999"
+            android:textColorLink="#0281ff" />
 
         <TextView
             android:id="@+id/tv_gender"
@@ -174,7 +178,7 @@
                 android:checked="true"
                 android:text="남자"
                 android:textColor="#999999"
-                android:textColorHighlight="#0281FF" />
+                android:textColorLink="#0281ff" />
 
             <RadioButton
                 android:id="@+id/radio1"
@@ -183,7 +187,6 @@
                 android:checked="true"
                 android:text="여자"
                 android:textColor="#999999"
-                android:textColorHighlight="#0281ff"
                 android:textColorLink="#0281ff" />
 
             <RadioButton
@@ -193,7 +196,6 @@
                 android:checked="true"
                 android:text="둘 다"
                 android:textColor="#999999"
-                android:textColorHighlight="#0281ff"
                 android:textColorLink="#0281ff" />
 
             <RadioButton
@@ -203,7 +205,6 @@
                 android:checked="true"
                 android:text="상관 없음"
                 android:textColor="#999999"
-                android:textColorHighlight="#0281ff"
                 android:textColorLink="#0281ff" />
 
         </RadioGroup>
