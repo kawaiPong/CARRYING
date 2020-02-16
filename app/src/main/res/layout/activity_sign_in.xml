@@ -124,14 +124,15 @@
         android:layout_height="50dp"
         android:layout_marginTop="145dp"
         android:ems="10"
+        android:background="@null"
         android:hint="이메일 주소"
         android:inputType="textEmailAddress"
         android:textColor="#000000"
         android:textColorHint="#797575"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/signIn_pw"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/whiteBox"
+        app:layout_constraintStart_toStartOf="@+id/whiteBox"
         app:layout_constraintTop_toTopOf="@+id/whiteBox" />
 
     <EditText
@@ -146,8 +147,8 @@
         android:textColorHint="#797575"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/Signin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/whiteBox"
+        app:layout_constraintStart_toStartOf="@+id/whiteBox"
         app:layout_constraintTop_toBottomOf="@+id/signin_email" />
 
     <ImageView

@@ -48,7 +48,7 @@ public class RegisterActivity extends BaseActivity {
 
 //        buttonLister();
         Button joinbtn = (Button)findViewById(R.id.joinbtn);
-
+        Button back=(Button)findViewById(R.id.imageView3);
         final RadioGroup rg = (RadioGroup)findViewById(R.id.radioGroup1);
         joinbtn.setOnClickListener(new View.OnClickListener(){
 
@@ -58,7 +58,18 @@ public class RegisterActivity extends BaseActivity {
                 //getCheckedRadioButtonId() 의 리턴값은 선택된 RadioButton 의 id 값.
                 RadioButton rb = (RadioButton) findViewById(id);
             }
-        }); 
+        });
+
+        back.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     private void buttonListener() {
