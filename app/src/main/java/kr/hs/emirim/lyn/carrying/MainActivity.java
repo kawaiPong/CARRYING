@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "Really create");
 
-//        signOut_btn = (Button)findViewById(R.id.signOut);
-//        signOut_btn.setOnClickListener(view -> {
-//            auth.signOut();
-//            Log.d(TAG, "로그아웃 버튼");
-//            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-//            startActivity(intent);
-//        });
+        signOut_btn = (Button)findViewById(R.id.signOut);
+        signOut_btn.setOnClickListener(view -> {
+            auth.signOut();
+            Log.d(TAG, "로그아웃 버튼");
+            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+            startActivity(intent);
+        });
 
         //익명 인증일 경우 user.getDisplayName == NULL;
         // Log.d(TAG, user.getUid()); 페이스북 로그인에 에러

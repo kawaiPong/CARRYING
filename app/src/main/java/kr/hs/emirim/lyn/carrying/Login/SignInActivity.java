@@ -69,8 +69,6 @@ public class SignInActivity extends BaseActivity {
         init();
         SetListener();
 
-        auth = FirebaseAuth.getInstance();
-
         callbackManager = CallbackManager.Factory.create();
         fb_btn.setBackgroundResource(R.drawable.facebook);
         fb_btn.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
@@ -100,10 +98,13 @@ public class SignInActivity extends BaseActivity {
         });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.web_client_id))
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
         googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        auth = FirebaseAuth.getInstance();
 
     }
 
@@ -118,7 +119,9 @@ public class SignInActivity extends BaseActivity {
         // [START check_current_user]
         if (user != null) {
             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-//            startActivity(intent);
+            startActivity(intent);
+            Log.d("ProviderID", user.getProviderData().toString());
+            auth.signOut();
         } else {
             // No user is signed in
         }
@@ -293,9 +296,6 @@ public class SignInActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        // Pass the activity result back to the Facebook SDK
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -309,8 +309,11 @@ public class SignInActivity extends BaseActivity {
                 Log.w(TAG, "Google sign in failed", e);
                 // ...
             }
-        }
+        } else {
+            // Pass the activity result back to the Facebook SDK
+            callbackManager.onActivityResult(requestCode, resultCode, data);
 
+        }
     }
 
     private void signInAnonymously() {
