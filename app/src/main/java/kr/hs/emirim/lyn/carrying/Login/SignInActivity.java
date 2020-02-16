@@ -29,6 +29,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.zxing.common.StringUtils;
 
 
 import java.util.List;
@@ -135,7 +136,6 @@ public class SignInActivity extends BaseActivity {
 
         String ed_text1 = ed1.getText().toString().trim();
         String ed_text2=ed2.getText().toString().trim();
-
 
 
         SignIn_btn.setOnClickListener(new View.OnClickListener(){
