@@ -130,22 +130,44 @@ public class SignInActivity extends BaseActivity {
 
     private void SetListener() {
 
+        EditText ed1 = (EditText) findViewById(R.id.signin_email);
+        EditText ed2=(EditText)findViewById(R.id.signIn_pw);
+
+        String ed_text1 = ed1.getText().toString().trim();
+        String ed_text2=ed2.getText().toString().trim();
+
+
+
         SignIn_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
-                signIn_email();
-                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+                if((ed_text1.isEmpty() || ed_text1.length() == 0 || ed_text1.equals("") || ed_text1 == null)&&
+                        (ed_text2.isEmpty() || ed_text2.length() == 0 || ed_text2.equals("") || ed_text2 == null))
+                {
+                    Toast.makeText(getApplicationContext(), "이메일과 비밀번호를 다시확인해주세요.", Toast.LENGTH_LONG).show();
+
+                }
+                else
+                {
+                    signIn_email();
+                    Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+
+                }
+
             }
         });
+
 
         checkPW_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(SignInActivity.this, FindPassword.class);
+                startActivity(intent);
             }
         });
+
 
         tt_btn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -178,7 +200,6 @@ public class SignInActivity extends BaseActivity {
             public void onClick(View view)
             {
                 startActivity(new Intent(SignInActivity.this, RegisterActivity.class));
-                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -178,6 +178,7 @@
                 android:checked="true"
                 android:text="남자"
                 android:textColor="#999999"
+                android:buttonTint="#0281ff"
                 android:textColorLink="#0281ff" />
 
             <RadioButton
@@ -187,6 +188,7 @@
                 android:checked="true"
                 android:text="여자"
                 android:textColor="#999999"
+                android:buttonTint="#0281ff"
                 android:textColorLink="#0281ff" />
 
             <RadioButton
@@ -196,6 +198,7 @@
                 android:checked="true"
                 android:text="둘 다"
                 android:textColor="#999999"
+                android:buttonTint="#0281ff"
                 android:textColorLink="#0281ff" />
 
             <RadioButton
@@ -205,6 +208,7 @@
                 android:checked="true"
                 android:text="상관 없음"
                 android:textColor="#999999"
+                android:buttonTint="#0281ff"
                 android:textColorLink="#0281ff" />
 
         </RadioGroup>
