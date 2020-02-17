@@ -51,16 +51,7 @@ public class RegisterActivity extends BaseActivity {
         Button back=(Button)findViewById(R.id.imageView3);
         final RadioGroup rg = (RadioGroup)findViewById(R.id.radioGroup1);
 
-        EditText NickNameE = (EditText) findViewById(R.id.et_name);
-        EditText EmailE=(EditText)findViewById(R.id.et_eamil);
-        EditText PasswordE=(EditText)findViewById(R.id.et_password);
-        EditText CheckPasswordE=(EditText)findViewById(R.id.et_passwordre);
 
-
-        String NickName = NickNameE.getText().toString().trim();
-        String Email=EmailE.getText().toString().trim();
-        String Password=PasswordE.getText().toString().trim();
-        String CheckPassword=CheckPasswordE.getText().toString().trim();
 
         joinbtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -69,12 +60,21 @@ public class RegisterActivity extends BaseActivity {
                 //getCheckedRadioButtonId() 의 리턴값은 선택된 RadioButton 의 id 값.
                 RadioButton rb = (RadioButton) findViewById(id);
 
+                EditText NickNameE = (EditText) findViewById(R.id.et_name);
+                EditText EmailE=(EditText)findViewById(R.id.et_eamil);
+                EditText PasswordE=(EditText)findViewById(R.id.et_password);
+                EditText CheckPasswordE=(EditText)findViewById(R.id.et_passwordre);
 
-                if((NickName.isEmpty() || NickName.length() == 0 || NickName.equals("") || NickName == null)||
-                        (Email.isEmpty() || Email.length() == 0 || Email.equals("") || Email == null)||
-                        (Password.isEmpty() || Password.length() == 0 || Password.equals("") || Password == null)||
-                        (CheckPassword.isEmpty() || CheckPassword.length() == 0 || CheckPassword.equals("") || CheckPassword == null)
-                )
+
+                String NickName = NickNameE.getText().toString().trim();
+                String Email=EmailE.getText().toString().trim();
+                String Password=PasswordE.getText().toString().trim();
+                String CheckPassword=CheckPasswordE.getText().toString().trim();
+
+                if((NickName.length() == 0)||
+                        (Email.length() == 0 )||
+                        ( Password.length() == 0 )||
+                        (CheckPassword.length() == 0 ))
                 {
 
                     Toast.makeText(getApplicationContext(), "모든 항목이 채워져있는지 확인해주세요", Toast.LENGTH_LONG).show();
