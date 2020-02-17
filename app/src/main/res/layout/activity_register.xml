@@ -186,13 +186,13 @@
             android:layout_below="@id/tv_gender"
             android:layout_marginLeft="40.7dp"
             android:layout_marginRight="23dp"
-            android:layout_marginBottom="40dp"
             android:popupTheme="@android:style/ThemeOverlay.Material.Light" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="7dp"
             android:gravity="center"
             android:orientation="horizontal">
