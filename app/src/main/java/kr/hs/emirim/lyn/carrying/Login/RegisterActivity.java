@@ -1,21 +1,13 @@
 package kr.hs.emirim.lyn.carrying.Login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -56,14 +48,22 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
         item = new String[]{"남성", "여성", "둘 다 선택", "둘 다 선택하지 않음"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
 
 //        buttonLister();
         Button joinbtn = (Button) findViewById(R.id.joinbtn);
-        Button back = (Button) findViewById(R.id.imageView3);
+        Button back = (Button) findViewById(R.id.backbtn);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 //        joinbtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
