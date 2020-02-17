@@ -36,8 +36,10 @@ import java.util.List;
 
 import kr.hs.emirim.lyn.carrying.DataAdapter;
 import kr.hs.emirim.lyn.carrying.MainActivity;
+import kr.hs.emirim.lyn.carrying.Main_List;
 import kr.hs.emirim.lyn.carrying.R;
 import kr.hs.emirim.lyn.carrying.User;
+import kr.hs.emirim.lyn.carrying.create_list;
 
 public class SignInActivity extends BaseActivity {
 
@@ -152,7 +154,8 @@ public class SignInActivity extends BaseActivity {
                 {
                     signIn_email();
                     Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
-
+                    Intent intent=new Intent(getApplicationContext(), Main_List.class);
+                    startActivity(intent);
                 }
 
             }
