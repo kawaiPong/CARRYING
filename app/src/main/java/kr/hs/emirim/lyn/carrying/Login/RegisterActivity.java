@@ -58,7 +58,8 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 //        buttonLister();
         Button joinbtn = (Button) findViewById(R.id.joinbtn);
         Button back = (Button) findViewById(R.id.backbtn);
-        TextView login=(TextView)findViewById(R.id.loginText);
+
+        TextView login=(TextView)findViewById(R.id.textView1);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

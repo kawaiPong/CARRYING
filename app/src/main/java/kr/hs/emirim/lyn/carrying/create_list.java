@@ -1,23 +1,28 @@
 package kr.hs.emirim.lyn.carrying;
 
 import androidx.appcompat.app.AppCompatActivity;
+import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
 public class create_list extends AppCompatActivity {
     Button start_date;
     Button finish_date;
     public int sy=0, sm=0, sd=0;
     public int fy=0, fm=0,fd=0;
+    EditText City;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_list);
+        City=findViewById(R.id.City);
         start_date=findViewById(R.id.start_date);
         finish_date=findViewById(R.id.finish_date);
         Button back = (Button)findViewById(R.id.back);
@@ -32,7 +37,11 @@ public class create_list extends AppCompatActivity {
         add_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(create_list.this, Main_List.class);
+                intent.putExtra("city",City.getText().toString());
+                intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
+                intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
+                startActivity(intent);
             }
         });
 
