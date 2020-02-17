@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -64,40 +65,38 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
             }
         });
 
-//        joinbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int id = rg.getCheckedRadioButtonId();
-//                //getCheckedRadioButtonId() 의 리턴값은 선택된 RadioButton 의 id 값.
-//                RadioButton rb = (RadioButton) findViewById(id);
-//
-//                EditText NickNameE = (EditText) findViewById(R.id.et_name);
-//                EditText EmailE = (EditText) findViewById(R.id.et_eamil);
-//                EditText PasswordE = (EditText) findViewById(R.id.et_password);
-//                EditText CheckPasswordE = (EditText) findViewById(R.id.et_passwordre);
-//
-//
-//                String NickName = NickNameE.getText().toString().trim();
-//                String Email = EmailE.getText().toString().trim();
-//                String Password = PasswordE.getText().toString().trim();
-//                String CheckPassword = CheckPasswordE.getText().toString().trim();
-//
-//                if ((NickName.length() == 0) ||
-//                        (Email.length() == 0) ||
-//                        (Password.length() == 0) ||
-//                        (CheckPassword.length() == 0)) {
-//
-//                    Toast.makeText(getApplicationContext(), "모든 항목이 채워져있는지 확인해주세요", Toast.LENGTH_LONG).show();
-//
-//                } else {
-//                    if (Password.equals(CheckPassword)) {
-//                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
-//                        startActivity(intent);
-//                    }
-//
-//                }
-//            }
-//        });
+        joinbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText NickNameE = (EditText) findViewById(R.id.et_name);
+                EditText EmailE = (EditText) findViewById(R.id.et_eamil);
+                EditText PasswordE = (EditText) findViewById(R.id.et_password);
+                EditText CheckPasswordE = (EditText) findViewById(R.id.et_passwordre);
+
+
+                String NickName = NickNameE.getText().toString().trim();
+                String Email = EmailE.getText().toString().trim();
+                String Password = PasswordE.getText().toString().trim();
+                String CheckPassword = CheckPasswordE.getText().toString().trim();
+
+                if ((NickName.length() == 0) ||
+                        (Email.length() == 0) ||
+                        (Password.length() == 0) ||
+                        (CheckPassword.length() == 0)) {
+                    Toast.makeText(getApplicationContext(), "모든 항목이 채워져있는지 확인해주세요", Toast.LENGTH_LONG).show();
+
+                } else {
+                    if (Password.equals(CheckPassword)) {
+                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "비밀번호 확인이 일치하지 않습니다.", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }
+        });
     }
 
     @Override
