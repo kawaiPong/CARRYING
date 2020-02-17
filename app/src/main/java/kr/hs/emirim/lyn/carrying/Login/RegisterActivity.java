@@ -48,18 +48,16 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
         spinner.setOnItemSelectedListener(this);
 
-        item = new String[]{"남성", "여성", "둘 다 선택", "둘 다 선택하지 않음"};
+        item = new String[]{"    남성", "    여성", "    둘 다 선택", "    둘 다 선택하지 않음"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
 
 //        buttonLister();
-        Button joinbtn = (Button) findViewById(R.id.joinbtn);
-        Button back = (Button) findViewById(R.id.backbtn);
 
-        TextView login=(TextView)findViewById(R.id.textView1);
+        Button back = (Button) findViewById(R.id.backbtn);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +65,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
             }
         });
 
+        TextView login=(TextView)findViewById(R.id.textView1);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +74,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
             }
         });
 
+        Button joinbtn = (Button) findViewById(R.id.joinbtn);
         joinbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
