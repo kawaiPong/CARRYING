@@ -52,7 +52,7 @@ public class Main_List extends AppCompatActivity {
 
 
 
-            Dictionary data = new Dictionary(City+count,start_date, finish_date);
+            Dictionary data = new Dictionary(City,start_date, finish_date);
 
             //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
             mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입
