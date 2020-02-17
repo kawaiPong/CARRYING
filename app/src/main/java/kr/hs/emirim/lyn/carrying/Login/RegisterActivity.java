@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,11 +58,19 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 //        buttonLister();
         Button joinbtn = (Button) findViewById(R.id.joinbtn);
         Button back = (Button) findViewById(R.id.backbtn);
-
+        TextView login=(TextView)findViewById(R.id.loginText);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+
             }
         });
 
