@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class Main_List extends AppCompatActivity {
-
+//    DrawerLayout drawerLayout;
     private ArrayList<Dictionary> mArrayList;
     private CustomAdapter mAdapter;
     private int count = -1;
@@ -26,12 +26,13 @@ public class Main_List extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__list);
+//        drawerLayout = findViewById(R.id.drawer_layout);
         Button plus_btn = (Button)findViewById(R.id.plus);
         Button hamburger=(Button)findViewById(R.id.hamburger);
         intent=getIntent();
         String num=intent.getStringExtra("num");
 
-        if(!(num.equals("1"))){
+        if(num.equals("2")){
             String City=intent.getStringExtra("city");
             String start_date=intent.getStringExtra("start_date");
             String finish_date=intent.getStringExtra("finish_date");
@@ -74,8 +75,8 @@ public class Main_List extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "햄버거 액티비티 아직 안만듬", Toast.LENGTH_LONG).show();
-//                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout) ;
-//                drawer.openDrawer(Gravity.LEFT);
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout) ;
+                drawer.openDrawer(Gravity.LEFT);
             }
         });
 
