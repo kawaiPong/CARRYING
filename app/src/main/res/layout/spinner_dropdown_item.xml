@@ -2,9 +2,8 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:singleLine="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="?attr/dropdownListPreferredItemHeight"
     android:ellipsize="marquee"
     android:textSize="14sp"
     android:textColor="#2699fb"
-    android:gravity="center_vertical"
-    android:background="@drawable/gender_selectbox_02"/>
+    android:gravity="center_vertical"/>
