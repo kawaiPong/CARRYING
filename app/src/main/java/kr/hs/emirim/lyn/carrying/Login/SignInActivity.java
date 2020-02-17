@@ -155,6 +155,7 @@ public class SignInActivity extends BaseActivity {
                     signIn_email();
                     Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(getApplicationContext(), Main_List.class);
+                    intent.putExtra("num","1");
                     startActivity(intent);
                 }
 

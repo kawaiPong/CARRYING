@@ -28,47 +28,45 @@ public class Main_List extends AppCompatActivity {
         setContentView(R.layout.activity_main__list);
         Button plus_btn = (Button)findViewById(R.id.plus);
         Button hamburger=(Button)findViewById(R.id.hamburger);
+        intent=getIntent();
+        String num=intent.getStringExtra("num");
+
+        if(!(num.equals("1"))){
+            String City=intent.getStringExtra("city");
+            String start_date=intent.getStringExtra("start_date");
+            String finish_date=intent.getStringExtra("finish_date");
+
+            RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
+            LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+            mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+
+            mArrayList = new ArrayList<>();
+            mAdapter = new CustomAdapter( mArrayList);
+            mRecyclerView.setAdapter(mAdapter);
+
+
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+                    mLinearLayoutManager.getOrientation());
+            mRecyclerView.addItemDecoration(dividerItemDecoration);
 
 
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+            Dictionary data = new Dictionary(City+count,start_date, finish_date);
 
+            //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
+            mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입
 
-        mArrayList = new ArrayList<>();
-
-        mAdapter = new CustomAdapter( mArrayList);
-        mRecyclerView.setAdapter(mAdapter);
-
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                mLinearLayoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
-
-
-        String City=intent.getStringExtra("city");
-        String start_date=intent.getStringExtra("start_date");
-        String finish_date=intent.getStringExtra("finish_date");
-        Dictionary data = new Dictionary(City+count,start_date, finish_date);
-
-        //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
-        mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입
-
-        mAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
+        }
 
 
         plus_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 //                Toast.makeText(getApplicationContext(), "create List", Toast.LENGTH_LONG).show();
-
                 Intent intent=new Intent(Main_List.this, create_list.class);
-
                 startActivity(intent);
-
-
-
             }
         });
 
