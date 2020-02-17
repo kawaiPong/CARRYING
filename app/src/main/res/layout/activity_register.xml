@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,33 +18,30 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".Login.RegisterActivity">
 
-        <TextView
-            android:id="@+id/tv_shelter_intro"
-            android:layout_width="61dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center|center_horizontal"
-            android:letterSpacing="0.05"
-            android:lineSpacingExtra="8sp"
-            android:textColor="#555555"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout3"
-            tools:text="회원가입" />
-
         <Button
-            android:id="@+id/imageView3"
+            android:id="@+id/backbtn"
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
+            android:layout_marginEnd="114dp"
             android:background="@drawable/backward"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_shelter_intro"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?attr/actionModeCloseDrawable" />
 
+        <TextView
+            android:id="@+id/tv_shelter_intro"
+            android:layout_width="61.3dp"
+            android:layout_height="23.7dp"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:text="회원가입"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -51,6 +49,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
@@ -80,11 +79,10 @@
             android:layout_marginRight="23dp"
             android:layout_marginBottom="18.7dp"
             android:hint="닉네임을 입력하세요"
+            android:backgroundTint="#bce0fd"
             android:textColor="#555555"
             android:textColorHint="#999999"
-            android:textColorLink="#0281ff"
             android:textSize="13.3sp" />
-
 
         <TextView
             android:id="@+id/tv_email"
@@ -107,9 +105,9 @@
             android:layout_marginBottom="18.7dp"
             android:hint="이메일을 입력하세요"
             android:inputType="textEmailAddress"
+            android:backgroundTint="#bce0fd"
             android:textColor="#555555"
             android:textColorHint="#999999"
-            android:textColorLink="#0281ff"
             android:textSize="13.3sp" />
 
         <TextView
@@ -133,18 +131,18 @@
             android:layout_marginLeft="23dp"
             android:layout_marginRight="23dp"
             android:layout_marginBottom="18.7dp"
-            android:hint="비밀번호를 8자 이상 입력하세요"
+            android:hint="비밀번호를 8자 이상 입력해주세요"
             android:inputType="textPassword"
+            android:backgroundTint="#bce0fd"
             android:textColor="#555555"
             android:textColorHint="#999999"
-            android:textColorLink="#0281ff"
             android:textSize="13.3sp" />
 
         <TextView
             android:id="@+id/tv_passwordre"
             android:layout_width="match_parent"
-            android:layout_height="26.4dp"
-            android:layout_below="@id/et_eamil"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_password"
             android:layout_centerInParent="true"
             android:layout_marginLeft="23dp"
             android:layout_marginRight="23dp"
@@ -157,14 +155,15 @@
             android:id="@+id/et_passwordre"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/tv_passwordre"
             android:layout_marginLeft="23dp"
             android:layout_marginRight="23dp"
             android:layout_marginBottom="18.7dp"
-            android:hint="비밀번호를 다시 입력하세요"
+            android:hint="비밀번호를 다시 입력해주세요"
             android:inputType="textPassword"
+            android:backgroundTint="#bce0fd"
             android:textColor="#555555"
             android:textColorHint="#999999"
-            android:textColorLink="#0281ff"
             android:textSize="13.3sp" />
 
         <TextView
@@ -183,12 +182,13 @@
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="32.7dp"
             android:layout_below="@id/tv_gender"
-            android:layout_marginLeft="23dp"
+            android:layout_marginLeft="40.7dp"
             android:layout_marginRight="23dp"
-            android:layout_marginBottom="30dp"
-            android:background="@color/colorWhite" />
+            android:layout_marginBottom="40dp"
+            android:popupTheme="@android:style/ThemeOverlay.Material.Light" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -211,7 +211,7 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="6.7dp"
                 android:buttonTint="#0281ff"
                 android:text="로그인하기"
                 android:textColor="#0281ff"
@@ -223,8 +223,11 @@
 
     <Button
         android:id="@+id/joinbtn"
-        android:layout_width="match_parent"
+        android:layout_width="314dp"
         android:layout_height="46dp"
+        android:layout_marginBottom="43.3dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="23dp"
         android:background="#0281ff"
         android:text="계정 생성하기"
         android:textColor="#ffffff"
