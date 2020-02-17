@@ -2,11 +2,15 @@ package kr.hs.emirim.lyn.carrying;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import android.content.Intent;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String TAG = "MainActivity";
 
+
+
     private FirebaseAuth auth;
-    private FirebaseUser user;
+    FirebaseUser user;
 
     Button signOut_btn;
 
@@ -29,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//       
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+        Log.d(TAG, "Really create");
 
         signOut_btn = (Button)findViewById(R.id.signOut);
         signOut_btn.setOnClickListener(view -> {
@@ -43,20 +52,10 @@ public class MainActivity extends AppCompatActivity {
         //익명 인증일 경우 user.getDisplayName == NULL;
         // Log.d(TAG, user.getUid()); 페이스북 로그인에 에러
 
-        initLoadDB();
-    }
 
-    public List<User> userList ;
 
-    private void initLoadDB() {
 
-        DataAdapter mDbHelper = new DataAdapter(getApplicationContext());
-        mDbHelper.createDatabase();
-        mDbHelper.open();
+    }//oncreate
 
-        // db에 있는 값들을 model을 적용해서 넣는다.
-        userList = mDbHelper.getTableData();
-        Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
-        mDbHelper.close();
-    }
+
 }

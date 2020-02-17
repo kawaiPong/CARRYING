@@ -23,19 +23,23 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.zxing.common.StringUtils;
 
+
+import java.util.List;
+
+import kr.hs.emirim.lyn.carrying.DataAdapter;
 import kr.hs.emirim.lyn.carrying.MainActivity;
 import kr.hs.emirim.lyn.carrying.R;
+import kr.hs.emirim.lyn.carrying.User;
 
-public class SignInActivity extends BaseActivity implements View.OnClickListener {
+public class SignInActivity extends BaseActivity {
 
     private final static String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -44,35 +48,43 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private FirebaseAuth auth;
     private FirebaseUser user;
 
+    public List<User> userList ;
 
-    EditText sign_in_email;
-    EditText sign_in_pw;
-    Button sign_in_btn;
-    Button register_btn;
-    Button google_btn;
-    LoginButton facebook_btn;
-    Button anonymous_btn;
+    EditText SignIn_email;
+    EditText SignIn_pw;
+    Button SignIn_btn;
+    Button checkPW_btn;
+    Button SignUp_btn;
+    LoginButton fb_btn;
+    Button tt_btn;
+    Button gg_btn;
+    Button anonymous;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        auth = FirebaseAuth.getInstance();
 
+        initLoadDB();
         init();
+        SetListener();
 
         callbackManager = CallbackManager.Factory.create();
-        facebook_btn = findViewById(R.id.facebook_btn);
-        facebook_btn.setReadPermissions("email", "public_profile");
-        facebook_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        fb_btn.setBackgroundResource(R.drawable.facebook);
+        fb_btn.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        fb_btn.setCompoundDrawablePadding(0);
+        fb_btn.setPadding(0, 0, 0, 0);
+        fb_btn.setText("");
+        fb_btn.setPermissions("email", "public_profile");
+        fb_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                startActivity(intent);
                 Log.d(TAG, "페북 로그인 버튼");
+                Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
 
             @Override
@@ -90,34 +102,10 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        // [END config_signin]
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
-
-//        sign_in_btn.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//
-//                String email = sign_in_id.getText().toString().trim();
-//                String pw = sign_in_pw.getText().toString().trim();
-//
-//                auth.signInWithEmailAndPassword(email, pw)
-//                        .addOnCompleteListener(LoginActivity.this, task -> {
-//
-//                            if (task.isSuccessful()) {
-//                                Toast.makeText(LoginActivity.this, "환영합니다", Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                                startActivity(intent);
-//                            } else {
-//                                Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        });
-//            }
-//
-//        });
+        auth = FirebaseAuth.getInstance();
 
     }
 
@@ -125,7 +113,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     public void onStart() {
         super.onStart();
         user = auth.getCurrentUser();
-
         checkCurrentUser(user);
     }
 
@@ -133,36 +120,112 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         // [START check_current_user]
         if (user != null) {
             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-//            startActivity(intent);
+            startActivity(intent);
+            Log.d("ProviderID", user.getProviderData().toString());
+            auth.signOut();
         } else {
             // No user is signed in
         }
         // [END check_current_user]
     }
 
+    private void SetListener() {
+
+
+
+
+        SignIn_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                EditText ed1 = (EditText) findViewById(R.id.signin_email);
+                EditText ed2=(EditText)findViewById(R.id.signIn_pw);
+
+                String ed_text1 = ed1.getText().toString().trim();
+                String ed_text2=ed2.getText().toString().trim();
+                if((ed_text1.length() == 0 )||(ed_text2.length() == 0))
+                {
+                    Toast.makeText(getApplicationContext(), "이메일과 비밀번호를 다시확인해주세요.", Toast.LENGTH_LONG).show();
+
+                }
+                else
+                {
+                    signIn_email();
+                    Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
+
+
+        checkPW_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(SignInActivity.this, FindPassword.class);
+                startActivity(intent);
+            }
+        });
+
+
+        tt_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        gg_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                signIn_google();
+                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        anonymous.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                signInAnonymously();
+                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        SignUp_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(SignInActivity.this, RegisterActivity.class));
+            }
+        });
+    }
+    //find
     private void init() {
-        sign_in_email = (EditText) findViewById(R.id.sign_in_email);
-        sign_in_pw = (EditText) findViewById(R.id.sign_in_pw);
-        findViewById(R.id.sign_in_btn).setOnClickListener(this);
-        findViewById(R.id.register_btn).setOnClickListener(this);
-        findViewById(R.id.google_btn).setOnClickListener(this);
-        findViewById(R.id.anonymous_btn).setOnClickListener(this);
+        SignIn_btn=(Button)(findViewById(R.id.Signin));
+        SignIn_email=(EditText) (findViewById(R.id.signin_email));
+        SignIn_pw=(EditText)(findViewById(R.id.signIn_pw));
+        checkPW_btn=(Button)(findViewById(R.id.check));
+        SignUp_btn=(Button)(findViewById(R.id.signup));
+        fb_btn = (LoginButton) (findViewById(R.id.fb));
+        tt_btn=(Button)(findViewById(R.id.tt));
+        gg_btn=(Button)(findViewById(R.id.gg));
+        anonymous=(Button)(findViewById(R.id.anonymous));
     }
 
-    @Override
-    public void onClick(View view) {
-        int i = view.getId();
-        if (i == R.id.sign_in_btn) {
-            signIn_email();
-        } else if (i == R.id.register_btn) {
-            Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
-            startActivity(intent);
-            Log.d(TAG, "회원가입 버튼");
-        } else if (i == R.id.google_btn){
-            signIn_google();
-        } else if (i == R.id.anonymous_btn) {
-            signInAnonymously();
-        }
+    private void initLoadDB() {
+
+        DataAdapter mDbHelper = new DataAdapter(getApplicationContext());
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        // db에 있는 값들을 model을 적용해서 넣는다.
+        userList = mDbHelper.getTableData();
+        Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+        mDbHelper.close();
     }
 
     private void signIn_google() {
@@ -173,8 +236,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     private void signIn_email() {
 
-        String email = sign_in_email.getText().toString().trim();
-        String password = sign_in_pw.getText().toString().trim();
+        String email = SignIn_email.getText().toString().trim();
+        String password = SignIn_pw.getText().toString().trim();
 
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -237,12 +300,10 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-
+                            FirebaseUser user = auth.getCurrentUser();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(SignInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
                         }
 
                         // ...
@@ -250,12 +311,12 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 });
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Pass the activity result back to the Facebook SDK
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -269,6 +330,10 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 Log.w(TAG, "Google sign in failed", e);
                 // ...
             }
+        } else {
+            // Pass the activity result back to the Facebook SDK
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+
         }
     }
 
