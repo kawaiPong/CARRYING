@@ -23,25 +23,27 @@
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="114dp"
+            android:layout_marginStart="30dp"
             android:background="@drawable/backward"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_shelter_intro"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?attr/actionModeCloseDrawable" />
 
         <TextView
             android:id="@+id/tv_shelter_intro"
-            android:layout_width="61.3dp"
-            android:layout_height="23.7dp"
-            android:textColor="#555555"
-            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="146dp"
+            android:layout_marginEnd="146dp"
+            android:gravity="center"
             android:text="회원가입"
+            android:textColor="#555555"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -49,11 +51,9 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/joinbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
@@ -63,12 +63,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="23dp"
-            android:layout_marginTop="40.3dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="23dp"
             android:layout_marginBottom="11.7dp"
             android:text="닉네임"
             android:textColor="#0281ff"
-            android:textSize="13.3sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_name"
@@ -78,11 +78,11 @@
             android:layout_marginLeft="23dp"
             android:layout_marginRight="23dp"
             android:layout_marginBottom="18.7dp"
-            android:hint="닉네임을 입력하세요"
             android:backgroundTint="#bce0fd"
+            android:hint="닉네임을 입력하세요"
             android:textColor="#555555"
             android:textColorHint="#999999"
-            android:textSize="13.3sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_email"
@@ -93,7 +93,7 @@
             android:layout_marginBottom="11.7dp"
             android:text="이메일"
             android:textColor="#0281ff"
-            android:textSize="13.3sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_eamil"
@@ -103,12 +103,12 @@
             android:layout_marginLeft="23dp"
             android:layout_marginRight="23dp"
             android:layout_marginBottom="18.7dp"
+            android:backgroundTint="#bce0fd"
             android:hint="이메일을 입력하세요"
             android:inputType="textEmailAddress"
-            android:backgroundTint="#bce0fd"
             android:textColor="#555555"
             android:textColorHint="#999999"
-            android:textSize="13.3sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_password"
@@ -121,7 +121,7 @@
             android:layout_marginBottom="11.7dp"
             android:text="비밀번호"
             android:textColor="#0281ff"
-            android:textSize="13.3sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_password"
@@ -131,12 +131,12 @@
             android:layout_marginLeft="23dp"
             android:layout_marginRight="23dp"
             android:layout_marginBottom="18.7dp"
+            android:backgroundTint="#bce0fd"
             android:hint="비밀번호를 8자 이상 입력해주세요"
             android:inputType="textPassword"
-            android:backgroundTint="#bce0fd"
             android:textColor="#555555"
             android:textColorHint="#999999"
-            android:textSize="13.3sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_passwordre"
@@ -149,7 +149,7 @@
             android:layout_marginBottom="11.7dp"
             android:text="비밀번호 재확인"
             android:textColor="#0281ff"
-            android:textSize="13.3sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_passwordre"
@@ -159,12 +159,12 @@
             android:layout_marginLeft="23dp"
             android:layout_marginRight="23dp"
             android:layout_marginBottom="18.7dp"
+            android:backgroundTint="#bce0fd"
             android:hint="비밀번호를 다시 입력해주세요"
             android:inputType="textPassword"
-            android:backgroundTint="#bce0fd"
             android:textColor="#555555"
             android:textColorHint="#999999"
-            android:textSize="13.3sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_gender"
@@ -177,57 +177,58 @@
             android:layout_marginBottom="11.7dp"
             android:text="성별"
             android:textColor="#0281FF"
-            android:textSize="13.3sp" />
+            android:textSize="14sp" />
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="32.7dp"
             android:layout_below="@id/tv_gender"
-            android:layout_marginLeft="40.7dp"
+            android:layout_marginLeft="23dp"
             android:layout_marginRight="23dp"
+            android:layout_marginBottom="20dp"
             android:popupTheme="@android:style/ThemeOverlay.Material.Light" />
 
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="7dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/joinbtn">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="6.7dp"
-                android:text="이미 계정이 있으신가요?"
-                android:textColor="#555555"
-                android:textSize="9.3sp" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="6.7dp"
+            android:text="이미 계정이 있으신가요?"
+            android:textColor="#555555"
+            android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6.7dp"
-                android:buttonTint="#0281ff"
-                android:text="로그인하기"
-                android:textColor="#0281ff"
-                android:textSize="9.3sp" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6.7dp"
+            android:buttonTint="#0281ff"
+            android:text="로그인하기"
+            android:textColor="#0281ff"
+            android:textSize="13sp" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/joinbtn"
-        android:layout_width="314dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="43.3dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="23dp"
         android:layout_marginRight="23dp"
+        android:layout_marginBottom="43.3dp"
         android:background="#0281ff"
         android:text="계정 생성하기"
         android:textColor="#ffffff"
