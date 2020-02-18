@@ -10,31 +10,35 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/back"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="30dp"
             android:background="@drawable/backward"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="?attr/actionModeCloseDrawable"/>
 
         <TextView
-            android:id="@+id/일정추가"
+            android:id="@+id/add_Sche"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="일정추가"
+            android:layout_marginStart="146dp"
+            android:layout_marginEnd="146dp"
+            android:gravity="center"
+            android:text="일정 추가"
             android:textColor="#555555"
-            android:textSize="19sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,8 +50,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -75,8 +77,10 @@
         <Button
             android:id="@+id/select_city"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="23dp"
             android:background="@drawable/select_world"
             android:textColor="#2699FB"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,9 +90,10 @@
         <Button
             android:id="@+id/finish_date"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="23dp"
             android:layout_weight="1"
             android:background="@drawable/select_date"
             android:textColor="#2699FB"
@@ -99,9 +104,10 @@
         <Button
             android:id="@+id/start_date"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/select_date"
             android:textColor="#2699FB"
@@ -109,25 +115,80 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/select_city" />
 
-        <Button
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="65dp"
-            android:background="@drawable/add_schedule"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="93dp"
             android:layout_height="31dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="35dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start_date"
             app:srcCompat="@drawable/theme" />
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="300dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:srcCompat="@drawable/theme_setting" />
+
+        <ImageButton
+            android:id="@+id/btn_alert"
+            android:layout_width="30dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/recyclerView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:srcCompat="@drawable/plus_bt_small" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:text="기본"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginBottom="43.3dp"
+        android:background="#0281ff"
+        android:text="일정 추가하기"
+        android:textColor="#ffffff"
+        android:textSize="14.7sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
