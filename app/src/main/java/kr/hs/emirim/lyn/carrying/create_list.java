@@ -92,7 +92,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                     intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
                     startActivity(intent);
                 }
-
             }
         });
 
