@@ -50,7 +50,7 @@ public class SignInActivity extends BaseActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
 
-    public List<User> userList ;
+    public List<User> userList;
 
     EditText SignIn_email;
     EditText SignIn_pw;
@@ -134,25 +134,20 @@ public class SignInActivity extends BaseActivity {
     private void SetListener() {
 
 
-
-
-        SignIn_btn.setOnClickListener(new View.OnClickListener(){
+        SignIn_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 EditText ed1 = (EditText) findViewById(R.id.signin_email);
-                EditText ed2=(EditText)findViewById(R.id.signIn_pw);
+                EditText ed2 = (EditText) findViewById(R.id.signIn_pw);
 
                 String ed_text1 = ed1.getText().toString().trim();
-                String ed_text2=ed2.getText().toString().trim();
-                if((ed_text1.length() == 0 )||(ed_text2.length() == 0))
-                {
+                String ed_text2 = ed2.getText().toString().trim();
+                if ((ed_text1.length() == 0) || (ed_text2.length() == 0)) {
                     Toast.makeText(getApplicationContext(), "이메일과 비밀번호를 다시확인해주세요.", Toast.LENGTH_LONG).show();
 
-                }
-                else
-                {
+                } else {
                     signIn_email();
+
                     Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(getApplicationContext(), Main_List.class);
                     intent.putExtra("num","1");
@@ -163,61 +158,57 @@ public class SignInActivity extends BaseActivity {
         });
 
 
-        checkPW_btn.setOnClickListener(new View.OnClickListener(){
+        checkPW_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 Intent intent = new Intent(SignInActivity.this, FindPassword.class);
                 startActivity(intent);
             }
         });
 
 
-        tt_btn.setOnClickListener(new View.OnClickListener(){
+        tt_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "테스트테스트:::" + userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
 
-        gg_btn.setOnClickListener(new View.OnClickListener(){
+        gg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 signIn_google();
-                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "테스트테스트:::" + userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
 
-        anonymous.setOnClickListener(new View.OnClickListener(){
+        anonymous.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 signInAnonymously();
-                Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "테스트테스트:::" + userList.get(0).getName(), Toast.LENGTH_LONG).show();
             }
         });
 
-        SignUp_btn.setOnClickListener(new View.OnClickListener(){
+        SignUp_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 startActivity(new Intent(SignInActivity.this, RegisterActivity.class));
             }
         });
     }
+
     //find
     private void init() {
-        SignIn_btn=(Button)(findViewById(R.id.Signin));
-        SignIn_email=(EditText) (findViewById(R.id.signin_email));
-        SignIn_pw=(EditText)(findViewById(R.id.signIn_pw));
-        checkPW_btn=(Button)(findViewById(R.id.check));
-        SignUp_btn=(Button)(findViewById(R.id.signup));
+        SignIn_btn = (Button) (findViewById(R.id.Signin));
+        SignIn_email = (EditText) (findViewById(R.id.signin_email));
+        SignIn_pw = (EditText) (findViewById(R.id.signIn_pw));
+        checkPW_btn = (Button) (findViewById(R.id.check));
+        SignUp_btn = (Button) (findViewById(R.id.signup));
         fb_btn = (LoginButton) (findViewById(R.id.fb));
-        tt_btn=(Button)(findViewById(R.id.tt));
-        gg_btn=(Button)(findViewById(R.id.gg));
-        anonymous=(Button)(findViewById(R.id.anonymous));
+        tt_btn = (Button) (findViewById(R.id.tt));
+        gg_btn = (Button) (findViewById(R.id.gg));
+        anonymous = (Button) (findViewById(R.id.anonymous));
     }
 
     private void initLoadDB() {
@@ -228,7 +219,7 @@ public class SignInActivity extends BaseActivity {
 
         // db에 있는 값들을 model을 적용해서 넣는다.
         userList = mDbHelper.getTableData();
-        Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "테스트테스트:::" + userList.get(0).getName(), Toast.LENGTH_LONG).show();
         mDbHelper.close();
     }
 
@@ -319,7 +310,6 @@ public class SignInActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
 
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
