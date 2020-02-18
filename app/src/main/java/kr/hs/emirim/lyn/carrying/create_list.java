@@ -131,9 +131,9 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                 String msg="";
                 for (int i = 0; i < SelectedItems.size(); i++) {
                     int index = (int) SelectedItems.get(i);
-                    msg = msg+ListItems.get(index);
+                    msg = msg+"\t"+ListItems.get(index);
                 }
-                Toast.makeText(getApplicationContext(), msg , Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), msg , Toast.LENGTH_SHORT).show();
             }
         });
 
