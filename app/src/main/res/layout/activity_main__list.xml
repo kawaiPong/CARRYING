@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         tools:context=".Main_List">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_main_list"
             android:layout_width="0dp"
