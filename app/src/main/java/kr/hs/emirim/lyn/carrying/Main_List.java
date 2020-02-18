@@ -244,7 +244,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationView;
+//import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
@@ -268,14 +268,15 @@ public class Main_List extends AppCompatActivity {
             String start_date=intent.getStringExtra("start_date");
             String finish_date=intent.getStringExtra("finish_date");
 
-             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
+            RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
             LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-             mRecyclerView.setLayoutManager(mLinearLayoutManager);
+            mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
 
             mArrayList = new ArrayList<>();
             mAdapter = new CustomAdapter( mArrayList);
-             mRecyclerView.setAdapter(mAdapter);
+
+            mRecyclerView.setAdapter(mAdapter);
 
 
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
@@ -312,8 +313,7 @@ public class Main_List extends AppCompatActivity {
         });
 
 
-
-        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+//        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_view);
 //        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 //            @Override
 //            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
