@@ -185,7 +185,7 @@
             android:layout_height="32.7dp"
             android:layout_below="@id/tv_gender"
             android:layout_marginLeft="23dp"
-            android:layout_marginRight="23dp"
+            android:layout_marginRight="-23dp"
             android:layout_marginBottom="20dp"
             android:popupTheme="@android:style/ThemeOverlay.Material.Light" />
 
