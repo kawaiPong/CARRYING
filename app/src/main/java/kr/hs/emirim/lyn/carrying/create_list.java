@@ -12,14 +12,23 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.util.Calendar;
+
 public class create_list extends AppCompatActivity {
     Button start_date;
     Button finish_date;
     public int sy=0, sm=0, sd=0;
     public int fy=0, fm=0,fd=0;
+    public int Today_year,Today_month,Today_date;
     EditText City;
+    Calendar cal=Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Today_year=cal.get(Calendar.YEAR);
+        Today_month=cal.get(Calendar.MONTH)+1;
+        Today_date=cal.get(Calendar.DAY_OF_WEEK);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_list);
         City=findViewById(R.id.City);
@@ -38,7 +47,9 @@ public class create_list extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(create_list.this, Main_List.class);
-                intent.putExtra("city",City.getText().toString());
+                intent.putExtra("num","2");
+//                intent.putExtra("city",City.getText().toString());
+                intent.putExtra("city","오사카");
                 intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
                 intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
                 startActivity(intent);
@@ -57,7 +68,6 @@ public class create_list extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDate2();
-
             }
         });
 
@@ -72,9 +82,9 @@ public class create_list extends AppCompatActivity {
                 sm = month+1;
                 sd = dayOfMonth;
                 Log.d("Hello",sy+"+"+sm+"+"+sd);
-                start_date.setText("  "+sy+"년 "+sm+"월 "+ sd + "일");
+                start_date.setText("   "+sy+"년 "+sm+"월 "+ sd + "일");
             }
-        },2019, 1, 11);
+        },Today_year, Today_month, Today_date);
 
         datePickerDialog.setMessage("메시지");
         datePickerDialog.show();
@@ -89,9 +99,9 @@ public class create_list extends AppCompatActivity {
                 fm = month+1;
                 fd = dayOfMonth;
                 Log.d("Hello",fy+"+"+fm+"+"+fd);
-                finish_date.setText("  "+fy+"년 "+fm+"월 "+ fd + "일");
+                finish_date.setText("   "+fy+"년 "+fm+"월 "+ fd + "일");
             }
-        },2019, 1, 11);
+        },Today_year, Today_month, Today_date);
 
         datePickerDialog.setMessage("메시지");
         datePickerDialog.show();
