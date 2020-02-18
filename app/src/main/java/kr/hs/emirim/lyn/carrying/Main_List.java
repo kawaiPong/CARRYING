@@ -253,13 +253,16 @@ public class Main_List extends AppCompatActivity {
     private CustomAdapter mAdapter;
     private int count = -1;
     Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__list);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout) ;
         Button hamburger=(Button)findViewById(R.id.hamburger);
         Button plus_btn=(Button)findViewById(R.id.plus);
+
         intent=getIntent();
         String num=intent.getStringExtra("num");
 
