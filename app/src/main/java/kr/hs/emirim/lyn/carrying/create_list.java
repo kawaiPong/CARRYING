@@ -80,12 +80,19 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(create_list.this, Main_List.class);
-                intent.putExtra("num","2");
-//                intent.putExtra("city",City.getText().toString());
-                intent.putExtra("city","오사카");
-                intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
-                intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
-                startActivity(intent);
+                if((City.getText().toString().length()==0)||sd==0||fd==0){
+                    Toast.makeText(getApplicationContext(), "빈칸이 있습니다.", Toast.LENGTH_LONG).show();
+
+                }
+                else{
+                    intent.putExtra("num","2");
+                    intent.putExtra("city",City.getText().toString());
+//                intent.putExtra("city","오사카");
+                    intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
+                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
+                    startActivity(intent);
+                }
+
             }
         });
 

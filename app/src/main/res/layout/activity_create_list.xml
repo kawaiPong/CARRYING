@@ -47,6 +47,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,23 +56,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="1.0">
-
-        <EditText
-            android:id="@+id/City"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="50dp"
-            android:ems="10"
-            android:hint="도시"
-            android:inputType="textPersonName"
-            android:textColor="#0281FF"
-            app:layout_constraintBottom_toBottomOf="@+id/select_city"
-            app:layout_constraintEnd_toEndOf="@+id/select_city"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/select_city"
-            app:layout_constraintTop_toTopOf="@+id/select_city"
-            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/select_city"

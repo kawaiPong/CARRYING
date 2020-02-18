@@ -278,6 +278,7 @@ public class Main_List extends AppCompatActivity {
 
             mArrayList = new ArrayList<>();
             mAdapter = new CustomAdapter( mArrayList);
+
             mRecyclerView.setAdapter(mAdapter);
 
 
@@ -313,7 +314,6 @@ public class Main_List extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
 //        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_view);
