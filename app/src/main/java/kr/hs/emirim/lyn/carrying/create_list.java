@@ -60,7 +60,6 @@ public class create_list extends AppCompatActivity {
                     intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
                     startActivity(intent);
                 }
-
             }
         });
 
