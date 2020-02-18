@@ -2,6 +2,9 @@ package kr.hs.emirim.lyn.carrying;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
 
 import android.app.DatePickerDialog;
@@ -16,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,27 +33,29 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
     public int sy=0, sm=0, sd=0;
     public int fy=0, fm=0,fd=0;
     public int Today_year,Today_month,Today_date;
+
     EditText City;
     Calendar cal=Calendar.getInstance();
 
     final Context context = this;
+    private ArrayList<Dictionary> mArrayList;
+    private CustomAdapter mAdapter;
     private ImageButton btnAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_list);
 
         Today_year=cal.get(Calendar.YEAR);
         Today_month=cal.get(Calendar.MONTH)+1;
         Today_date=cal.get(Calendar.DAY_OF_WEEK);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_list);
         City=findViewById(R.id.City);
         start_date=findViewById(R.id.start_date);
         finish_date=findViewById(R.id.finish_date);
-        Button back = (Button)findViewById(R.id.back);
-        Button add_btn=(Button)findViewById(R.id.add);
 
+        Button back = (Button)findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -57,6 +63,19 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         });
 
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.addHash);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        mArrayList = new ArrayList<>();
+        mAdapter = new CustomAdapter( mArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+                mLinearLayoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        Button add_btn=(Button)findViewById(R.id.add);
         add_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -86,7 +105,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         });
 
         btnAlert = (ImageButton) findViewById(R.id.btn_alert);
-
         // 클릭 이벤트
         btnAlert.setOnClickListener(this);
 
@@ -108,8 +126,9 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             ListItems.add("겨울");
 
         final CharSequence[] items =  ListItems.toArray(new String[ListItems.size()]);
-
         final List SelectedItems  = new ArrayList();
+
+        final String[] hashimg = { "theme02", "theme03", "theme04", "theme05", "theme06", "theme07", "theme08" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.DialogTheme);
         builder.setTitle("추가할 여행 테마 추가");
@@ -126,14 +145,29 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         });
 
+        ImageView image = new ImageView(this);
+
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                String msg="";
+                //String msg="";
+                //선택한 항목 갯수만큼 선택한 항목 배열 돌리기
                 for (int i = 0; i < SelectedItems.size(); i++) {
+                    //index에 0번방부터 선택한 항목 집어넣기
                     int index = (int) SelectedItems.get(i);
-                    msg = msg+"\t"+ListItems.get(index);
+                    //msg = msg+"\t"+ListItems.get(index);
+                    //해시태그 이미지를 꺼내옴
+                    int resId = getResources().getIdentifier(hashimg[i], "drawable",
+                            "kr.hs.emirim.lyn.carrying");
+
+                    image.setImageResource(resId);
+
+//                    Dictionary data = new Dictionary(image);
+//
+//                    //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
+//                    mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입
+
                 }
-                Toast.makeText(getApplicationContext(), msg , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), msg , Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -51,7 +51,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="25dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
@@ -189,6 +189,7 @@
             android:layout_marginLeft="23dp"
             android:layout_marginRight="-23dp"
             android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/colorWhite"
             android:popupTheme="@android:style/ThemeOverlay.Material.Light" />
 
     </LinearLayout>
@@ -197,7 +198,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/joinbtn"
