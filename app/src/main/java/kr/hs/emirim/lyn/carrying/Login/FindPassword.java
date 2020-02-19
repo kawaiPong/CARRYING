@@ -41,22 +41,8 @@ public class FindPassword extends AppCompatActivity {
                 .build();
 
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-        Call<User> apiCall = apiService.getDataEmail("1234");
 //        Call<User> apiCall = apiService.postData(nickname,uid,email,password,1);
 
-        apiCall.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User du = response.body();
-                Log.d("mytag ","됨 ok : "+ du.toString());
-                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
-                Toast.makeText(getApplicationContext(), "당신의 비밀번호는"+du.getPassword()+"입니다.", Toast.LENGTH_LONG).show();
-            }
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.d("mytag", "안됨 fail : " + t.toString());
-            }
-        });
 
         back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -68,10 +54,22 @@ public class FindPassword extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                checkButton_pressed =1;
+//                checkButton_pressed =1;
                 email=eemail.getText().toString();
-                Toast.makeText(getApplicationContext(), "이메일 확인버튼", Toast.LENGTH_LONG).show();
-            }
+                Call<User> apiCall = apiService.getDataEmail(email);
+                apiCall.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        User du = response.body();
+                        Log.d("mytag ","됨 ok : "+ du.toString());
+                        Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
+                        Toast.makeText(getApplicationContext(), "당신의 비밀번호는"+du.getPassword()+"입니다.", Toast.LENGTH_LONG).show();
+                    }
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.d("mytag", "안됨 fail : " + t.toString());
+                    }
+                });            }
         });
 
         Re.setOnClickListener(new View.OnClickListener() {

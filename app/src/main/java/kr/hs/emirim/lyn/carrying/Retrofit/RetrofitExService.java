@@ -23,6 +23,7 @@ public interface RetrofitExService {
     @GET("/user/readUser/{email}")
     Call<User> getData(@Path("email") String email);
 
+
     @GET("/user/readUser/{email}")
     Call<User>getDataEmail(@Path("email")String email);
 

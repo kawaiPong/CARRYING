@@ -37,7 +37,14 @@ import java.util.List;
 import kr.hs.emirim.lyn.carrying.MainActivity;
 import kr.hs.emirim.lyn.carrying.Main_List;
 import kr.hs.emirim.lyn.carrying.R;
+import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
+import kr.hs.emirim.lyn.carrying.Retrofit.User;
 import kr.hs.emirim.lyn.carrying.create_list;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignInActivity extends BaseActivity {
 
@@ -63,6 +70,7 @@ public class SignInActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
 
 
         init();
@@ -136,17 +144,41 @@ public class SignInActivity extends BaseActivity {
                 EditText ed1 = (EditText) findViewById(R.id.signin_email);
                 EditText ed2 = (EditText) findViewById(R.id.signIn_pw);
 
-                String ed_text1 = ed1.getText().toString().trim();
-                String ed_text2 = ed2.getText().toString().trim();
+                String ed_text1 = ed1.getText().toString().trim();//이메일
+                String ed_text2 = ed2.getText().toString().trim();//비밀번호
                 if ((ed_text1.length() == 0) || (ed_text2.length() == 0)) {
                     Toast.makeText(getApplicationContext(), "이메일과 비밀번호를 다시확인해주세요.", Toast.LENGTH_LONG).show();
 
                 } else {
-                    signIn_email();
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://192.168.9.40:1234")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
 
-                    Intent intent=new Intent(getApplicationContext(), Main_List.class);
-                    intent.putExtra("num","1");
-                    startActivity(intent);
+                    final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+                    Call<User> apiCall = apiService.getDataEmail(ed_text1);
+                    apiCall.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            User du = response.body();
+                            Log.d("mytag 됨", du.toString());
+                            Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
+                            if(ed_text2.equals(du.getPassword())){
+                                Log.d("mytag 됨",ed_text2+"::"+du.getPassword()+":이메일은:"+ed_text1);
+                                Intent intent=new Intent(getApplicationContext(), Main_List.class);
+                                intent.putExtra("num","1");
+                                startActivity(intent);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Log.d("mytag", "안됨 fail : " + t.toString());
+                        }
+                    });
+
+
+//                    signIn_email();
+
                 }
 
             }

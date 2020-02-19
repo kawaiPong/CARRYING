@@ -41,22 +41,6 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 .build();
 
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-        Call<User> apiCall = apiService.getData("132");
-
-        apiCall.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User du = response.body();
-                Log.d("mytag 됨", du.toString());
-                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
-
-            }
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.d("mytag", "안됨 fail : " + t.toString());
-            }
-        });
-
 
 
 
