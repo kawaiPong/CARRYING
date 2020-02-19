@@ -24,6 +24,7 @@
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/fb"
+        xmlns:facebook="http://schemas.android.com/apk/res-auto"
         android:layout_width="60dp"
         android:layout_height="58dp"
         android:layout_marginStart="84.3dp"
@@ -32,7 +33,9 @@
         android:textSize="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tt"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        facebook:com_facebook_login_text=""
+        />
 
     <Button
         android:id="@+id/tt"
@@ -116,7 +119,7 @@
         android:layout_width="40dp"
         android:layout_height="22dp"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="160dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/login"
