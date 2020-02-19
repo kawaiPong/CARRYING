@@ -51,7 +51,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         Today_month=cal.get(Calendar.MONTH)+1;
         Today_date=cal.get(Calendar.DAY_OF_WEEK);
 
-        City=findViewById(R.id.City);
+//        City=findViewById(R.id.City);
         start_date=findViewById(R.id.start_date);
         finish_date=findViewById(R.id.finish_date);
 
@@ -63,17 +63,17 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.addHash);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
-
-        mArrayList = new ArrayList<>();
-        mAdapter = new CustomAdapter( mArrayList);
-        mRecyclerView.setAdapter(mAdapter);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                mLinearLayoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
+////        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.addHash);
+//        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+//        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+//
+//        mArrayList = new ArrayList<>();
+//        mAdapter = new CustomAdapter( mArrayList);
+//        mRecyclerView.setAdapter(mAdapter);
+//
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+//                mLinearLayoutManager.getOrientation());
+//        mRecyclerView.addItemDecoration(dividerItemDecoration);
 
         Button add_btn=(Button)findViewById(R.id.add);
         add_btn.setOnClickListener(new View.OnClickListener(){
