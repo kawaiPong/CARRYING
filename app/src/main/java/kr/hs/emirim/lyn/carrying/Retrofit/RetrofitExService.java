@@ -18,10 +18,13 @@ import retrofit2.http.Query;
 
 public interface RetrofitExService {
 
-    String URL = "http://192.168.1.88:1234";
+    String URL = "http://192.168.9.40:1234";
 
-    @GET("/user/read/{uid}")
-    Call<User> getData(@Path("uid") String uid);
+    @GET("/user/readUser/{email}")
+    Call<User> getData(@Path("email") String email);
+
+    @GET("/user/readUser/{email}")
+    Call<User>getDataEmail(@Path("email")String email);
 
     @GET("/posts")
     Call<List<User>> getData2(@Query("userId") String userId);

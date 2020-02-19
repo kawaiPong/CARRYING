@@ -133,7 +133,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 } else {
                     if (Password.equals(CheckPassword)) {
 
-                        Call<User> apiCall = apiService.postData("강주영","2101",1);
+                        Call<User> apiCall = apiService.postData(NickName,Email,Password,"34554",1);
 
                         apiCall.enqueue(new Callback<User>() {
                             @Override
