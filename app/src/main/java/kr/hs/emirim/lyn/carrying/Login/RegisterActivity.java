@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import kr.hs.emirim.lyn.carrying.R;
 import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
 import kr.hs.emirim.lyn.carrying.Retrofit.User;
+import kr.hs.emirim.lyn.carrying.create_list;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,57 +26,60 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
+    private final static String TAG = "RegisterActivity";
+
     private FirebaseAuth auth;
+
     Spinner spinner;
     String[] item;
 
+    EditText et_name;
+    EditText et_email;
+    EditText et_password;
+    EditText et_checkPassword;
+    TextView loginBtn;
+    Button registerBtn;
+
+    String nickname;
+    String email;
+    String password;
+    String checkPassword;
+    int gender;
+
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.9.40:1234")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-        Call<User> apiCall = apiService.getData("132");
-
-        apiCall.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User du = response.body();
-                Log.d("mytag 됨", du.toString());
-                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
-
-            }
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.d("mytag", "안됨 fail : " + t.toString());
-            }
-        });
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://192.168.1.88:1234")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+////
+//        final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+//        Call<User> apiCall = apiService.getData("1234");
+////        Call<User> apiCall = apiService.postData("강주영","2101",1);
+//
+//        apiCall.enqueue(new Callback<User>() {
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//                User du = response.body();
+//                Log.d("mytag ","됨 ok : "+ du.toString());
+//                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
+//
+//            }
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//                Log.d("mytag", "안됨 fail : " + t.toString());
+//            }
+//        });
 
 
 
 
         auth = FirebaseAuth.getInstance();
-
-        String email = "ghddnjf2901@gmail.com".trim();
-        String pw = "dnjs290112sb*".trim();
-
-        auth.createUserWithEmailAndPassword(email, pw)
-                .addOnCompleteListener(RegisterActivity.this, task -> {
-                    if (task.isSuccessful()) {
-                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "등록 에러", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                });
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -88,8 +92,6 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
         spinner.setAdapter(adapter);
 
-//        buttonLister();
-
         Button back = (Button) findViewById(R.id.backbtn);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,74 +100,111 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
             }
         });
 
-        TextView login=(TextView)findViewById(R.id.textView1);
-        login.setOnClickListener(new View.OnClickListener() {
+        loginBtn=(TextView)findViewById(R.id.textView1);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-
             }
         });
 
-        Button joinbtn = (Button) findViewById(R.id.joinbtn);
-        joinbtn.setOnClickListener(new View.OnClickListener() {
+        //*************************************************************
+        //**************************************************************
+
+        registerBtn = (Button) findViewById(R.id.joinbtn);
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.88:1234")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-                EditText NickNameE = (EditText) findViewById(R.id.et_name);
-                EditText EmailE = (EditText) findViewById(R.id.et_eamil);
-                EditText PasswordE = (EditText) findViewById(R.id.et_password);
-                EditText CheckPasswordE = (EditText) findViewById(R.id.et_passwordre);
+        final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+//        Call<User> apiCall = apiService.getData("1234");
+        Call<User> apiCall = apiService.postData("강주영1234","21011","eme1111meme","123",1);
 
+        apiCall.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User du = response.body();
+                Log.d("mytag ","됨 ok : "+ du.toString());
+                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
 
-                String NickName = NickNameE.getText().toString().trim();
-                String Email = EmailE.getText().toString().trim();
-                String Password = PasswordE.getText().toString().trim();
-                String CheckPassword = CheckPasswordE.getText().toString().trim();
+            }
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("mytag", "안됨 fail : " + t.toString());
+            }
+        });
 
-                if ((NickName.length() == 0) ||
-                        (Email.length() == 0) ||
-                        (Password.length() == 0) ||
-                        (CheckPassword.length() == 0)) {
-                    Toast.makeText(getApplicationContext(), "모든 항목이 채워져있는지 확인해주세요", Toast.LENGTH_LONG).show();
-
-                } else {
-                    if (Password.equals(CheckPassword)) {
-
-                        Call<User> apiCall = apiService.postData("강주영","2101",1);
-
-                        apiCall.enqueue(new Callback<User>() {
-                            @Override
-                            public void onResponse(Call<User> call, Response<User> response) {
-                                User du = response.body();
-                                Log.d("mytag 됨", du.toString());
-                                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
-
-                            }
-                            @Override
-                            public void onFailure(Call<User> call, Throwable t) {
-                                Log.d("mytag", "안됨 fail : " + t.toString());
-                            }
-                        });
-
-
-
-                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
-                        startActivity(intent);
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "비밀번호 확인이 일치하지 않습니다.", Toast.LENGTH_LONG).show();
-                    }
-
-                }
+//                et_name = (EditText) findViewById(R.id.et_name);
+//                et_email = (EditText) findViewById(R.id.et_eamil);
+//                et_password = (EditText) findViewById(R.id.et_password);
+//                et_checkPassword = (EditText) findViewById(R.id.et_passwordre);
+//
+//                nickname = et_name.getText().toString().trim();
+//                email = et_email.getText().toString().trim();
+//                password = et_password.getText().toString().trim();
+//                checkPassword = et_checkPassword.getText().toString().trim();
+//
+//                Log.d(TAG, nickname + ", " + email + ", " + password + ", " + checkPassword + ", " + spinner.isSelected());
+//
+//                if ((nickname.length() == 0) ||
+//                        (email.length() == 0) ||
+//                        (password.length() == 0) ||
+//                        (checkPassword.length() == 0) ||
+//                        !(spinner.isSelected())) {
+//                    Toast.makeText(getApplicationContext(), "모든 항목이 채워져있는지 확인해주세요", Toast.LENGTH_LONG).show();
+//
+//                } else {
+//                    if (password.equals(checkPassword)) {
+//                        auth.createUserWithEmailAndPassword(email, password)
+//                                .addOnCompleteListener(RegisterActivity.this, task -> {
+//                                    if (task.isSuccessful()) {
+//                                        uid = auth.getCurrentUser().getUid();
+//                                        Log.d(TAG + ": UID", uid);
+//
+//                                        Call<User> apiCall = apiService.postData("강주영","2101",1);
+//
+//                                        apiCall.enqueue(new Callback<User>() {
+//                                            @Override
+//                                            public void onResponse(Call<User> call, Response<User> response) {
+//                                                User du = response.body();
+//                                                Log.d("mytag 됨", du.toString());
+//                                                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
+//
+//                                            }
+//                                            @Override
+//                                            public void onFailure(Call<User> call, Throwable t) {
+//                                                Log.d("mytag", "안됨 fail : " + t.toString());
+//                                            }
+//                                        });
+//                                        Intent intent = new Intent(RegisterActivity.this, create_list.class);
+//                                        startActivity(intent);
+//                                        finish();
+//                                    } else {
+//                                        Toast.makeText(RegisterActivity.this, "등록 에러", Toast.LENGTH_SHORT).show();
+//                                        return;
+//                                    }
+//                                });
+//                    }
+//                    else{
+//                        Toast.makeText(getApplicationContext(), "비밀번호 확인이 일치하지 않습니다.", Toast.LENGTH_LONG).show();
+//                    }
+//
+//                }
             }
         });
     }
 
+
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+        gender = i;
+        spinner.setSelected(true);
     }
 
     @Override

@@ -34,11 +34,10 @@ import com.google.zxing.common.StringUtils;
 
 import java.util.List;
 
-import kr.hs.emirim.lyn.carrying.DataAdapter;
 import kr.hs.emirim.lyn.carrying.MainActivity;
 import kr.hs.emirim.lyn.carrying.Main_List;
 import kr.hs.emirim.lyn.carrying.R;
-import kr.hs.emirim.lyn.carrying.User;
+import kr.hs.emirim.lyn.carrying.Retrofit.User;
 import kr.hs.emirim.lyn.carrying.create_list;
 
 public class SignInActivity extends BaseActivity {
@@ -68,7 +67,6 @@ public class SignInActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_in);
 
 
-        initLoadDB();
         init();
         SetListener();
 
@@ -148,7 +146,7 @@ public class SignInActivity extends BaseActivity {
                 } else {
                     signIn_email();
 
-                    Toast.makeText(getApplicationContext(), "테스트테스트:::"+userList.get(0).getName(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "테스트테스트:::", Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(getApplicationContext(), Main_List.class);
                     intent.putExtra("num","1");
                     startActivity(intent);
@@ -170,7 +168,7 @@ public class SignInActivity extends BaseActivity {
         tt_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "테스트테스트:::" + userList.get(0).getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "테스트테스트:::" , Toast.LENGTH_LONG).show();
             }
         });
 
@@ -178,7 +176,7 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 signIn_google();
-                Toast.makeText(getApplicationContext(), "테스트테스트:::" + userList.get(0).getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "테스트테스트:::", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -186,7 +184,7 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 signInAnonymously();
-                Toast.makeText(getApplicationContext(), "테스트테스트:::" + userList.get(0).getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "테스트테스트:::", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -211,17 +209,6 @@ public class SignInActivity extends BaseActivity {
         anonymous = (Button) (findViewById(R.id.anonymous));
     }
 
-    private void initLoadDB() {
-
-        DataAdapter mDbHelper = new DataAdapter(getApplicationContext());
-        mDbHelper.createDatabase();
-        mDbHelper.open();
-
-        // db에 있는 값들을 model을 적용해서 넣는다.
-        userList = mDbHelper.getTableData();
-        Toast.makeText(getApplicationContext(), "테스트테스트:::" + userList.get(0).getName(), Toast.LENGTH_LONG).show();
-        mDbHelper.close();
-    }
 
     private void signIn_google() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
