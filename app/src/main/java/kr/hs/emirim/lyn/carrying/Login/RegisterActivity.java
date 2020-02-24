@@ -36,7 +36,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_register);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.88:1234")
+                .baseUrl("http://192.168.219.142:1234")
 //                .baseUrl("http://localhost:1234")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

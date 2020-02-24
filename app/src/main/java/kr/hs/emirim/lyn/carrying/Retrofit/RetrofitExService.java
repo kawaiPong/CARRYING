@@ -19,7 +19,7 @@ import retrofit2.http.Query;
 public interface RetrofitExService {
 
 //    String URL = "http://192.168.9.40:1234";
-    String URL= "http://192.168.1.88:1234";
+    String URL= "http://192.168.219.142:1234";
 
 
     @GET("/user/readUser/{email}")
