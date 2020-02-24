@@ -37,7 +37,7 @@ public class FindPassword extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder()
 //                .baseUrl("http://192.168.9.40:1234")
-                .baseUrl("http://192.168.219.142:1234")
+                .baseUrl("http://192.168.219.142:3000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

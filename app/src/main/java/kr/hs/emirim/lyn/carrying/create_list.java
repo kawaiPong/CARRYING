@@ -34,7 +34,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
     public int fy=0, fm=0,fd=0;
     public int Today_year,Today_month,Today_date;
 
-    EditText City;
     Calendar cal=Calendar.getInstance();
 
     final Context context = this;
@@ -46,6 +45,9 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_list);
+
+
+        EditText City=(EditText) findViewById(R.id.city);;
 
         Today_year=cal.get(Calendar.YEAR);
         Today_month=cal.get(Calendar.MONTH)+1;
