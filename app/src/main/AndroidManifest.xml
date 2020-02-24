@@ -49,4 +49,4 @@
         <activity android:name=".Login.SignInActivity"></activity>
 
         </application>
-\</manifest>
+</manifest>
