@@ -168,6 +168,8 @@ public class SignInActivity extends BaseActivity {
                                 Log.d("mytag 됨",ed_text2+"::"+du.getPassword()+":이메일은:"+ed_text1);
                                 Intent intent=new Intent(getApplicationContext(), Main_List.class);
                                 intent.putExtra("num","1");
+                                intent.putExtra("email",du.getEmail());
+                                intent.putExtra("nickname",du.getNickname());
                                 startActivity(intent);
                             }
                         }

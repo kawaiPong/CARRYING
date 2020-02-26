@@ -244,6 +244,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.google.android.material.navigation.NavigationView;
@@ -268,8 +269,16 @@ public class Main_List extends AppCompatActivity {
         Button editInfo_btn=(Button)findViewById(R.id.EditInfo);
         Button pwChange=(Button)findViewById(R.id.PasswordChange);
 
+        TextView userName=(TextView)findViewById(R.id.userName);
+        TextView userEmail=(TextView)findViewById(R.id.userEmail);
+
         intent=getIntent();
         String num=intent.getStringExtra("num");
+        String user_nickname=intent.getStringExtra("nickname");
+        String user_email=intent.getStringExtra("email");
+
+        userEmail.setText(user_email);
+        userName.setText(user_nickname);
 
         if(num.equals("2")){
             String City=intent.getStringExtra("city");
