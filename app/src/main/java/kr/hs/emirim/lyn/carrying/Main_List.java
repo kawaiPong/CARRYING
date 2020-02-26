@@ -233,6 +233,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import kr.hs.emirim.lyn.carrying.Login.FindPassword;
 import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
 
 
@@ -262,6 +264,9 @@ public class Main_List extends AppCompatActivity {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout) ;
         Button hamburger=(Button)findViewById(R.id.hamburger);
         Button plus_btn=(Button)findViewById(R.id.plus);
+        Button logout_btn=(Button)findViewById(R.id.logOut);
+
+        Button pwChange=(Button)findViewById(R.id.PasswordChange);
 
         intent=getIntent();
         String num=intent.getStringExtra("num");
@@ -307,10 +312,27 @@ public class Main_List extends AppCompatActivity {
             }
         });
 
+        pwChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Main_List.this, FindPassword.class);
+                startActivity(intent);
+            }
+        });
+
         plus_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Main_List.this, create_list.class);
+                startActivity(intent);
+            }
+        });
+
+        logout_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Main_List.this,SignInActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
