@@ -265,7 +265,7 @@ public class Main_List extends AppCompatActivity {
         Button hamburger=(Button)findViewById(R.id.hamburger);
         Button plus_btn=(Button)findViewById(R.id.plus);
         Button logout_btn=(Button)findViewById(R.id.logOut);
-
+        Button editInfo_btn=(Button)findViewById(R.id.EditInfo);
         Button pwChange=(Button)findViewById(R.id.PasswordChange);
 
         intent=getIntent();
@@ -334,6 +334,13 @@ public class Main_List extends AppCompatActivity {
                 Intent intent=new Intent(Main_List.this,SignInActivity.class);
                 finish();
                 startActivity(intent);
+            }
+        });
+
+        editInfo_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent=new Intent(Main_List.this,)
             }
         });
 
