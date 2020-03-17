@@ -369,6 +369,7 @@ public class Main_List extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Main_List.this, create_list.class);
+                intent.putExtra("email",user_email);
                 startActivity(intent);
             }
         });

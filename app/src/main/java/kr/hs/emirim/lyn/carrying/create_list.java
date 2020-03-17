@@ -47,7 +47,8 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_create_list);
 
         Intent intent=getIntent();
-        String userEmail=intent.getStringExtra("userEmail");//서버와 접촉할때 사용
+        String userEmail=intent.getStringExtra("email");//서버와 접촉할때 사용
+        Log.d("mytag create_list","됨 ok : "+userEmail);
 
         EditText City=(EditText) findViewById(R.id.city);;
 
@@ -89,7 +90,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
                 }
                 else{
-                    intent.putExtra("userName",userEmail);
+                    intent.putExtra("email",userEmail);
                     intent.putExtra("num","2");
                     intent.putExtra("city",City.getText().toString());
 //                    intent.putExtra("city","오사카");
