@@ -236,10 +236,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import kr.hs.emirim.lyn.carrying.Login.FindPassword;
 import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
+import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
+import kr.hs.emirim.lyn.carrying.Retrofit.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -268,22 +276,52 @@ public class Main_List extends AppCompatActivity {
         Button logout_btn=(Button)findViewById(R.id.logOut);
         Button editInfo_btn=(Button)findViewById(R.id.EditInfo);
         Button pwChange=(Button)findViewById(R.id.PasswordChange);
-
         TextView userName=(TextView)findViewById(R.id.userName);
         TextView userEmail=(TextView)findViewById(R.id.userEmail);
 
         intent=getIntent();
-        String num=intent.getStringExtra("num");
-        String user_nickname=intent.getStringExtra("nickname");
-        String user_email=intent.getStringExtra("email");
+//        String user_email=intent.getStringExtra("email");
+        String user_email=intent.getExtras().getString("email");
+//        String num=intent.getStringExtra("num");
+        String num=intent.getExtras().getString("num");
+        Log.d("mytag Main","됨 ok : "+num+"과"+user_email);
 
-        userEmail.setText(user_email);
-        userName.setText(user_nickname);
+
+/////
+
+        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://192.168.9.40:1234")
+                .baseUrl("http://192.168.219.142:3000")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+        Call<User> apiCall = apiService.getDataEmail(user_email);
+        apiCall.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User du = response.body();
+                Log.d("mytag Main","됨 ok : "+ du.toString());
+                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
+
+                userEmail.setText(du.getEmail());
+                userName.setText(du.getNickname());
+            }
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("mytag Main", "안됨 fail : " + t.toString());
+            }
+        });
+
+
+
 
         if(num.equals("2")){
             String City=intent.getStringExtra("city");
             String start_date=intent.getStringExtra("start_date");
             String finish_date=intent.getStringExtra("finish_date");
+            String userEmail2=intent.getStringExtra("userEmail");
+
 
             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
             LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
@@ -292,7 +330,6 @@ public class Main_List extends AppCompatActivity {
 
             mArrayList = new ArrayList<>();
             mAdapter = new CustomAdapter( mArrayList);
-
             mRecyclerView.setAdapter(mAdapter);
 
 
@@ -314,7 +351,6 @@ public class Main_List extends AppCompatActivity {
         hamburger.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "햄버거 액티비티 아직 안만듬", Toast.LENGTH_LONG).show();
 
                 drawer.openDrawer(GravityCompat.START) ;
 

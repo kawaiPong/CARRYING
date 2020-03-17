@@ -162,20 +162,19 @@ public class SignInActivity extends BaseActivity {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
                             User du = response.body();
-                            Log.d("mytag 됨", du.toString());
+                            Log.d("mytag 됨 Sign", du.toString());
                             Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
                             if(ed_text2.equals(du.getPassword())){
-                                Log.d("mytag 됨",ed_text2+"::"+du.getPassword()+":이메일은:"+ed_text1);
+                                Log.d("mytag 됨 Sign",ed_text2+"::"+du.getPassword()+":이메일은:"+ed_text1);
                                 Intent intent=new Intent(getApplicationContext(), Main_List.class);
-                                intent.putExtra("num","1");
                                 intent.putExtra("email",du.getEmail());
-                                intent.putExtra("nickname",du.getNickname());
+                                intent.putExtra("num","1");
                                 startActivity(intent);
                             }
                         }
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
-                            Log.d("mytag", "안됨 fail : " + t.toString());
+                            Log.d("mytag Sign", "안됨 fail : " + t.toString());
                         }
                     });
 

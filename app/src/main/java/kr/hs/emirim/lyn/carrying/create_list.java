@@ -30,8 +30,8 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
     Button start_date;
     Button finish_date;
-    public int sy=0, sm=0, sd=0;
-    public int fy=0, fm=0,fd=0;
+    public int sy=0, sm=0, sd=0;//출발날짜
+    public int fy=0, fm=0,fd=0;//도착날짜
     public int Today_year,Today_month,Today_date;
 
     Calendar cal=Calendar.getInstance();
@@ -46,12 +46,14 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_list);
 
+        Intent intent=getIntent();
+        String userEmail=intent.getStringExtra("userEmail");//서버와 접촉할때 사용
 
         EditText City=(EditText) findViewById(R.id.city);;
 
         Today_year=cal.get(Calendar.YEAR);
-        Today_month=cal.get(Calendar.MONTH)+1;
-        Today_date=cal.get(Calendar.DAY_OF_WEEK);
+        Today_month=cal.get(Calendar.MONTH);
+        Today_date=cal.get(Calendar.DAY_OF_MONTH);
 
 //        City=findViewById(R.id.City);
         start_date=findViewById(R.id.start_date);
@@ -87,6 +89,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
                 }
                 else{
+                    intent.putExtra("userName",userEmail);
                     intent.putExtra("num","2");
                     intent.putExtra("city",City.getText().toString());
 //                    intent.putExtra("city","오사카");
@@ -200,7 +203,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         },Today_year, Today_month, Today_date);
 
-        datePickerDialog.setMessage("메시지");
+        datePickerDialog.setMessage("출발일");
         datePickerDialog.show();
     }
 
@@ -216,7 +219,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         },Today_year, Today_month, Today_date);
 
-        datePickerDialog.setMessage("메시지");
+        datePickerDialog.setMessage("도착일");
         datePickerDialog.show();
     }
 

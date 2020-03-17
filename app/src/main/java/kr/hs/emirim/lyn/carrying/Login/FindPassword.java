@@ -70,7 +70,8 @@ public class FindPassword extends AppCompatActivity {
                     public void onFailure(Call<User> call, Throwable t) {
                         Log.d("mytag", "안됨 fail : " + t.toString());
                     }
-                });            }
+                });
+            }
         });
 
         Re.setOnClickListener(new View.OnClickListener() {
