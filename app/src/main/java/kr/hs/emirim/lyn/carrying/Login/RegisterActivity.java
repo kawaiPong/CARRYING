@@ -36,7 +36,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_register);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.219.142:3000")
+                .baseUrl("http://192.168.219.142:4000")
 //                .baseUrl("http://localhost:1234")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -108,6 +108,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 String Email = EmailE.getText().toString().trim();
                 String Password = PasswordE.getText().toString().trim();
                 String CheckPassword = CheckPasswordE.getText().toString().trim();
+                int gender=1;
 
                 if ((NickName.length() == 0) ||
                         (Email.length() == 0) ||
@@ -118,7 +119,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 } else {
                     if (Password.equals(CheckPassword)) {
 
-                        Call<User> apiCall = apiService.postData("32123",NickName,Email,Password,1);
+                        Call<User> apiCall = apiService.postData("32123",NickName,Email,Password,gender);
 
                         apiCall.enqueue(new Callback<User>() {
                             @Override

@@ -35,14 +35,14 @@ public class FindPassword extends AppCompatActivity {
         EditText pwr=(EditText)findViewById(R.id.et_passwordre);
         EditText eemail=(EditText)findViewById(R.id.et_eamil);
 
+
+
         Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://192.168.9.40:1234")
-                .baseUrl("http://192.168.219.142:3000")
+                .baseUrl("http://192.168.219.142:4000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-//        Call<User> apiCall = apiService.postData(nickname,uid,email,password,1);
 
 
         back.setOnClickListener(new View.OnClickListener(){
@@ -64,7 +64,7 @@ public class FindPassword extends AppCompatActivity {
                         User du = response.body();
                         Log.d("mytag ","됨 ok : "+ du.toString());
                         Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
-                        Toast.makeText(getApplicationContext(), "당신의 비밀번호는"+du.getPassword()+"입니다.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "확인된 이메일", Toast.LENGTH_LONG).show();
                     }
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
@@ -75,18 +75,42 @@ public class FindPassword extends AppCompatActivity {
             }
         });
 
+
         Re.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if((pw.getText().toString()).equals(pwr.getText().toString())){
-                    Toast.makeText(getApplicationContext(), "확인되었습니다.", Toast.LENGTH_LONG).show();
-                    finish();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+                                  @Override
+                                  public void onClick(View v) {
+                                      if ((pw.getText().toString()).equals(pwr.getText().toString())) {
+
+                                          Call<User> apiCall = apiService.postUpdataPassword(email, pw.getText().toString());
+
+                                          apiCall.enqueue(new Callback<User>() {
+                                              @Override
+                                              public void onResponse(Call<User> call, Response<User> response) {
+                                                  User du = response.body();
+//                                                  Log.d("mytag ", "됨 ok : " + du.toString());
+
+                                                  Toast.makeText(getApplicationContext(), "변경되었습니다.", Toast.LENGTH_LONG).show();
+                                                  finish();
+                                              }
+
+                                              @Override
+                                              public void onFailure(Call<User> call, Throwable t) {
+                                                  Log.d("ChangePassword", "안됨 fail : " + t.toString());
+                                                  Toast.makeText(getApplicationContext(), "변경 실패", Toast.LENGTH_LONG).show();
+                                              }
+
+
+                                          });
+
+                                      }
+                                  }
+
+
+                              });
+
+        ///
 
     }
+
+
 }
