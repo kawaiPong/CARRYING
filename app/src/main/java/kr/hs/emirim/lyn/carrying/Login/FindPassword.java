@@ -21,7 +21,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class FindPassword extends AppCompatActivity {
-
+//비밀번호 변경 클래스
     static int checkButton_pressed = 0;
     static String email="";
     @Override
@@ -68,7 +68,8 @@ public class FindPassword extends AppCompatActivity {
                     }
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Log.d("mytag", "안됨 fail : " + t.toString());
+                        Log.d("ChangePassword", "안됨 fail : " + t.toString());
+                        Toast.makeText(getApplicationContext(), "해당 이메일이 없습니다.", Toast.LENGTH_LONG).show();
                     }
                 });
             }

@@ -175,6 +175,8 @@ public class SignInActivity extends BaseActivity {
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
                             Log.d("mytag Sign", "안됨 fail : " + t.toString());
+                            Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+
                         }
                     });
 

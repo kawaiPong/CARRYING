@@ -118,7 +118,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 } else {
                     if (Password.equals(CheckPassword)) {
 
-                        Call<User> apiCall = apiService.postData(NickName,"33443",Email,Password,1);
+                        Call<User> apiCall = apiService.postData("32123",NickName,Email,Password,1);
 
                         apiCall.enqueue(new Callback<User>() {
                             @Override
@@ -131,6 +131,8 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                             @Override
                             public void onFailure(Call<User> call, Throwable t) {
                                 Log.d("mytag", "안됨 fail : " + t.toString());
+                                Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_LONG).show();
+
                             }
                         });
 

@@ -54,9 +54,8 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
         Today_year=cal.get(Calendar.YEAR);
         Today_month=cal.get(Calendar.MONTH);
-        Today_date=cal.get(Calendar.DAY_OF_MONTH);
+        Today_date=cal.get((Calendar.DAY_OF_MONTH)+1);
 
-//        City=findViewById(R.id.City);
         start_date=findViewById(R.id.start_date);
         finish_date=findViewById(R.id.finish_date);
 

@@ -29,11 +29,9 @@ public interface RetrofitExService {
     @GET("/user/readUser/{email}")
     Call<User>getDataEmail(@Path("email")String email);
 
-    @GET("/posts")
-    Call<List<User>> getData2(@Query("userId") String userId);
 
-    @POST("/user/addUser")
-    Call<User> postData(@Query("nickname") String nickname,@Query("uid") String uid,@Query("email") String email,@Query("password") String password, @Query("gender") int gender );
+    @POST("/user/addUser/{uid}/{nickname}/{email}/{password)/{gender}")
+    Call<User> postData(@Query("uid") String uid,@Query("nickname") String nickname,@Query("email") String email,@Query("password") String password,@Query("gender") int gender );
 
 
     @PUT("/posts/1")
