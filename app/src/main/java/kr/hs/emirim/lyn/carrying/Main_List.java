@@ -245,25 +245,67 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class Main_List extends AppCompatActivity {
     private ArrayList<Dictionary> mArrayList;
     private CustomAdapter mAdapter;
     private int count = -1;
     Intent intent;
+
+
+
+
+    //날씨 api
+    private static final String TAG = "api";
+    public static final int LOAD_SUCCESS = 101;
+
+    private String SEARCH_URL="https://api.openweathermap.org/data/2.5/forecast?q=";
+    private String API_KEY="&appid=ea055b19951a1369222227e310411249";
+    private String City="Jeju";
+    private String Country="kr";
+    private String REQUEST_URL = SEARCH_URL+City+","+Country+API_KEY;
+
+    private ProgressDialog progressDialog = null;
+    private SimpleAdapter adapter = null;
+    private List<HashMap<String,String>> photoinfoList = null;
+    private EditText searchKeyword = null;
+    ///
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -287,11 +329,9 @@ public class Main_List extends AppCompatActivity {
         Log.d("mytag Main","됨 ok : "+num+"과"+user_email);
 
 
-/////
-
         Retrofit retrofit = new Retrofit.Builder()
 //                .baseUrl("http://192.168.9.40:1234")
-                .baseUrl("http://192.168.219.142:3000")
+                .baseUrl("http://192.168.219.142:4000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -348,6 +388,9 @@ public class Main_List extends AppCompatActivity {
         }
 
 
+        getJSON();
+
+
         hamburger.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -391,36 +434,122 @@ public class Main_List extends AppCompatActivity {
         });
 
 
-//        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-//        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                switch(menuItem.getItemId()) {
-//                    case R.id.test1:
-//// replace the FrameLayout with new Fragment
-//                        fragmentTransaction.replace(R.id.fragment_container, new TestFragment());
-//                        fragmentTransaction.commit(); // save the changes
-//                        break;
-//                    case R.id.test2:
-//// replace the FrameLayout with new Fragment
-//                        fragmentTransaction.replace(R.id.fragment_container, new TestFragment2());
-//                        fragmentTransaction.commit(); // save the changes
-//                        break;
-//                }
-//                drawer.closeDrawer(Gravity.LEFT);
-//
-//                return true;
-//            }
-//        });
-
-
-// create a FragmentTransaction to begin the transaction and replace the Fragment
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//// replace the FrameLayout with new Fragment
-//        fragmentTransaction.replace(R.id.fragment_container, new TestFragment());
-//        fragmentTransaction.commit(); // save the changes
 
 
     }
+
+
+
+
+
+    public void getJSON(){
+        Log.d(TAG, "getJSON");
+
+        Thread thread = new Thread(new Runnable() {
+
+            public void run() {
+
+                String result;
+
+                try {
+
+                    Log.d(TAG, REQUEST_URL);
+                    URL url = new URL(REQUEST_URL);
+                    HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+
+
+                    httpsURLConnection.setReadTimeout(3000);
+                    httpsURLConnection.setConnectTimeout(3000);
+                    httpsURLConnection.setDoOutput(true);
+                    httpsURLConnection.setDoInput(true);
+                    httpsURLConnection.setRequestMethod("GET");
+                    httpsURLConnection.setUseCaches(false);
+                    httpsURLConnection.connect();
+
+
+                    int responseStatusCode = httpsURLConnection.getResponseCode();
+
+                    InputStream inputStream;
+                    if (responseStatusCode == HttpsURLConnection.HTTP_OK) {
+
+                        inputStream = httpsURLConnection.getInputStream();
+                    } else {
+                        inputStream = httpsURLConnection.getErrorStream();
+                    }
+
+
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                    }
+
+                    bufferedReader.close();
+                    httpsURLConnection.disconnect();
+
+                    result = sb.toString().trim();
+                    // Log.d(TAG,result);
+
+                } catch (Exception e) {
+                    result = e.toString();
+                }
+
+
+
+                jsonParser(result);
+
+
+            }
+
+        });
+        thread.start();
+    }
+
+
+
+
+
+
+    public boolean jsonParser(String jsonString) {
+
+        Log.d(TAG, "jsonParser");
+        if (jsonString == null) return false;
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray list = jsonObject.getJSONArray("list");
+            for (int i = 0; i < list.length(); i++) {
+                JSONObject o = list.getJSONObject(i);
+                JSONObject main = o.getJSONObject("main");
+                Double temp = main.getDouble("temp");
+                Double feelsLike = main.getDouble("feels_like");
+                Double tempMin = main.getDouble("temp_min");
+                Double tempMax = main.getDouble("temp_max");
+
+                String data = o.getString("dt_txt");
+
+                JSONObject weatherInfo = o.getJSONArray("weather").getJSONObject(0);
+                String weatherMain = weatherInfo.getString("main");
+                String weatherDescription = weatherInfo.getString("description");
+                Log.d(TAG, data.toString());
+                Log.d(TAG, temp.toString());
+                Log.d(TAG, weatherDescription.toString());
+            }
+            Log.d(TAG, "온도가져오기 끝 잘됨");
+            return true;
+        } catch (JSONException e) {
+            Log.d(TAG, e.toString());
+        }
+
+        return false;
+
+    }
+
+
+
 }
