@@ -388,7 +388,7 @@ public class Main_List extends AppCompatActivity {
         }
 
 
-        getJSON();
+        getJSON();//api
 
 
         hamburger.setOnClickListener(new View.OnClickListener(){
@@ -530,7 +530,7 @@ public class Main_List extends AppCompatActivity {
                 Double feelsLike = main.getDouble("feels_like");
                 Double tempMin = main.getDouble("temp_min");
                 Double tempMax = main.getDouble("temp_max");
-
+                temp-=273.15;
                 String data = o.getString("dt_txt");
 
                 JSONObject weatherInfo = o.getJSONArray("weather").getJSONObject(0);
@@ -539,6 +539,7 @@ public class Main_List extends AppCompatActivity {
                 Log.d(TAG, data.toString());
                 Log.d(TAG, temp.toString());
                 Log.d(TAG, weatherDescription.toString());
+
             }
             Log.d(TAG, "온도가져오기 끝 잘됨");
             return true;
