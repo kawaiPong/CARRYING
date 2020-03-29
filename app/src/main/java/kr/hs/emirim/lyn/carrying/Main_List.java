@@ -291,9 +291,9 @@ public class Main_List extends AppCompatActivity {
     private static final String TAG = "api";
     public static final int LOAD_SUCCESS = 101;
 
-    private String SEARCH_URL="https://api.openweathermap.org/data/2.5/forecast?q=";
+    private String SEARCH_URL="https://api.openweathermap.org/data/2.5/weather?q=";
     private String API_KEY="&appid=ea055b19951a1369222227e310411249";
-    private String City="Jeju";
+    private String City="Seoul";
     private String Country="kr";
     private String REQUEST_URL = SEARCH_URL+City+","+Country+API_KEY;
 
@@ -304,6 +304,8 @@ public class Main_List extends AppCompatActivity {
     ///
 
 
+    public static String current_temp="30";
+    public static String current_description;
 
 
 
@@ -320,6 +322,8 @@ public class Main_List extends AppCompatActivity {
         Button pwChange=(Button)findViewById(R.id.PasswordChange);
         TextView userName=(TextView)findViewById(R.id.userName);
         TextView userEmail=(TextView)findViewById(R.id.userEmail);
+
+        TextView now_temp=(TextView)findViewById(R.id.now_temp);
 
         intent=getIntent();
 //        String user_email=intent.getStringExtra("email");
@@ -389,6 +393,10 @@ public class Main_List extends AppCompatActivity {
 
 
         getJSON();//api
+//        Log.d("sowon",current_temp);
+        now_temp.setText(current_temp);
+
+//////////////////////////////////////
 
 
         hamburger.setOnClickListener(new View.OnClickListener(){
@@ -521,31 +529,30 @@ public class Main_List extends AppCompatActivity {
         if (jsonString == null) return false;
 
         try {
+            Log.d(TAG, "안뇽");
             JSONObject jsonObject = new JSONObject(jsonString);
-            JSONArray list = jsonObject.getJSONArray("list");
-            for (int i = 0; i < list.length(); i++) {
-                JSONObject o = list.getJSONObject(i);
-                JSONObject main = o.getJSONObject("main");
-                Double temp = main.getDouble("temp");
-                Double feelsLike = main.getDouble("feels_like");
-                Double tempMin = main.getDouble("temp_min");
-                Double tempMax = main.getDouble("temp_max");
-                temp-=273.15;
-                String data = o.getString("dt_txt");
+            Log.d(TAG, "안뇽안뇽");
+            JSONArray list =jsonObject.getJSONArray("weather");
+            JSONObject weather=list.getJSONObject(0);
+            String des=weather.getString("description");
+            JSONObject temp= jsonObject.getJSONObject("main");
+            Double notemp=temp.getDouble("temp");
+            notemp-=273.15;
+            current_temp=notemp.toString();
+            current_description=des;
+            Log.d(TAG,des.toString());
+            Log.d(TAG,notemp.toString());
+            Log.d(TAG, "안뇽안뇽안뇽");
 
-                JSONObject weatherInfo = o.getJSONArray("weather").getJSONObject(0);
-                String weatherMain = weatherInfo.getString("main");
-                String weatherDescription = weatherInfo.getString("description");
-                Log.d(TAG, data.toString());
-                Log.d(TAG, temp.toString());
-                Log.d(TAG, weatherDescription.toString());
 
-            }
-            Log.d(TAG, "온도가져오기 끝 잘됨");
             return true;
         } catch (JSONException e) {
-            Log.d(TAG, e.toString());
+
+            Log.d(TAG, e.toString() );
+
         }
+
+
 
         return false;
 
