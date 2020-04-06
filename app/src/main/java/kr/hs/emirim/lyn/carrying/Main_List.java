@@ -245,6 +245,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -279,12 +280,13 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 public class Main_List extends AppCompatActivity {
+
     private ArrayList<Dictionary> mArrayList;
     private CustomAdapter mAdapter;
     private int count = -1;
     Intent intent;
 
-
+    public static Activity Main_List;
 
 
     //날씨 api
@@ -313,6 +315,8 @@ public class Main_List extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__list);
+
+        Main_List=Main_List.this;
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout) ;
         Button hamburger=(Button)findViewById(R.id.hamburger);
@@ -437,7 +441,9 @@ public class Main_List extends AppCompatActivity {
         editInfo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent=new Intent(Main_List.this,)
+                Intent intent=new Intent(Main_List.this,Change_info.class);
+                intent.putExtra("email",user_email);
+                startActivity(intent);
             }
         });
 

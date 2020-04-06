@@ -98,7 +98,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
             public void onClick(View v) {
 
 
-                EditText NickNameE = (EditText) findViewById(R.id.et_name);
+                EditText NickNameE = (EditText) findViewById(R.id.et_name_changeU);
                 EditText EmailE = (EditText) findViewById(R.id.et_eamil);
                 EditText PasswordE = (EditText) findViewById(R.id.et_password);
                 EditText CheckPasswordE = (EditText) findViewById(R.id.et_passwordre);

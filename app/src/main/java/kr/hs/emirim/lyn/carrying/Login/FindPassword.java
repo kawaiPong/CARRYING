@@ -1,18 +1,16 @@
 package kr.hs.emirim.lyn.carrying.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
-import kr.hs.emirim.lyn.carrying.Main_List;
+
 import kr.hs.emirim.lyn.carrying.R;
 import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
 import kr.hs.emirim.lyn.carrying.Retrofit.User;
-import kr.hs.emirim.lyn.carrying.create_list;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,12 +28,17 @@ public class FindPassword extends AppCompatActivity {
         setContentView(R.layout.activity_find_password);
         Button back = (Button)findViewById(R.id.backbtn);
         Button Re=(Button)findViewById(R.id.joinbtn);
-        Button check=(Button)findViewById(R.id.okEmail);
+        Button check=(Button)findViewById(R.id.okNickname);
         EditText pw=(EditText)findViewById(R.id.et_password);
         EditText pwr=(EditText)findViewById(R.id.et_passwordre);
         EditText eemail=(EditText)findViewById(R.id.et_eamil);
 
-
+        back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.219.142:4000")
@@ -45,12 +48,7 @@ public class FindPassword extends AppCompatActivity {
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
 
 
-        back.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
 
         check.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -101,6 +99,10 @@ public class FindPassword extends AppCompatActivity {
 
 
                                           });
+
+                                      }
+                                      else{
+                                          Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다", Toast.LENGTH_LONG).show();
 
                                       }
                                   }

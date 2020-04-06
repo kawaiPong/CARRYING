@@ -28,12 +28,17 @@ public interface RetrofitExService {
     @GET("/user/existEmail/{email}")
     Call<User>getDataEmail(@Path("email")String email);
 
+    @GET("/user/existNickname/{nickname}")
+    Call<User>getDataNickname(@Path("nickname")String nickname);
 
     @POST("/user/addUser/{uid}/{nickname}/{email}/{password}/{gender}")
     Call<User> postData(@Path("uid") String uid,@Path("nickname") String nickname,@Path("email") String email,@Path("password") String password,@Path("gender")int gender );
 
     @POST("/user/updatePassword/{email}/{password}")
     Call<User> postUpdataPassword(@Path("email") String email,@Path("password") String password);
+
+    @POST("/user/updateUser/{uid}/{nickname}/{email}/{password}/{gender}")
+    Call<User> postUpdateUser(@Path("uid") String uid,@Path("nickname") String nickname,@Path("email") String email,@Path("password") String password,@Path("gender")int gender );
 
     @PUT("/posts/1")
     Call<User> putData(@Body User param);
