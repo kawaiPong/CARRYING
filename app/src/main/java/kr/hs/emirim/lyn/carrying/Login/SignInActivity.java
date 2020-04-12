@@ -151,7 +151,7 @@ public class SignInActivity extends BaseActivity {
 
                 } else {
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://192.168.219.142:4000")
+                            .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000")
 //                            .baseUrl("http://localhost:1234")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
