@@ -54,9 +54,9 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-        
+
         auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -116,7 +116,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                         auth.createUserWithEmailAndPassword(Email, Password)
                                 .addOnCompleteListener(RegisterActivity.this, task -> {
                                     if (task.isSuccessful()) {
-
+                                        user = auth.getCurrentUser();
                                         uid = user.getUid();
 
                                         Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
