@@ -30,8 +30,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
-    private FirebaseAuth auth;
-    private FirebaseUser user;
+    public FirebaseAuth auth;
+    public FirebaseUser user;
     Spinner spinner;
     String[] item;
     String uid;
@@ -42,6 +42,9 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(1, TimeUnit.MINUTES)
                 .readTimeout(30, TimeUnit.SECONDS)
@@ -50,13 +53,12 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000").client(okHttpClient)
-//                .baseUrl("http://localhost:1234").
+//                .baseUrl("http://192.168.219.142:4000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
         
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -113,12 +115,16 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 } else {
                     if (Password.equals(CheckPassword)) {
 
+
+
                         auth.createUserWithEmailAndPassword(Email, Password)
                                 .addOnCompleteListener(RegisterActivity.this, task -> {
+
                                     if (task.isSuccessful()) {
-
-                                        uid = user.getUid();
-
+                                        Log.d("firebase2", "안"+Email+Password);
+                                        Log.d("firebase2", auth.getUid());
+                                        uid = auth.getUid();
+                                        Log.d("mytag 됨", uid);
                                         Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
 
                                         apiCall.enqueue(new Callback<User>() {
@@ -127,9 +133,6 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                                                 User du = response.body();
                                                 Log.d("mytag 됨", du.toString());
                                                 Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
-
-
-
                                             }
                                             @Override
                                             public void onFailure(Call<User> call, Throwable t) {
@@ -139,7 +142,9 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                                             }
                                         });
                                         Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
+                                        Log.d("firebase2", "signinactivity");
                                         startActivity(intent);
+                                        Log.d("firebase2", "signinactivity");
                                         finish();
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "등록 에러", Toast.LENGTH_SHORT).show();

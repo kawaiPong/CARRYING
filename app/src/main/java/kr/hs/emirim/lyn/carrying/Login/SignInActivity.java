@@ -44,8 +44,8 @@ public class SignInActivity extends BaseActivity {
     private LoginCallback mLoginCallback;
     private CallbackManager mCallbackManager;
 
-    EditText SignIn_email;
-    EditText SignIn_pw;
+//    EditText SignIn_email;
+//    EditText SignIn_pw;
     Button SignIn_btn;
     Button checkPW_btn;
     Button SignUp_btn;
@@ -56,7 +56,20 @@ public class SignInActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        init();
+
+        mCallbackManager = CallbackManager.Factory.create();
+        mLoginCallback = new LoginCallback();
+
+        SignIn_btn = (Button) (findViewById(R.id.Signin));
+//        final EditText SignIn_email = (EditText) (findViewById(R.id.signin_email));
+//        final EditText SignIn_pw = (EditText) (findViewById(R.id.signIn_pw));
+        checkPW_btn = (Button) (findViewById(R.id.check));
+        SignUp_btn = (Button) (findViewById(R.id.signup));
+        fb_btn = (LoginButton) findViewById(R.id.btn_facebook_login);
+        fb_btn.setPermissions(Arrays.asList("public_profile", "email"));
+        fb_btn.registerCallback(mCallbackManager, mLoginCallback);
+        anonymous = (Button) (findViewById(R.id.anonymous));
+
         SetListener();
         auth = FirebaseAuth.getInstance();
 
@@ -86,18 +99,25 @@ public class SignInActivity extends BaseActivity {
 
         SignIn_btn.setOnClickListener(new View.OnClickListener() {
 
-            String id = SignIn_email.getText().toString().trim();
-            String password = SignIn_pw.getText().toString().trim();
-
             @Override
             public void onClick(View view) {
+                EditText SignIn_email = (EditText) (findViewById(R.id.signin_email));
+                EditText SignIn_pw = (EditText) (findViewById(R.id.signIn_pw));
+
+                String id = SignIn_email.getText().toString().trim();
+                String password = SignIn_pw.getText().toString().trim();
+
+                Log.d("sisisisi", id+":::"+password);
+
                 if ((id.length() == 0) || (password.length() == 0)) {
                     Toast.makeText(getApplicationContext(), "이메일과 비밀번호를 다시확인해주세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), SignIn_pw.getText().toString().trim()+":::"+SignIn_pw.getText().toString().trim(), Toast.LENGTH_LONG).show();
+
 
                 } else {
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000")
-//                            .baseUrl("http://localhost:1234")
+                           .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000")
+//                            .baseUrl("http://192.168.219.142:4000")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
 
@@ -124,7 +144,7 @@ public class SignInActivity extends BaseActivity {
 
                         }
                     });
-                    signIn_email(id, password);
+//                    signIn_email(id, password);
                 }
 
             }
@@ -156,41 +176,30 @@ public class SignInActivity extends BaseActivity {
 
     //find
     private void init() {
-        mCallbackManager = CallbackManager.Factory.create();
-        mLoginCallback = new LoginCallback();
 
-        SignIn_btn = (Button) (findViewById(R.id.Signin));
-        SignIn_email = (EditText) (findViewById(R.id.signin_email));
-        SignIn_pw = (EditText) (findViewById(R.id.signIn_pw));
-        checkPW_btn = (Button) (findViewById(R.id.check));
-        SignUp_btn = (Button) (findViewById(R.id.signup));
-        fb_btn = (LoginButton) findViewById(R.id.btn_facebook_login);
-        fb_btn.setPermissions(Arrays.asList("public_profile", "email"));
-        fb_btn.registerCallback(mCallbackManager, mLoginCallback);
-        anonymous = (Button) (findViewById(R.id.anonymous));
     }
 
-    private void signIn_email(String id, String password) {
-        auth.signInWithEmailAndPassword(id, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            Log.d(TAG, "이메일 로그인 버튼");
-                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(SignInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-        // [END sign_in_with_email]
-    }
+//    private void signIn_email(String id, String password) {
+//        auth.signInWithEmailAndPassword(id, password)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign in success, update UI with the signed-in user's information
+//                            Log.d(TAG, "signInWithEmail:success");
+//                            Log.d(TAG, "이메일 로그인 버튼");
+//                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+//                            startActivity(intent);
+//                        } else {
+//                            // If sign in fails, display a message to the user.
+//                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+//                            Toast.makeText(SignInActivity.this, "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//        // [END sign_in_with_email]
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
