@@ -13,10 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import kr.hs.emirim.lyn.carrying.R;
 import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
 import kr.hs.emirim.lyn.carrying.Retrofit.User;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,8 +31,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RegisterActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
     private FirebaseAuth auth;
+    private FirebaseUser user;
     Spinner spinner;
     String[] item;
+    String uid;
 
 
     @Override
@@ -35,31 +42,21 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000")
-//                .baseUrl("http://localhost:1234")
+                .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000").client(okHttpClient)
+//                .baseUrl("http://localhost:1234").
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-
-
-
+        
         auth = FirebaseAuth.getInstance();
-
-        String email = "ghddnjf2901@gmail.com".trim();
-        String pw = "dnjs290112sb*".trim();
-
-        auth.createUserWithEmailAndPassword(email, pw)
-                .addOnCompleteListener(RegisterActivity.this, task -> {
-                    if (task.isSuccessful()) {
-                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "등록 에러", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                });
+        user = auth.getCurrentUser();
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -106,6 +103,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 String CheckPassword = CheckPasswordE.getText().toString().trim();
                 int gender=1;
 
+
                 if ((NickName.length() == 0) ||
                         (Email.length() == 0) ||
                         (Password.length() == 0) ||
@@ -115,33 +113,44 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 } else {
                     if (Password.equals(CheckPassword)) {
 
-                        Call<User> apiCall = apiService.postData("321233",NickName,Email,Password,gender);
+                        auth.createUserWithEmailAndPassword(Email, Password)
+                                .addOnCompleteListener(RegisterActivity.this, task -> {
+                                    if (task.isSuccessful()) {
 
-                        apiCall.enqueue(new Callback<User>() {
-                            @Override
-                            public void onResponse(Call<User> call, Response<User> response) {
-                                User du = response.body();
-                                Log.d("mytag 됨", du.toString());
-                                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
+                                        uid = user.getUid();
 
-                            }
-                            @Override
-                            public void onFailure(Call<User> call, Throwable t) {
-                                Log.d("mytag", "안됨 fail : " + t.toString());
-                                Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_LONG).show();
+                                        Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
 
-                            }
-                        });
+                                        apiCall.enqueue(new Callback<User>() {
+                                            @Override
+                                            public void onResponse(Call<User> call, Response<User> response) {
+                                                User du = response.body();
+                                                Log.d("mytag 됨", du.toString());
+                                                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
 
 
 
-                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
-                        startActivity(intent);
+                                            }
+                                            @Override
+                                            public void onFailure(Call<User> call, Throwable t) {
+                                                Log.d("mytag", "안됨 fail : " + t.toString());
+                                                Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, "등록 에러", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
                     }
                     else{
                         Toast.makeText(getApplicationContext(), "비밀번호 확인이 일치하지 않습니다.", Toast.LENGTH_LONG).show();
                     }
-
                 }
             }
         });
