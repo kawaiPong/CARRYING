@@ -72,7 +72,6 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
         spinner.setAdapter(adapter);
 
-//        buttonLister();
 
         Button back = (Button) findViewById(R.id.backbtn);
         back.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +115,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 } else {
                     if (Password.equals(CheckPassword)) {
 
-                        Call<User> apiCall = apiService.postData("32123",NickName,Email,Password,gender);
+                        Call<User> apiCall = apiService.postData("321233",NickName,Email,Password,gender);
 
                         apiCall.enqueue(new Callback<User>() {
                             @Override

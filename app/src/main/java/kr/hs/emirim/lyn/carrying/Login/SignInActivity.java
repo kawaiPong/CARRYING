@@ -76,33 +76,33 @@ public class SignInActivity extends BaseActivity {
         init();
         SetListener();
 
-        callbackManager = CallbackManager.Factory.create();
-        fb_btn.setBackgroundResource(R.drawable.facebook);
-        fb_btn.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-        fb_btn.setCompoundDrawablePadding(0);
-        fb_btn.setPadding(0, 0, 0, 0);
-        fb_btn.setText("");
-        fb_btn.setPermissions("email", "public_profile");
-        fb_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-                Log.d(TAG, "페북 로그인 버튼");
-                Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-            }
-        });
+//        callbackManager = CallbackManager.Factory.create();
+//        fb_btn.setBackgroundResource(R.drawable.facebook);
+//        fb_btn.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+//        fb_btn.setCompoundDrawablePadding(0);
+//        fb_btn.setPadding(0, 0, 0, 0);
+//        fb_btn.setText("");
+//        fb_btn.setPermissions("email", "public_profile");
+//        fb_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+//                handleFacebookAccessToken(loginResult.getAccessToken());
+//                Log.d(TAG, "페북 로그인 버튼");
+//                Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                Log.d(TAG, "facebook:onCancel");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                Log.d(TAG, "facebook:onError", error);
+//            }
+//        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -198,18 +198,8 @@ public class SignInActivity extends BaseActivity {
         });
 
 
-        tt_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
 
-        gg_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn_google();
-            }
-        });
+
 
         anonymous.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,9 +223,6 @@ public class SignInActivity extends BaseActivity {
         SignIn_pw = (EditText) (findViewById(R.id.signIn_pw));
         checkPW_btn = (Button) (findViewById(R.id.check));
         SignUp_btn = (Button) (findViewById(R.id.signup));
-        fb_btn = (LoginButton) (findViewById(R.id.fb));
-        tt_btn = (Button) (findViewById(R.id.tt));
-        gg_btn = (Button) (findViewById(R.id.gg));
         anonymous = (Button) (findViewById(R.id.anonymous));
     }
 
