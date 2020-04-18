@@ -11,25 +11,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.facebooklogin.LoginCallback;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.zxing.common.StringUtils;
 
 
 import java.util.Arrays;
-import java.util.List;
 
 import kr.hs.emirim.lyn.carrying.MainActivity;
 import kr.hs.emirim.lyn.carrying.Main_List;
@@ -206,8 +197,7 @@ public class SignInActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // Pass the activity result back to the Facebook SDK
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
-        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-        startActivity(intent);
+
     }
 
     private void signInAnonymously() {
