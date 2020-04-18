@@ -1,5 +1,6 @@
 package com.example.facebooklogin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONObject;
 
 import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
+import kr.hs.emirim.lyn.carrying.MainActivity;
 
 public class LoginCallback extends AppCompatActivity implements FacebookCallback<LoginResult> {
 
@@ -36,6 +38,8 @@ public class LoginCallback extends AppCompatActivity implements FacebookCallback
     public void onSuccess(LoginResult loginResult) {
         Log.e("Callback :: ", "onSuccess");
         handleFacebookAccessToken(loginResult.getAccessToken());
+        Intent intent = new Intent(LoginCallback.this, MainActivity.class);
+        startActivity(intent);
     }
 
     // 로그인 창을 닫을 경우, 호출됩니다.
@@ -50,21 +54,6 @@ public class LoginCallback extends AppCompatActivity implements FacebookCallback
         Log.e("Callback :: ", "onError : " + error.getMessage());
     }
 
-    // 사용자 정보 요청
-    public void requestMe(AccessToken token) {
-        GraphRequest graphRequest = GraphRequest.newMeRequest(token,
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.e("result",object.toString());
-                    }
-                });
-
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email,gender,birthday");
-        graphRequest.setParameters(parameters);
-        graphRequest.executeAsync();
-    }
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
