@@ -149,11 +149,11 @@
         android:layout_marginTop="33dp"
         android:layout_marginEnd="105.7dp"
         android:layout_marginBottom="11dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/whiteBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="fitXY"
         app:srcCompat="@drawable/carrying" />
 
     <ImageView
@@ -167,26 +167,47 @@
         app:srcCompat="@drawable/devide_line" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/facebook_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="84.7dp"
+        android:layout_marginTop="141dp"
+        android:layout_marginEnd="84.7dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="2sp"
         android:text="Facebook 계정으로 간편 로그인을 할 수 있습니다."
-        android:textColor="#FFFFFF"
+        android:textColor="#e8e8e8"
         android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/facebook_login_btn"
+        app:layout_constraintBottom_toTopOf="@+id/fb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewdv"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@id/check"
+        app:layout_constraintVertical_bias="0.48000002" />
 
-    <Button
-        android:id="@+id/facebook_login_btn"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/facebook_login"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fb"
+        android:layout_width="314dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="68dp"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/anonymous"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/facebook_info"
+        tools:context=".MainActivity">
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_facebook_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/facebook_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
