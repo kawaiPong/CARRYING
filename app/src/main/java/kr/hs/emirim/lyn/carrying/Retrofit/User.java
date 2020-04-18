@@ -13,10 +13,21 @@ public class User {
                 '}';
     }
 
-    //    private int num;
-    private String nickname;
-    private String uid;
-    private String email;
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getEmail() {
         return email;
@@ -34,8 +45,23 @@ public class User {
         this.password = password;
     }
 
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    //    private int num;
+    private String nickname;
+    private String uid;
+    private String email;
     private String password;
     private int gender;
+
+
+
 
 
     public User(String nickname, String uid,String email, String password, int gender){
@@ -47,29 +73,7 @@ public class User {
     }
 
 
-    public String getNickname() {
-        return nickname;
-    }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
 
 
 }
