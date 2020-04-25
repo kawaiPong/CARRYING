@@ -36,7 +36,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
     Calendar cal=Calendar.getInstance();
 
-    
     final Context context = this;
     private ArrayList<Dictionary> mArrayList;
     private CustomAdapter mAdapter;
