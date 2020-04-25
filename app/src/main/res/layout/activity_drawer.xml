@@ -191,12 +191,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/today_date">
 
-            <Button
-                android:id="@+id/button2"
+            <ImageView
+                android:id="@+id/description_rainy"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:background="@drawable/weather_sunny"
+                android:background="@drawable/ic_weather_rain"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/description_cloudy"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/ic_weather_cloudy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/description_snowy"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/ic_weather_snowy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/description_sunny"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/ic_weather_sunny"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -210,7 +237,7 @@
                 android:textSize="52sp"
                 app:layout_constraintEnd_toStartOf="@+id/textView5"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/button2"
+                app:layout_constraintStart_toEndOf="@+id/description_sunny"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

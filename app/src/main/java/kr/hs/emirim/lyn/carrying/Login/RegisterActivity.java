@@ -30,8 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
-    private FirebaseAuth auth;
-    private FirebaseUser user;
+
     Spinner spinner;
     String[] item;
     String uid;
@@ -55,8 +54,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 .build();
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
         
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -113,11 +111,17 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 } else {
                     if (Password.equals(CheckPassword)) {
 
+                        FirebaseAuth auth;
+                        FirebaseUser user;
+                        auth = FirebaseAuth.getInstance();
+                        user = auth.getCurrentUser();
+
+                        Log.d("mytag 됨", Email+"+"+Password);
+                        Log.d("mytag 됨", auth.createUserWithEmailAndPassword(Email, Password).toString());
                         auth.createUserWithEmailAndPassword(Email, Password)
                                 .addOnCompleteListener(RegisterActivity.this, task -> {
                                     if (task.isSuccessful()) {
-
-                                        uid = user.getUid();
+                                        uid = auth.getUid();
 
                                         Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
 

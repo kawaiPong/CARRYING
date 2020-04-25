@@ -225,11 +225,9 @@
 
 package kr.hs.emirim.lyn.carrying;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -249,18 +247,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 //import com.google.android.material.navigation.NavigationView;
 
@@ -271,7 +264,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -303,11 +295,9 @@ public class Main_List extends AppCompatActivity {
     private SimpleAdapter adapter = null;
     private List<HashMap<String,String>> photoinfoList = null;
     private EditText searchKeyword = null;
-    ///
-
-
-    public static String current_temp="30";
-    public static String current_description;
+    static String current_temp=new String();
+    static String current_description;
+    
 
 
 
@@ -316,7 +306,10 @@ public class Main_List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__list);
 
+        
+        
         Main_List=Main_List.this;
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout) ;
         Button hamburger=(Button)findViewById(R.id.hamburger);
@@ -328,6 +321,15 @@ public class Main_List extends AppCompatActivity {
         TextView userEmail=(TextView)findViewById(R.id.userEmail);
 
         TextView now_temp=(TextView)findViewById(R.id.now_temp);
+        ImageView now_des_sunny=(ImageView)findViewById(R.id.description_sunny);
+        ImageView now_des_cloudy=(ImageView)findViewById(R.id.description_cloudy);
+        ImageView now_des_rainy=(ImageView)findViewById(R.id.description_rainy);
+        ImageView now_des_snowy=(ImageView)findViewById(R.id.description_snowy);
+
+        now_des_sunny.setVisibility(View.INVISIBLE);
+        now_des_cloudy.setVisibility(View.INVISIBLE);
+        now_des_rainy.setVisibility(View.INVISIBLE);
+        now_des_snowy.setVisibility(View.INVISIBLE);
 
         intent=getIntent();
 //        String user_email=intent.getStringExtra("email");
@@ -397,15 +399,21 @@ public class Main_List extends AppCompatActivity {
 
 
         getJSON();//api
-//        Log.d("sowon",current_temp);
-        now_temp.setText(current_temp);
 
-//////////////////////////////////////
+
+        Log.d("sowon","getJSON()함수 끝");
+
 
 
         hamburger.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                now_temp.setText(current_temp);
+                current_description="clouds";
+                if(current_description.equals("clear sky"))now_des_sunny.setVisibility(View.VISIBLE);
+                else if(current_description.contains("cloud"))now_des_cloudy.setVisibility(View.VISIBLE);
+                else if(current_description.contains("rain"))now_des_rainy.setVisibility(View.VISIBLE);
+                else if(current_description.contains("snow"))now_des_snowy.setVisibility(View.VISIBLE);
 
                 drawer.openDrawer(GravityCompat.START) ;
 
@@ -450,13 +458,14 @@ public class Main_List extends AppCompatActivity {
 
 
 
+
+
     }
 
 
-
-
-
     public void getJSON(){
+        Log.d("sowon","getJSON()함수 시작");
+
         Log.d(TAG, "getJSON");
 
         Thread thread = new Thread(new Runnable() {
@@ -531,6 +540,9 @@ public class Main_List extends AppCompatActivity {
 
     public boolean jsonParser(String jsonString) {
 
+        Log.d("sowon","parser 함수 시작");
+
+
         Log.d(TAG, "jsonParser");
         if (jsonString == null) return false;
 
@@ -544,10 +556,12 @@ public class Main_List extends AppCompatActivity {
             JSONObject temp= jsonObject.getJSONObject("main");
             Double notemp=temp.getDouble("temp");
             notemp-=273.15;
-            current_temp=notemp.toString();
+            int int_now_temp=notemp.intValue();
+            current_temp=String.valueOf(int_now_temp);
             current_description=des;
-            Log.d(TAG,des.toString());
-            Log.d(TAG,notemp.toString());
+            Log.d(TAG,current_description);//날씨 설명 clear sky같은거
+            Log.d(TAG,current_temp);//현재 온도
+
             Log.d(TAG, "안뇽안뇽안뇽");
 
 
@@ -563,6 +577,7 @@ public class Main_List extends AppCompatActivity {
         return false;
 
     }
+
 
 
 
