@@ -6,6 +6,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
+import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
+import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
+import kr.hs.emirim.lyn.carrying.Retrofit.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -88,14 +96,57 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                     Toast.makeText(getApplicationContext(), "빈칸이 있습니다.", Toast.LENGTH_LONG).show();
 
                 }
-                else{
-                    intent.putExtra("email",userEmail);
-                    intent.putExtra("num","2");
-                    intent.putExtra("city",City.getText().toString());
-//                    intent.putExtra("city","오사카");
-                    intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
-                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
+                else{//여기가 ㄹㅇ중요함
+
+
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000")
+//                .baseUrl("http://192.168.219.142:4000")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+
+                    Call<CheckList> apiCall = apiService.postCreateList(
+                            City.getText().toString()+"01",
+                            City.getText().toString()+"",//city
+                            sy+"-"+sm+"-"+sd,
+                            fy+"-"+fm+"-"+fd,
+                            "",
+                            ""
+                    );
+
+
+                    apiCall.enqueue(new Callback<CheckList>() {
+                        @Override
+                        public void onResponse(Call<CheckList> call, Response<CheckList> response) {
+                            CheckList du = response.body();
+                            Log.d("mytag ","됨 ok : "+ du.toString());
+                            Log.d("data.getListCity()  : ", du.getCity());
+                            Toast.makeText(getApplicationContext(), "확인된 이메일", Toast.LENGTH_LONG).show();
+                        }
+                        @Override
+                        public void onFailure(Call<CheckList> call, Throwable t) {
+                            Log.d("mytag", "안됨 fail : " + t.toString());
+                            Toast.makeText(getApplicationContext(), "해당 이메일이 없습니다.", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
+//                    intent.putExtra("email",userEmail);
+//                    intent.putExtra("num","2");
+//                    intent.putExtra("city",City.getText().toString());
+////                    intent.putExtra("city","오사카");
+//                    intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
+//                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
                     startActivity(intent);
+
+
+
+
+
+
+
                 }
             }
         });

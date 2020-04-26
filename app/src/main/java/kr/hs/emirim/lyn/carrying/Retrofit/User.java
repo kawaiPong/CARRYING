@@ -62,8 +62,6 @@ public class User {
 
 
 
-
-
     public User(String nickname, String uid,String email, String password, int gender){
         this.nickname=nickname;
         this.uid=uid;

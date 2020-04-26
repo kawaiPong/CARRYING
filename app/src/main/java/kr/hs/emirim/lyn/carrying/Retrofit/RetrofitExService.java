@@ -20,24 +20,44 @@ public interface RetrofitExService {
 
 //    String URL = "http://192.168.9.40:1234";
 
+//    @GET("/user/readUser/{email}")
+//    Call<User> getData(@Path("email") String email);
 
-    @GET("/user/readUser/{email}")
-    Call<User> getData(@Path("email") String email);
+    //로그인할 때
+    @GET("/user/readUser/{uid}")
+    Call<User> getData(@Path("uid") String email);
 
     @GET("/user/existEmail/{email}")
     Call<User>getDataEmail(@Path("email")String email);
 
+    //회원정보수정때 쓸
     @GET("/user/existNickname/{nickname}")
     Call<User>getDataNickname(@Path("nickname")String nickname);
 
+    //회원가입
     @POST("/user/addUser/{uid}/{nickname}/{email}/{password}/{gender}")
     Call<User> postData(@Path("uid") String uid,@Path("nickname") String nickname,@Path("email") String email,@Path("password") String password,@Path("gender")int gender );
 
+    //비밀번호 수정
     @POST("/user/updatePassword/{email}/{password}")
     Call<User> postUpdataPassword(@Path("email") String email,@Path("password") String password);
 
+    //
     @POST("/user/updateUser/{uid}/{nickname}/{email}/{password}/{gender}")
     Call<User> postUpdateUser(@Path("uid") String uid,@Path("nickname") String nickname,@Path("email") String email,@Path("password") String password,@Path("gender")int gender );
+
+    //새로운 list 만들기
+    @POST("/list/addList/{title}/{city}/{start_date}/{finish_date}/{uid}/{theme}")
+    Call<CheckList> postCreateList(@Path("title") String title,
+                              @Path("city") String city,
+                              @Path("start_date") String start_date,
+                              @Path("city") String finish_date,
+                              @Path("uid") String uid,
+                              @Path("theme") String theme);
+
+    //한 명의 회원의 전체 체크리스트 불러오기
+    @GET("/list/readAllList/{uid}")
+    Call<User> readAllList(@Path("uid")String uid);
 
     @PUT("/posts/1")
     Call<User> putData(@Body User param);

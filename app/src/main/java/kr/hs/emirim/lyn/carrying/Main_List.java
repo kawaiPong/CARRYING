@@ -367,6 +367,8 @@ public class Main_List extends AppCompatActivity {
 
 
         if(num.equals("2")){
+            //서버 연결하기 전 임시로 intent 한거라 수정해야함
+            //intent 필요없이 uid로 @GET 해서 리스트 가져와야함
             String City=intent.getStringExtra("city");
             String start_date=intent.getStringExtra("start_date");
             String finish_date=intent.getStringExtra("finish_date");
