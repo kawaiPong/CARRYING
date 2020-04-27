@@ -52,35 +52,43 @@ public class CheckList {
         this.uid = uid;
     }
 
-    private String uid;
 
+    public int getNum() {
+        return num;
+    }
 
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    private int num;
     private String title;
     private String city;
     private String start_date;
     private String finish_date;
+    private String uid;
     private String theme;
 
-
-    public CheckList(String uid, String title, String city, String start_date, String finish_date, String theme) {
-        this.uid = uid;
+    public CheckList(int num, String title, String city, String start_date, String finish_date, String uid, String theme) {
+        this.num = num;
         this.title = title;
         this.city = city;
         this.start_date = start_date;
         this.finish_date = finish_date;
+        this.uid = uid;
         this.theme = theme;
     }
 
     @Override
     public String toString() {
         return "CheckList{" +
-                "uid='" + uid + '\'' +
+                "num=" + num +
                 ", title='" + title + '\'' +
                 ", city='" + city + '\'' +
                 ", start_date='" + start_date + '\'' +
                 ", finish_date='" + finish_date + '\'' +
+                ", uid='" + uid + '\'' +
                 ", theme='" + theme + '\'' +
                 '}';
     }
-
 }

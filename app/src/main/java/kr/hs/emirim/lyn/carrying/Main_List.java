@@ -328,7 +328,6 @@ public class Main_List extends AppCompatActivity {
         now_des_snowy.setVisibility(View.INVISIBLE);
 
 
-        String uid="1234";
         intent=getIntent();
         String user_uid=intent.getExtras().getString("uid");
         String num=intent.getExtras().getString("num");
@@ -343,7 +342,7 @@ public class Main_List extends AppCompatActivity {
 
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
 //        Call<User> apiCall = apiService.getDataEmail(user_uid);
-        apiService.getDataEmail(user_uid).enqueue(new Callback<User>() {//drawer에 닉네임이랑 이메일 뜨게하기 위한 작업
+        apiService.getData(user_uid).enqueue(new Callback<User>() {//drawer에 닉네임이랑 이메일 뜨게하기 위한 작업
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                 User du = response.body();
@@ -376,8 +375,8 @@ public class Main_List extends AppCompatActivity {
 
 
 
-        Call<List<CheckList>> apiCallList = apiService.readAllList(uid);
-        apiService.readAllList(uid).enqueue(new Callback<List<CheckList>>() { //uid사용자의 전체 리스트를 불러오기 위한 작업
+        Call<List<CheckList>> apiCallList = apiService.readAllList(user_uid);
+        apiService.readAllList(user_uid).enqueue(new Callback<List<CheckList>>() { //uid사용자의 전체 리스트를 불러오기 위한 작업
             //근데 CheckList에 있는 값을 다 반환하는지는 모르겠음
             @Override
             public void onResponse(@NonNull Call<List<CheckList>> call, @NonNull Response<List<CheckList>> response) {
