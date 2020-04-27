@@ -225,6 +225,7 @@
 
 package kr.hs.emirim.lyn.carrying;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -234,6 +235,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import kr.hs.emirim.lyn.carrying.Login.FindPassword;
 import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
+import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
 import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
 import kr.hs.emirim.lyn.carrying.Retrofit.User;
 import retrofit2.Call;
@@ -297,19 +299,13 @@ public class Main_List extends AppCompatActivity {
     private EditText searchKeyword = null;
     static String current_temp=new String();
     static String current_description;
-    
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__list);
-
-        
         
         Main_List=Main_List.this;
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout) ;
         Button hamburger=(Button)findViewById(R.id.hamburger);
@@ -331,12 +327,12 @@ public class Main_List extends AppCompatActivity {
         now_des_rainy.setVisibility(View.INVISIBLE);
         now_des_snowy.setVisibility(View.INVISIBLE);
 
+
+        String uid="1234";
         intent=getIntent();
-//        String user_email=intent.getStringExtra("email");
-        String user_email=intent.getExtras().getString("email");
-//        String num=intent.getStringExtra("num");
+        String user_uid=intent.getExtras().getString("uid");
         String num=intent.getExtras().getString("num");
-        Log.d("mytag Main","됨 ok : "+num+"과"+user_email);
+//        Log.d("sowon Main_List","됨 ok : "+num+"과"+user_uid);
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -346,62 +342,109 @@ public class Main_List extends AppCompatActivity {
                 .build();
 
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-        Call<User> apiCall = apiService.getDataEmail(user_email);
-        apiCall.enqueue(new Callback<User>() {
+//        Call<User> apiCall = apiService.getDataEmail(user_uid);
+        apiService.getDataEmail(user_uid).enqueue(new Callback<User>() {//drawer에 닉네임이랑 이메일 뜨게하기 위한 작업
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                 User du = response.body();
-                Log.d("mytag Main","됨 ok : "+ du.toString());
-                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
+                Log.d("sowon drawer modify","됨 ok : "+ du.toString());
+                Log.d("data.getNickname() : ", du.getNickname() + "");
 
                 userEmail.setText(du.getEmail());
                 userName.setText(du.getNickname());
             }
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(@NonNull Call<User> call,@NonNull Throwable t) {
                 Log.d("mytag Main", "안됨 fail : " + t.toString());
             }
         });
 
 
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
 
-        if(num.equals("2")){
+        mArrayList = new ArrayList<>();
+        mAdapter = new CustomAdapter( mArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+                mLinearLayoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+
+
+
+        Call<List<CheckList>> apiCallList = apiService.readAllList(uid);
+        apiService.readAllList(uid).enqueue(new Callback<List<CheckList>>() { //uid사용자의 전체 리스트를 불러오기 위한 작업
+            //근데 CheckList에 있는 값을 다 반환하는지는 모르겠음
+            @Override
+            public void onResponse(@NonNull Call<List<CheckList>> call, @NonNull Response<List<CheckList>> response) {
+                List<CheckList> du = response.body();
+
+                if (du != null) {
+                    Dictionary[] data = new Dictionary[du.size()];//자동으로 해줌
+                    for (int i = 0; i < du.size(); i++) {
+                        data[i] = new Dictionary(du.get(i).getTitle(),du.get(i).getStart_date(), du.get(i).getFinish_date());
+
+                        //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
+                        mArrayList.add(data[i]); // RecyclerView의 마지막 줄에 삽입
+                    }
+                    Log.e("getData2 end", "======================================");
+                    mAdapter.notifyDataSetChanged();
+
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<CheckList>> call,@NonNull Throwable t) {
+
+            }
+
+        });
+
+
+
+        /*if(num.equals("2")){//
             //서버 연결하기 전 임시로 intent 한거라 수정해야함
             //intent 필요없이 uid로 @GET 해서 리스트 가져와야함
+
+
+
             String City=intent.getStringExtra("city");
             String start_date=intent.getStringExtra("start_date");
             String finish_date=intent.getStringExtra("finish_date");
             String userEmail2=intent.getStringExtra("userEmail");
 
 
-            RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
-            LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-            mRecyclerView.setLayoutManager(mLinearLayoutManager);
+//            RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
+//            LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+//            mRecyclerView.setLayoutManager(mLinearLayoutManager);
+//
+//
+//            mArrayList = new ArrayList<>();
+//            mAdapter = new CustomAdapter( mArrayList);
+//            mRecyclerView.setAdapter(mAdapter);
+//
+//
+//            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+//                    mLinearLayoutManager.getOrientation());
+//            mRecyclerView.addItemDecoration(dividerItemDecoration);
+//
+//
+//
+//            Dictionary data = new Dictionary(City,start_date, finish_date);
+//
+//            //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
+//            mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입
+//
+//            mAdapter.notifyDataSetChanged();
 
-
-            mArrayList = new ArrayList<>();
-            mAdapter = new CustomAdapter( mArrayList);
-            mRecyclerView.setAdapter(mAdapter);
-
-
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                    mLinearLayoutManager.getOrientation());
-            mRecyclerView.addItemDecoration(dividerItemDecoration);
-
-
-
-            Dictionary data = new Dictionary(City,start_date, finish_date);
-
-            //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
-            mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입
-
-            mAdapter.notifyDataSetChanged();
         }
-
+*/
 
         getJSON();//api
-
 
         Log.d("sowon","getJSON()함수 끝");
 
@@ -411,7 +454,6 @@ public class Main_List extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 now_temp.setText(current_temp);
-                current_description="clouds";
                 if(current_description.equals("clear sky"))now_des_sunny.setVisibility(View.VISIBLE);
                 else if(current_description.contains("cloud"))now_des_cloudy.setVisibility(View.VISIBLE);
                 else if(current_description.contains("rain"))now_des_rainy.setVisibility(View.VISIBLE);
@@ -434,7 +476,7 @@ public class Main_List extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Main_List.this, create_list.class);
-                intent.putExtra("email",user_email);
+                intent.putExtra("uid",user_uid);
                 startActivity(intent);
             }
         });
@@ -452,7 +494,7 @@ public class Main_List extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Main_List.this,Change_info.class);
-                intent.putExtra("email",user_email);
+                intent.putExtra("uid",user_uid);
                 startActivity(intent);
             }
         });

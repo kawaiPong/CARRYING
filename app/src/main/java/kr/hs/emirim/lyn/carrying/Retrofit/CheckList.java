@@ -44,6 +44,17 @@ public class CheckList {
         this.theme = theme;
     }
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    private String uid;
+
+
     private String title;
     private String city;
     private String start_date;
@@ -51,24 +62,25 @@ public class CheckList {
     private String theme;
 
 
-    @Override
-    public String toString() {
-        return "List{" +
-                "title='" + title + '\'' +
-                ", city='" + city + '\'' +
-                ", start_date='" + start_date + '\'' +
-                ", finish_date='" + finish_date + '\'' +
-                ", theme='" + theme + '\'' +
-                '}';
-    }
-
-
-    public CheckList(String title, String city, String start_date, String finish_date, String theme) {
+    public CheckList(String uid, String title, String city, String start_date, String finish_date, String theme) {
+        this.uid = uid;
         this.title = title;
         this.city = city;
         this.start_date = start_date;
         this.finish_date = finish_date;
         this.theme = theme;
+    }
+
+    @Override
+    public String toString() {
+        return "CheckList{" +
+                "uid='" + uid + '\'' +
+                ", title='" + title + '\'' +
+                ", city='" + city + '\'' +
+                ", start_date='" + start_date + '\'' +
+                ", finish_date='" + finish_date + '\'' +
+                ", theme='" + theme + '\'' +
+                '}';
     }
 
 }

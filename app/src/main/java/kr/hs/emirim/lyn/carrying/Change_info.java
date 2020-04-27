@@ -62,7 +62,7 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
 
 
         Intent intent=getIntent();
-        String userEmail=intent.getStringExtra("email");
+        String userUid=intent.getStringExtra("uid");
 
         back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -81,7 +81,7 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
 
 
 
-        Call<User> apiCall = apiService.getDataEmail(userEmail);
+        Call<User> apiCall = apiService.getData(userUid);
         apiCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

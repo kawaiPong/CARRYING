@@ -55,8 +55,8 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_create_list);
 
         Intent intent=getIntent();
-        String userEmail=intent.getStringExtra("email");//서버와 접촉할때 사용
-        Log.d("mytag create_list","됨 ok : "+userEmail);
+        String userUid=intent.getStringExtra("uid");//서버와 접촉할때 사용
+        Log.d("sowon create_list","됨 ok : "+userUid);
 
         EditText City=(EditText) findViewById(R.id.city);;
 

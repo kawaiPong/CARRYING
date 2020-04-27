@@ -57,7 +57,7 @@ public interface RetrofitExService {
 
     //한 명의 회원의 전체 체크리스트 불러오기
     @GET("/list/readAllList/{uid}")
-    Call<User> readAllList(@Path("uid")String uid);
+    Call<List<CheckList>> readAllList(@Path("uid")String uid);
 
     @PUT("/posts/1")
     Call<User> putData(@Body User param);
