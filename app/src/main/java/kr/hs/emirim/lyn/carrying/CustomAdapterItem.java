@@ -24,6 +24,8 @@ public class CustomAdapterItem extends RecyclerView.Adapter<CustomAdapterItem.Cu
             super(view);
             this.name = (TextView) view.findViewById(R.id.checkBox);
         }
+
+
     }
 
 
