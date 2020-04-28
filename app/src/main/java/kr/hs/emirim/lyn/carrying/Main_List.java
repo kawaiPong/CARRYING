@@ -313,6 +313,7 @@ public class Main_List extends AppCompatActivity {
         Button logout_btn=(Button)findViewById(R.id.logOut);
         Button editInfo_btn=(Button)findViewById(R.id.EditInfo);
         Button pwChange=(Button)findViewById(R.id.PasswordChange);
+        Button compose=(Button)findViewById(R.id.compose);
         TextView userName=(TextView)findViewById(R.id.userName);
         TextView userEmail=(TextView)findViewById(R.id.userEmail);
 
@@ -497,6 +498,8 @@ public class Main_List extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
 
 
