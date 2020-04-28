@@ -44,6 +44,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/checkBoxList"
         android:layout_width="409dp"
         android:layout_height="667dp"
         app:layout_constraintBottom_toBottomOf="parent"
