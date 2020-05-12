@@ -139,6 +139,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 ////                    intent.putExtra("city","오사카");
 //                    intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
 //                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
+                    intent.putExtra("uid",userUid);
                     startActivity(intent);
 
 

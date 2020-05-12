@@ -29,7 +29,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             this.finish_date = (TextView) view.findViewById(R.id.finish_date);
         }
 
-        
+
     }
 
 

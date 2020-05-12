@@ -17,7 +17,7 @@ public class check_list extends AppCompatActivity {
         setContentView(R.layout.activity_check_list);
 
         Button back=(Button)findViewById(R.id.back_checkList);
-
+        Button plus_item=(Button)findViewById(R.id.plus_item_btn);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +26,16 @@ public class check_list extends AppCompatActivity {
             }
         });
 
+        plus_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(check_list.this, plusItemPopUp.class);
+                startActivity(intent);
+
+            }
+        });
+
 
     }
+
 }

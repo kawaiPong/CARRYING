@@ -331,6 +331,7 @@ public class Main_List extends AppCompatActivity {
 
         intent=getIntent();
         String user_uid=intent.getExtras().getString("uid");
+        Log.d("sowon Main_List","됨 ok : "+user_uid);
         String num=intent.getExtras().getString("num");
 //        Log.d("sowon Main_List","됨 ok : "+num+"과"+user_uid);
 
@@ -498,10 +499,6 @@ public class Main_List extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
 
 
 
