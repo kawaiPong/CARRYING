@@ -2,10 +2,10 @@ package kr.hs.emirim.lyn.carrying.Retrofit;
 
 public class checkListItem {
 
-    private int check_num;
-    private String name;
-    private int list_num;
-    private int status;
+    private int check_num;//아이템 숫자
+    private String name;//아이템 이름
+    private int list_num;//리스트의 넘버
+    private int status;//상태
 
 
 
