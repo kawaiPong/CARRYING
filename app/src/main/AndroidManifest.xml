@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".plusItemPopUp"></activity>
+        <activity android:name=".plusItemPopUp"
+            android:theme="@style/popupTheme"
+            android:screenOrientation="unspecified"></activity>
         <activity android:name=".check_list" />
 
         <meta-data
