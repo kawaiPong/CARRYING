@@ -53,7 +53,7 @@ public class plusItemPopUp extends AppCompatActivity {
                     final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
 
                     //list_num 임의로 1줌 intent해서 값 받아야 할듯
-                    Call<checkListItem> apiCall = apiService.deleteOneItem(
+                    Call<checkListItem> apiCall = apiService.plusOneItem(
                             1,
                             plus_item_text.getText().toString()+""
                     );

@@ -62,7 +62,7 @@ public interface RetrofitExService {
 
     //list에서 item하나 추가
     @POST("/item/deleteCheckListItem/{list_num}/{name}")
-    Call<checkListItem> deleteOneItem(@Path("list_num")int list_num, @Path("name")String name);
+    Call<checkListItem> plusOneItem(@Path("list_num")int list_num, @Path("name")String name);
 
 
     @PUT("/posts/1")
