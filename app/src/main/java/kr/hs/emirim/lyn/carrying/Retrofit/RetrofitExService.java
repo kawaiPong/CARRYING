@@ -55,9 +55,15 @@ public interface RetrofitExService {
                               @Path("uid") String uid,
                               @Path("theme") String theme);
 
+
     //한 명의 회원의 전체 체크리스트 불러오기
     @GET("/list/readAllList/{uid}")
     Call<List<CheckList>> readAllList(@Path("uid")String uid);
+
+    //list에서 item하나 삭제
+    @POST("/item/deleteCheckListItem/{list_num}/{name}")
+    Call<List<checkListItem>> deleteOneItem(@Path("list_num")int list_num, @Path("name")String name);
+
 
     @PUT("/posts/1")
     Call<User> putData(@Body User param);
