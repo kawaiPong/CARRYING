@@ -31,7 +31,7 @@ public class plusItemPopUp extends AppCompatActivity {
 
 
 
-        submit.setOnClickListener(new View.OnClickListener() {//삭제하는 retrofit
+        submit.setOnClickListener(new View.OnClickListener() {//추가하는 retrofit
             @Override
             public void onClick(View v) {
                 plus_item_text.getText().toString();

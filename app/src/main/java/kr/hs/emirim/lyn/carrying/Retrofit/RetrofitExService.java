@@ -60,7 +60,7 @@ public interface RetrofitExService {
     @GET("/list/readAllList/{uid}")
     Call<List<CheckList>> readAllList(@Path("uid")String uid);
 
-    //list에서 item하나 삭제
+    //list에서 item하나 추가
     @POST("/item/deleteCheckListItem/{list_num}/{name}")
     Call<checkListItem> deleteOneItem(@Path("list_num")int list_num, @Path("name")String name);
 
