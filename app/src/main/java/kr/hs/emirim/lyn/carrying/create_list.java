@@ -56,7 +56,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
         Intent intent=getIntent();
         String userUid=intent.getStringExtra("uid");//서버와 접촉할때 사용
-        Log.d("sowon create_list","됨 ok : "+userUid);
+        Log.d("mytag create_list","됨 ok : "+userUid);
 
         EditText City=(EditText) findViewById(R.id.city);;
 
@@ -94,35 +94,35 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                 Intent intent = new Intent(create_list.this, Main_List.class);
                 if((City.getText().toString().length()==0)||sd==0||fd==0){
                     Toast.makeText(getApplicationContext(), "빈칸이 있습니다.", Toast.LENGTH_LONG).show();
-
+                    Log.d("mytag ","빈칸확인");
                 }
                 else{//여기가 ㄹㅇ중요함
 
-
+                    Log.d("mytag ","레트로핏시작전");
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000")
+                            .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
 //                .baseUrl("http://192.168.219.142:4000")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
 
                     final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+                    Log.d("mytag ","요청 전");
 
                     Call<CheckList> apiCall = apiService.postCreateList(
-                            City.getText().toString()+"01",
+                            City.getText().toString()+"",
                             City.getText().toString()+"",//city
                             sy+"-"+sm+"-"+sd,
                             fy+"-"+fm+"-"+fd,
                             "",
                             ""
                     );
-
+                    Log.d("mytag ","요청 후"+apiCall.toString());
 
                     apiCall.enqueue(new Callback<CheckList>() {
                         @Override
                         public void onResponse(Call<CheckList> call, Response<CheckList> response) {
                             CheckList du = response.body();
-                            Log.d("mytag ","됨 ok : "+ du.toString());
-                            Log.d("data.getListCity()  : ", du.getCity());
+                            Log.d("mytag ","성공");
                             Toast.makeText(getApplicationContext(), "확인된 이메일", Toast.LENGTH_LONG).show();
                         }
                         @Override
@@ -141,11 +141,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 //                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
                     intent.putExtra("uid",userUid);
                     startActivity(intent);
-
-
-
-
-
 
 
                 }

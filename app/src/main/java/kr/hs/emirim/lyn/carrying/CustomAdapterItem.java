@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,12 +18,11 @@ public class CustomAdapterItem extends RecyclerView.Adapter<CustomAdapterItem.Cu
     private ArrayList<checkList_item> mList;
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected TextView name;
-
+        protected CheckBox checkBox;
 
         public CustomViewHolder(View view) {
             super(view);
-            this.name = (TextView) view.findViewById(R.id.checkBox);
+            this.checkBox=(CheckBox)view.findViewById(R.id.checkBox);
         }
 
 
@@ -48,7 +48,8 @@ public class CustomAdapterItem extends RecyclerView.Adapter<CustomAdapterItem.Cu
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        holder.name.setText(mList.get(position).getName());
+        holder.checkBox.setText(mList.get(position).getName());
+        holder.checkBox.setChecked(true);
     }
 
 

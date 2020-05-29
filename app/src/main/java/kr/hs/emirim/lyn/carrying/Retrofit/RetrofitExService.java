@@ -51,7 +51,7 @@ public interface RetrofitExService {
     Call<CheckList> postCreateList(@Path("title") String title,
                               @Path("city") String city,
                               @Path("start_date") String start_date,
-                              @Path("city") String finish_date,
+                              @Path("finish_date") String finish_date,
                               @Path("uid") String uid,
                               @Path("theme") String theme);
 

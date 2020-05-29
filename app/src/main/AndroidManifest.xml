@@ -13,9 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".plusItemPopUp"
-            android:theme="@style/popupTheme"
-            android:screenOrientation="unspecified"></activity>
+        <activity
+            android:name=".plusItemPopUp"
+            android:screenOrientation="unspecified"
+            android:theme="@style/popupTheme" />
         <activity android:name=".check_list" />
 
         <meta-data
@@ -37,7 +38,6 @@
         <activity android:name=".Change_info" />
         <activity android:name=".create_list" />
         <activity android:name=".Main_List" />
-
     </application>
 
 </manifest>

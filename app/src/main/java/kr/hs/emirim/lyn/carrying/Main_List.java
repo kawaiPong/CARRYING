@@ -337,7 +337,7 @@ public class Main_List extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000")
+                .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
 //                .baseUrl("http://192.168.219.142:4000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -367,7 +367,7 @@ public class Main_List extends AppCompatActivity {
 
 
         mArrayList = new ArrayList<>();
-        mAdapter = new CustomAdapter( mArrayList);
+        mAdapter = new CustomAdapter(mArrayList);
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -377,18 +377,22 @@ public class Main_List extends AppCompatActivity {
 
 
 
+        Log.d("mytag","레트로핏 전");
         Call<List<CheckList>> apiCallList = apiService.readAllList(user_uid);
         apiService.readAllList(user_uid).enqueue(new Callback<List<CheckList>>() { //uid사용자의 전체 리스트를 불러오기 위한 작업
             //근데 CheckList에 있는 값을 다 반환하는지는 모르겠음
             @Override
             public void onResponse(@NonNull Call<List<CheckList>> call, @NonNull Response<List<CheckList>> response) {
+                Log.d("mytag","성공");
+
                 List<CheckList> du = response.body();
+                Log.d("mytag","성공 : "+du.toString());
 
                 if (du != null) {
                     Dictionary[] data = new Dictionary[du.size()];//자동으로 해줌
                     for (int i = 0; i < du.size(); i++) {
                         data[i] = new Dictionary(du.get(i).getTitle(),du.get(i).getStart_date(), du.get(i).getFinish_date());
-
+                        Log.d("mytag",""+du.get(i).getTitle()+du.get(i).getStart_date()+du.get(i).getFinish_date());
                         //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
                         mArrayList.add(data[i]); // RecyclerView의 마지막 줄에 삽입
                     }
@@ -410,7 +414,6 @@ public class Main_List extends AppCompatActivity {
         /*if(num.equals("2")){//
             //서버 연결하기 전 임시로 intent 한거라 수정해야함
             //intent 필요없이 uid로 @GET 해서 리스트 가져와야함
-
 
 
             String City=intent.getStringExtra("city");

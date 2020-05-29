@@ -48,7 +48,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000").client(okHttpClient)
+                .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000").client(okHttpClient)
 //                .baseUrl("http://localhost:1234").
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -124,14 +124,13 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                                         uid = auth.getUid();
 
                                         Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
-
+                                        Log.d("SOWON retrofit",uid+":"+NickName+":"+Email+":"+Password+":"+gender+":");
                                         apiCall.enqueue(new Callback<User>() {
                                             @Override
                                             public void onResponse(Call<User> call, Response<User> response) {
                                                 User du = response.body();
                                                 Log.d("mytag 됨", du.toString());
                                                 Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
-
 
 
                                             }
