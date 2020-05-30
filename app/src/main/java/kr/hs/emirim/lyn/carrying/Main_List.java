@@ -506,7 +506,10 @@ public class Main_List extends AppCompatActivity {
 
 
 
-    }
+
+    }//oncreate
+
+    
 
 
     public void getJSON(){
