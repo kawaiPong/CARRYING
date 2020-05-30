@@ -109,13 +109,17 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                     Log.d("mytag ","요청 전");
 
                     Call<CheckList> apiCall = apiService.postCreateList(
-                            City.getText().toString()+"",
                             City.getText().toString()+"",//city
                             sy+"-"+sm+"-"+sd,
                             fy+"-"+fm+"-"+fd,
-                            "",
-                            ""
+                            userUid+"",
+                            "0"
                     );
+                    Log.d("mytag 이렇게 들어감",City.getText().toString()+""+
+                            sy+"-"+sm+"-"+sd+
+                            fy+"-"+fm+"-"+fd+
+                            userUid+""+
+                            "0");
                     Log.d("mytag ","요청 후"+apiCall.toString());
 
                     apiCall.enqueue(new Callback<CheckList>() {

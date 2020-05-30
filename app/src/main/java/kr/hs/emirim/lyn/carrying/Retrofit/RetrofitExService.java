@@ -47,9 +47,8 @@ public interface RetrofitExService {
     Call<User> postUpdateUser(@Path("uid") String uid,@Path("nickname") String nickname,@Path("email") String email,@Path("password") String password,@Path("gender")int gender );
 
     //새로운 list 만들기
-    @POST("/list/addList/{title}/{city}/{start_date}/{finish_date}/{uid}/{theme}")
-    Call<CheckList> postCreateList(@Path("title") String title,
-                              @Path("city") String city,
+    @POST("/list/addList/{city}/{start_date}/{finish_date}/{uid}/{theme}")
+    Call<CheckList> postCreateList(@Path("city") String city,
                               @Path("start_date") String start_date,
                               @Path("finish_date") String finish_date,
                               @Path("uid") String uid,
