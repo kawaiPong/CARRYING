@@ -328,10 +328,31 @@ public class Main_List extends AppCompatActivity {
         now_des_rainy.setVisibility(View.INVISIBLE);
         now_des_snowy.setVisibility(View.INVISIBLE);
 
+        ImageView Cloth_padding=(ImageView)findViewById(R.id.cloth_padding);
+        ImageView Cloth_sweatShirts=(ImageView)findViewById(R.id.cloth_mantoman);
+        ImageView Cloth_cardigan=(ImageView)findViewById(R.id.cloth_cardigan);
+        ImageView Cloth_ts=(ImageView)findViewById(R.id.cloth_tshirt);
+        ImageView Cloth_ns=(ImageView)findViewById(R.id.cloth_nasi);
+        ImageView Cloth_zp=(ImageView)findViewById(R.id.cloth_zipup);
+        ImageView Cloth_coat=(ImageView)findViewById(R.id.cloth_coat);
+
+        Cloth_padding.setVisibility(View.INVISIBLE);
+        Cloth_sweatShirts.setVisibility(View.INVISIBLE);
+        Cloth_cardigan.setVisibility(View.INVISIBLE);
+        Cloth_ts.setVisibility(View.INVISIBLE);
+        Cloth_ns.setVisibility(View.INVISIBLE);
+        Cloth_zp.setVisibility(View.INVISIBLE);
+        Cloth_coat.setVisibility(View.INVISIBLE);
+
+
+        TextView recom_weather=(TextView)findViewById(R.id.recom_weather);
+
 
         intent=getIntent();
         String user_uid=intent.getExtras().getString("uid");
-        Log.d("sowon Main_List","됨 ok : "+user_uid);
+        int userGender = intent.getExtras().getInt("gender");
+
+        Log.d("sowon mytag Main_List","됨 ok : "+user_uid+":"+userGender);
         String num=intent.getExtras().getString("num");
 //        Log.d("sowon Main_List","됨 ok : "+num+"과"+user_uid);
 
@@ -353,6 +374,7 @@ public class Main_List extends AppCompatActivity {
 
                 userEmail.setText(du.getEmail());
                 userName.setText(du.getNickname());
+
             }
             @Override
             public void onFailure(@NonNull Call<User> call,@NonNull Throwable t) {
@@ -462,6 +484,44 @@ public class Main_List extends AppCompatActivity {
                 else if(current_description.contains("cloud"))now_des_cloudy.setVisibility(View.VISIBLE);
                 else if(current_description.contains("rain"))now_des_rainy.setVisibility(View.VISIBLE);
                 else if(current_description.contains("snow"))now_des_snowy.setVisibility(View.VISIBLE);
+                int temp=Integer.parseInt(current_temp);
+
+
+                if(temp<=4){
+                    recom_weather.setText("패딩, 목도리 등 두꺼운 겨울 옷을 준비하면 좋아요");
+                    Cloth_padding.setVisibility(View.VISIBLE);
+                    Log.d("sowon","visible");
+                }
+                else if(temp>=5&&temp<=11){
+                    recom_weather.setText("코트, 니트 등 따듯한 옷을 준비하면 좋아요");
+                    Cloth_coat.setVisibility(View.VISIBLE);
+                    Log.d("sowon","visible");
+                }
+                else if(temp>=12&&temp<=16){
+                    recom_weather.setText("후드집업, 가디건 등 걸칠 수 있는 옷을 준비하면 좋아요");
+                    Cloth_zp.setVisibility(View.VISIBLE);
+                    Log.d("sowon","visible");
+                }
+                else if(temp>=17&&temp<=19){
+                    recom_weather.setText("얇은 니트, 얇은 가디건 등 가볍게 걸칠 수 있는 옷을 준비하면 좋아요");
+                    Cloth_cardigan.setVisibility(View.VISIBLE);
+                    Log.d("sowon","visible");
+                }
+                else if(temp>=20&&temp<=22){
+                    recom_weather.setText("긴팔, 얇은 가디건 등 가벼운 옷을 준비하면 좋아요");
+                    Cloth_sweatShirts.setVisibility(View.VISIBLE);
+                    Log.d("sowon","visible");
+                }
+                else if(temp>=23&&temp<=27){
+                    recom_weather.setText("반팔이나 얇은 셔츠 등 얇은 옷을 준비하면 좋아요");
+                    Cloth_ts.setVisibility(View.VISIBLE);
+                    Log.d("sowon","visible");
+                }
+                else if(temp>=28){
+                    recom_weather.setText("민소매, 반팔 등 더울 수 있으니 얇은 옷을 준비하면 좋아요");
+                    Cloth_ns.setVisibility(View.VISIBLE);
+                    Log.d("sowon","visible");
+                }
 
                 drawer.openDrawer(GravityCompat.START) ;
 
@@ -480,6 +540,7 @@ public class Main_List extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Main_List.this, create_list.class);
+                intent.putExtra("gender",userGender);
                 intent.putExtra("uid",user_uid);
                 startActivity(intent);
             }

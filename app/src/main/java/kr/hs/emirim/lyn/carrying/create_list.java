@@ -56,7 +56,8 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
         Intent intent=getIntent();
         String userUid=intent.getStringExtra("uid");//서버와 접촉할때 사용
-        Log.d("mytag create_list","됨 ok : "+userUid);
+        int userGender = intent.getExtras().getInt("gender");
+        Log.d("mytag create_list","됨 ok : "+userUid+":"+userGender);
 
         EditText City=(EditText) findViewById(R.id.city);;
 
@@ -113,8 +114,11 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                             sy+"-"+sm+"-"+sd,
                             fy+"-"+fm+"-"+fd,
                             userUid+"",
-                            "0"
+                            userGender,
+                            "1",
+                            "1"
                     );
+
                     Log.d("mytag 이렇게 들어감",City.getText().toString()+""+
                             sy+"-"+sm+"-"+sd+
                             fy+"-"+fm+"-"+fd+

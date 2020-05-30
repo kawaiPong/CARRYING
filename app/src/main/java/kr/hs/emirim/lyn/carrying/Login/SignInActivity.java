@@ -134,6 +134,7 @@ public class SignInActivity extends BaseActivity  {
                             if(password.equals(du.getPassword())){
                                 Log.d("mytag 됨 Sign",password+"::"+du.getPassword()+":이메일은:"+id);
                                 Intent intent=new Intent(getApplicationContext(), Main_List.class);
+                                intent.putExtra("gender",du.getGender());
                                 intent.putExtra("uid",du.getUid());
                                 intent.putExtra("num","1");
                                 startActivity(intent);

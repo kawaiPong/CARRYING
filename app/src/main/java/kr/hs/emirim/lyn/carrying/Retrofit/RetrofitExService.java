@@ -47,12 +47,14 @@ public interface RetrofitExService {
     Call<User> postUpdateUser(@Path("uid") String uid,@Path("nickname") String nickname,@Path("email") String email,@Path("password") String password,@Path("gender")int gender );
 
     //새로운 list 만들기
-    @POST("/list/addList/{city}/{start_date}/{finish_date}/{uid}/{theme}")
+    @POST("/list/addList/{city}/{start_date}/{finish_date}/{uid}/{gender}/{theme}/{weather}")
     Call<CheckList> postCreateList(@Path("city") String city,
                               @Path("start_date") String start_date,
                               @Path("finish_date") String finish_date,
                               @Path("uid") String uid,
-                              @Path("theme") String theme);
+                              @Path("gender") int gender,
+                              @Path("theme") String theme,
+                              @Path("weather") String weather);
 
 
     //한 명의 회원의 전체 체크리스트 불러오기

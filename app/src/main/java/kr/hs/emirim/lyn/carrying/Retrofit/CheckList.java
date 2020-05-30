@@ -61,6 +61,22 @@ public class CheckList {
         this.num = num;
     }
 
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public String getWeather() {
+        return weather;
+    }
+
+    public void setWeather(String weather) {
+        this.weather = weather;
+    }
+
     private int num;
     private String title;
     private String city;
@@ -68,8 +84,10 @@ public class CheckList {
     private String finish_date;
     private String uid;
     private String theme;
+    private int gender;
+    private String weather;
 
-    public CheckList(int num, String title, String city, String start_date, String finish_date, String uid, String theme) {
+    public CheckList(int num, String title, String city, String start_date, String finish_date, String uid, String theme, int gender, String weather) {
         this.num = num;
         this.title = title;
         this.city = city;
@@ -77,6 +95,8 @@ public class CheckList {
         this.finish_date = finish_date;
         this.uid = uid;
         this.theme = theme;
+        this.gender = gender;
+        this.weather = weather;
     }
 
     @Override
@@ -89,6 +109,8 @@ public class CheckList {
                 ", finish_date='" + finish_date + '\'' +
                 ", uid='" + uid + '\'' +
                 ", theme='" + theme + '\'' +
+                ", gender=" + gender +
+                ", weather='" + weather + '\'' +
                 '}';
     }
 }
