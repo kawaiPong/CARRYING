@@ -6,11 +6,20 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
+import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
+import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
+import kr.hs.emirim.lyn.carrying.Retrofit.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,11 +39,10 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
     Button start_date;
     Button finish_date;
-    public int sy=0, sm=0, sd=0;
-    public int fy=0, fm=0,fd=0;
+    public int sy=0, sm=0, sd=0;//출발날짜
+    public int fy=0, fm=0,fd=0;//도착날짜
     public int Today_year,Today_month,Today_date;
 
-    EditText City;
     Calendar cal=Calendar.getInstance();
 
     final Context context = this;
@@ -42,16 +50,25 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
     private CustomAdapter mAdapter;
     private ImageButton btnAlert;
 
+    RecyclerView mRecyclerView = null ;
+    ThemeAdapter mmAdapter = null ;
+    ArrayList<Addtheme> mList = new ArrayList<Addtheme>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_list);
 
-        Today_year=cal.get(Calendar.YEAR);
-        Today_month=cal.get(Calendar.MONTH)+1;
-        Today_date=cal.get(Calendar.DAY_OF_WEEK);
+        Intent intent=getIntent();
+        String userUid=intent.getStringExtra("uid");//서버와 접촉할때 사용
+        Log.d("sowon create_list","됨 ok : "+userUid);
 
-        City=findViewById(R.id.City);
+        EditText City=(EditText) findViewById(R.id.city);;
+
+        Today_year=cal.get(Calendar.YEAR);
+        Today_month=cal.get(Calendar.MONTH);
+        Today_date=cal.get((Calendar.DAY_OF_MONTH)+1);
+
         start_date=findViewById(R.id.start_date);
         finish_date=findViewById(R.id.finish_date);
 
@@ -63,17 +80,23 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.addHash);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView = (RecyclerView) findViewById(R.id.addHash);
 
-        mArrayList = new ArrayList<>();
-        mAdapter = new CustomAdapter( mArrayList);
-        mRecyclerView.setAdapter(mAdapter);
+        // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
+        mmAdapter = new ThemeAdapter(mList) ;
+        mRecyclerView.setAdapter(mmAdapter) ;
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                mLinearLayoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
+        // 리사이클러뷰에 LinearLayoutManager 지정. (vertical)
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL,false)) ;
+
+//
+//        mArrayList = new ArrayList<>();
+//        mAdapter = new ThemeAdapter( mArrayList);
+//        mRecyclerView.setAdapter(mAdapter);
+//
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+//                mLinearLayoutManager.getOrientation());
+//        mRecyclerView.addItemDecoration(dividerItemDecoration);
 
         Button add_btn=(Button)findViewById(R.id.add);
         add_btn.setOnClickListener(new View.OnClickListener(){
@@ -84,13 +107,58 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                     Toast.makeText(getApplicationContext(), "빈칸이 있습니다.", Toast.LENGTH_LONG).show();
 
                 }
-                else{
-                    intent.putExtra("num","2");
-                    intent.putExtra("city",City.getText().toString());
-//                intent.putExtra("city","오사카");
-                    intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
-                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
+                else{//여기가 ㄹㅇ중요함
+
+
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000")
+//                .baseUrl("http://192.168.219.142:4000")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+
+                    Call<CheckList> apiCall = apiService.postCreateList(
+                            City.getText().toString()+"01",
+                            City.getText().toString()+"",//city
+                            sy+"-"+sm+"-"+sd,
+                            fy+"-"+fm+"-"+fd,
+                            "",
+                            ""
+                    );
+
+
+                    apiCall.enqueue(new Callback<CheckList>() {
+                        @Override
+                        public void onResponse(Call<CheckList> call, Response<CheckList> response) {
+                            CheckList du = response.body();
+                            Log.d("mytag ","됨 ok : "+ du.toString());
+                            Log.d("data.getListCity()  : ", du.getCity());
+                            Toast.makeText(getApplicationContext(), "확인된 이메일", Toast.LENGTH_LONG).show();
+                        }
+                        @Override
+                        public void onFailure(Call<CheckList> call, Throwable t) {
+                            Log.d("mytag", "안됨 fail : " + t.toString());
+                            Toast.makeText(getApplicationContext(), "해당 이메일이 없습니다.", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
+//                    intent.putExtra("email",userEmail);
+//                    intent.putExtra("num","2");
+//                    intent.putExtra("city",City.getText().toString());
+////                    intent.putExtra("city","오사카");
+//                    intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
+//                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
+                    intent.putExtra("uid",userUid);
                     startActivity(intent);
+
+
+
+
+
+
+
                 }
             }
         });
@@ -155,25 +223,27 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                //String msg="";
+                String msg="";
                 //선택한 항목 갯수만큼 선택한 항목 배열 돌리기
                 for (int i = 0; i < SelectedItems.size(); i++) {
                     //index에 0번방부터 선택한 항목 집어넣기
                     int index = (int) SelectedItems.get(i);
-                    //msg = msg+"\t"+ListItems.get(index);
+                    msg = msg+"\t"+ListItems.get(index);
                     //해시태그 이미지를 꺼내옴
                     int resId = getResources().getIdentifier(hashimg[i], "drawable",
                             "kr.hs.emirim.lyn.carrying");
 
                     image.setImageResource(resId);
 
+                    addItem(resId);
+
 //                    Dictionary data = new Dictionary(image);
 //
-//                    //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
+//                    mArrayList.add(0, data); //RecyclerView의 첫 줄에 삽입
 //                    mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입
 
                 }
-                //Toast.makeText(getApplicationContext(), msg , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), msg , Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -184,6 +254,14 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         });
 
         builder.show();
+    }
+
+    public void addItem(int icon) {
+        Addtheme item = new Addtheme();
+
+        item.setIcon(icon);
+
+        mList.add(item);
     }
 
     void showDate1() {
@@ -198,7 +276,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         },Today_year, Today_month, Today_date);
 
-        datePickerDialog.setMessage("메시지");
+        datePickerDialog.setMessage("출발일");
         datePickerDialog.show();
     }
 
@@ -214,7 +292,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         },Today_year, Today_month, Today_date);
 
-        datePickerDialog.setMessage("메시지");
+        datePickerDialog.setMessage("도착일");
         datePickerDialog.show();
     }
 

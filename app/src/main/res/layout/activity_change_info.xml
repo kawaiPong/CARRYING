@@ -19,7 +19,7 @@
         tools:context=".Login.RegisterActivity">
 
         <Button
-            android:id="@+id/backbtn"
+            android:id="@+id/backbtn_change"
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:layout_gravity="center_vertical"
@@ -37,7 +37,7 @@
             android:layout_marginStart="146dp"
             android:layout_marginEnd="146dp"
             android:gravity="center"
-            android:text="회원가입"
+            android:text="회원정보 수정"
             android:textColor="#555555"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,11 +51,9 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
@@ -71,20 +69,42 @@
             android:text="닉네임"
             android:textColor="#0281ff"
             android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/et_name_changeU"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/tv_email"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginLeft="23dp"
             android:layout_marginRight="23dp"
             android:layout_marginBottom="18.7dp"
-            android:backgroundTint="#bce0fd"
-            android:hint="닉네임을 입력하세요"
-            android:textColor="#555555"
-            android:textColorHint="#999999"
-            android:textSize="14sp" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_name_changeU"
+                android:layout_width="290dp"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tv_email"
+                android:layout_gravity="left"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="#bce0fd"
+                android:ems="20"
+                android:hint="닉네임을 입력하세요"
+                android:inputType="textEmailAddress"
+                android:textColor="#555555"
+                android:textColorHint="#999999"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/okNickname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/confirm_bt"
+                android:ellipsize="marquee"
+                android:padding="-5dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="right"/>
+
+        </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/tv_email"
@@ -97,20 +117,40 @@
             android:textColor="#0281ff"
             android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/et_eamil"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/tv_email"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginLeft="23dp"
             android:layout_marginRight="23dp"
             android:layout_marginBottom="18.7dp"
-            android:backgroundTint="#bce0fd"
-            android:hint="이메일을 입력하세요"
-            android:inputType="textEmailAddress"
-            android:textColor="#555555"
-            android:textColorHint="#999999"
-            android:textSize="14sp" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_email_change"
+                android:layout_width="290dp"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tv_email"
+                android:layout_gravity="left"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="#bce0fd"
+                android:ems="20"
+                android:hint="닉네임을 입력하세요"
+                android:inputType="textEmailAddress"
+                android:textColor="#555555"
+                android:textColorHint="#999999"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/okEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/confirm_bt"
+                android:ellipsize="marquee"
+                android:padding="-5dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="right"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_password"
@@ -194,48 +234,15 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/joinbtn"
-        tools:layout_editor_absoluteX="205dp">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="6.7dp"
-            android:text="이미 계정이 있으신가요?"
-            android:textColor="#555555"
-            android:textSize="13sp" />
-
-        <Button
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="6.7dp"
-            android:background="@color/colorWhite"
-            android:text="로그인하기"
-            android:textColor="#0281ff"
-            android:textSize="13sp"
-            style="?android:attr/borderlessButtonStyle"/>
-
-    </LinearLayout>
-
     <Button
-        android:id="@+id/joinbtn"
+        android:id="@+id/Change_btn"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginLeft="23dp"
         android:layout_marginRight="23dp"
         android:layout_marginBottom="43.3dp"
         android:background="#0281ff"
-        android:text="계정 생성하기"
+        android:text="확인"
         android:textColor="#ffffff"
         android:textSize="14.7sp"
         app:layout_constraintBottom_toBottomOf="parent"

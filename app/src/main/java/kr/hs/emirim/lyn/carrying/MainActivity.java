@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     FirebaseUser user;
-
     Button signOut_btn;
 
     @Override
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//       
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 

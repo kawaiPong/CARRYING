@@ -2,26 +2,15 @@ package kr.hs.emirim.lyn.carrying.Retrofit;
 
 public class User {
 
-
-    private int num;
-    private String nickname;
-    private String uid;
-    private int gender;
-
-
-    public User(int num, String nickname, String uid, int gender){
-        this.num=num;
-        this.nickname=nickname;
-        this.uid=uid;
-        this.gender=gender;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
+    @Override
+    public String toString() {
+        return "User{" +
+                "nickname='" + nickname + '\'' +
+                ", uid='" + uid + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", gender=" + gender +
+                '}';
     }
 
     public String getNickname() {
@@ -40,6 +29,22 @@ public class User {
         this.uid = uid;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public int getGender() {
         return gender;
     }
@@ -48,14 +53,26 @@ public class User {
         this.gender = gender;
     }
 
-    @Override
-    public String toString() {
-        return "Data_user{" +
-                "num=" + num +
-                ", nickname='" + nickname + '\'' +
-                ", uid='" + uid + '\'' +
-                ", gender=" + gender +
-                '}';
+    //    private int num;
+    private String nickname;
+    private String uid;
+    private String email;
+    private String password;
+    private int gender;
+
+
+
+    public User(String nickname, String uid,String email, String password, int gender){
+        this.nickname=nickname;
+        this.uid=uid;
+        this.email=email;
+        this.password=password;
+        this.gender=gender;
     }
+
+
+
+
+
 }
 
