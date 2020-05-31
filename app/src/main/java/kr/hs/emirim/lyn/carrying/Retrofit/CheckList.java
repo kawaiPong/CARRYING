@@ -77,6 +77,15 @@ public class CheckList {
         this.weather = weather;
     }
 
+    public int getListNum() {
+        return listNum;
+    }
+
+    public void setListNum(int listNum) {
+        this.listNum = listNum;
+    }
+
+    private int listNum;
     private int num;
     private String title;
     private String city;
@@ -87,7 +96,9 @@ public class CheckList {
     private int gender;
     private String weather;
 
-    public CheckList(int num, String title, String city, String start_date, String finish_date, String uid, String theme, int gender, String weather) {
+    public CheckList(int listnum, int num, String title, String city, String start_date, String finish_date, String uid, String theme, int gender, String weather) {
+
+        this.listNum = listnum;
         this.num = num;
         this.title = title;
         this.city = city;
@@ -102,7 +113,8 @@ public class CheckList {
     @Override
     public String toString() {
         return "CheckList{" +
-                "num=" + num +
+                "listnum=" + listNum +
+                ", num=" + num +
                 ", title='" + title + '\'' +
                 ", city='" + city + '\'' +
                 ", start_date='" + start_date + '\'' +
