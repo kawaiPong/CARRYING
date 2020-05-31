@@ -6,6 +6,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
+import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
+import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
+import kr.hs.emirim.lyn.carrying.Retrofit.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -47,15 +55,19 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_create_list);
 
         Intent intent=getIntent();
-        String userEmail=intent.getStringExtra("email");//서버와 접촉할때 사용
-        Log.d("mytag create_list","됨 ok : "+userEmail);
+        String userUid=intent.getStringExtra("uid");//서버와 접촉할때 사용
+        int userGender = intent.getExtras().getInt("gender");
+        Log.d("mytag create_list","됨 ok : "+userUid+":"+userGender);
 
         EditText City=(EditText) findViewById(R.id.city);;
 
-        Today_year=cal.get(Calendar.YEAR);
-        Today_month=cal.get(Calendar.MONTH);
-        Today_date=cal.get((Calendar.DAY_OF_MONTH)+1);
+        Calendar cal = Calendar.getInstance();
 
+        Today_year=cal.get(cal.YEAR);
+        Today_month=cal.get(cal.MONTH) ;
+        Today_date=cal.get(cal.DATE) ;
+
+        Log.d("mytag 현재 날짜",Today_year+":"+Today_month+":"+Today_date);
         start_date=findViewById(R.id.start_date);
         finish_date=findViewById(R.id.finish_date);
 
@@ -86,16 +98,62 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                 Intent intent = new Intent(create_list.this, Main_List.class);
                 if((City.getText().toString().length()==0)||sd==0||fd==0){
                     Toast.makeText(getApplicationContext(), "빈칸이 있습니다.", Toast.LENGTH_LONG).show();
-
+                    Log.d("mytag ","빈칸확인");
                 }
-                else{
-                    intent.putExtra("email",userEmail);
-                    intent.putExtra("num","2");
-                    intent.putExtra("city",City.getText().toString());
-//                    intent.putExtra("city","오사카");
-                    intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
-                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
+                else{//여기가 ㄹㅇ중요함
+
+                    Log.d("mytag ","레트로핏시작전");
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+//                .baseUrl("http://192.168.219.142:4000")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+                    Log.d("mytag ","요청 전");
+
+                    Call<CheckList> apiCall = apiService.postCreateList(
+                            City.getText().toString()+"",//city
+                            sy+"-"+sm+"-"+sd,
+                            fy+"-"+fm+"-"+fd,
+                            userUid+"",
+                            userGender,
+                            "1",
+                            "1"
+                    );
+
+                    Log.d("mytag 이렇게 들어감",City.getText().toString()+""+
+                            sy+"-"+sm+"-"+sd+
+                            fy+"-"+fm+"-"+fd+
+                            userUid+""+
+                            "0");
+                    Log.d("mytag ","요청 후"+apiCall.toString());
+
+                    apiCall.enqueue(new Callback<CheckList>() {
+                        @Override
+                        public void onResponse(Call<CheckList> call, Response<CheckList> response) {
+                            CheckList du = response.body();
+                            Log.d("mytag ","성공");
+                            Toast.makeText(getApplicationContext(), "확인된 이메일", Toast.LENGTH_LONG).show();
+                        }
+                        @Override
+                        public void onFailure(Call<CheckList> call, Throwable t) {
+                            Log.d("mytag", "안됨 fail : " + t.toString());
+                            Toast.makeText(getApplicationContext(), "해당 이메일이 없습니다.", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
+//                    intent.putExtra("email",userEmail);
+//                    intent.putExtra("num","2");
+//                    intent.putExtra("city",City.getText().toString());
+////                    intent.putExtra("city","오사카");
+//                    intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
+//                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
+                    intent.putExtra("uid",userUid);
                     startActivity(intent);
+
+
                 }
             }
         });

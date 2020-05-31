@@ -56,7 +56,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
         
         auth = FirebaseAuth.getInstance();
-        //user = auth.getCurrentUser();
+        user = auth.getCurrentUser();
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -113,15 +113,21 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 } else {
                     if (Password.equals(CheckPassword)) {
 
+//                        FirebaseAuth auth;
+//                        FirebaseUser user;
+//                        auth = FirebaseAuth.getInstance();
+//                        user = auth.getCurrentUser();
+//
+//                        Log.d("mytag 됨", Email+"+"+Password);
+//                        Log.d("mytag 됨", auth.createUserWithEmailAndPassword(Email, Password).toString());
                         auth.createUserWithEmailAndPassword(Email, Password)
                                 .addOnCompleteListener(RegisterActivity.this, task -> {
-                                    System.out.println(" 파이어베이스 실시");
                                     if (task.isSuccessful()) {
-                                        user = auth.getCurrentUser();
+                                        user = auth.getCurrentUser(); //master엔 없음
                                         uid = user.getUid();
 
                                         Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
-
+                                        Log.d("SOWON retrofit",uid+":"+NickName+":"+Email+":"+Password+":"+gender+":");
                                         apiCall.enqueue(new Callback<User>() {
                                             @Override
                                             public void onResponse(Call<User> call, Response<User> response) {

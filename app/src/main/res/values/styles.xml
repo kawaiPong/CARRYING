@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">#0281ff</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#0281ff</item>
 
         <item name="android:windowFullscreen">true</item>
         <item name="windowNoTitle">true</item>
@@ -18,6 +18,16 @@
         <item name="colorAccent">#399BFF</item>
         <item name="colorControlNormal">#999999</item>
         <item name="textColorAlertDialogListItem">#555555</item>
+    </style>
+
+    <style name="popupTheme" parent="Theme.AppCompat.DayNight.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#0281ff</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
 </resources>

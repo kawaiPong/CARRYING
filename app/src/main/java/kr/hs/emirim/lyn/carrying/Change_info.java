@@ -62,7 +62,7 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
 
 
         Intent intent=getIntent();
-        String userEmail=intent.getStringExtra("email");
+        String userUid=intent.getStringExtra("uid");
 
         back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -73,7 +73,7 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000")
+                .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -81,7 +81,7 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
 
 
 
-        Call<User> apiCall = apiService.getDataEmail(userEmail);
+        Call<User> apiCall = apiService.getData(userUid);
         apiCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

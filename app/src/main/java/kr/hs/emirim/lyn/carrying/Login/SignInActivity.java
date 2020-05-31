@@ -104,36 +104,36 @@ public class SignInActivity extends BaseActivity {
                 EditText SignIn_email = (EditText) (findViewById(R.id.signin_email));
                 EditText SignIn_pw = (EditText) (findViewById(R.id.signIn_pw));
 
-                String email = SignIn_email.getText().toString().trim();
+                String id = SignIn_email.getText().toString().trim();
                 String password = SignIn_pw.getText().toString().trim();
 
-                Log.d("sisisisi", email+":::"+password);
+                Log.d("sowon", id+":::"+password);
 
-                if ((email.length() == 0) || (password.length() == 0)) {
+                if ((id.length() == 0) || (password.length() == 0)) {
                     Toast.makeText(getApplicationContext(), "이메일과 비밀번호를 다시확인해주세요.", Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), SignIn_pw.getText().toString().trim()+":::"+SignIn_pw.getText().toString().trim(), Toast.LENGTH_LONG).show();
 
+
                 } else {
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000")
+                           .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
 //                            .baseUrl("http://192.168.219.142:4000")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
 
                     final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-                    Call<User> apiCall = apiService.getDataEmail(email);
-
+                    Call<User> apiCall = apiService.getDataEmail(id);
                     apiCall.enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
-
                             User du = response.body();
                             Log.d("mytag 됨 Sign", du.toString());
                             Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
                             if(password.equals(du.getPassword())){
-                                Log.d("mytag 됨 Sign",password+"::"+du.getPassword()+":이메일은:"+email);
+                                Log.d("mytag 됨 Sign",password+"::"+du.getPassword()+":이메일은:"+id);
                                 Intent intent=new Intent(getApplicationContext(), Main_List.class);
-                                intent.putExtra("email",du.getEmail());
+                                intent.putExtra("gender",du.getGender());
+                                intent.putExtra("uid",du.getUid());
                                 intent.putExtra("num","1");
                                 startActivity(intent);
                             }

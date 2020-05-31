@@ -20,24 +20,55 @@ public interface RetrofitExService {
 
 //    String URL = "http://192.168.9.40:1234";
 
+//    @GET("/user/readUser/{email}")
+//    Call<User> getData(@Path("email") String email);
 
-    @GET("/user/readUser/{email}")
-    Call<User> getData(@Path("email") String email);
+    //로그인할 때
+    @GET("/user/readUser/{uid}")
+    Call<User> getData(@Path("uid") String email);
 
     @GET("/user/existEmail/{email}")
     Call<User>getDataEmail(@Path("email")String email);
 
+    //회원정보수정때 쓸
     @GET("/user/existNickname/{nickname}")
     Call<User>getDataNickname(@Path("nickname")String nickname);
 
+    //회원가입
     @POST("/user/addUser/{uid}/{nickname}/{email}/{password}/{gender}")
     Call<User> postData(@Path("uid") String uid,@Path("nickname") String nickname,@Path("email") String email,@Path("password") String password,@Path("gender")int gender );
 
+    //비밀번호 수정
     @POST("/user/updatePassword/{email}/{password}")
     Call<User> postUpdataPassword(@Path("email") String email,@Path("password") String password);
 
+    //
     @POST("/user/updateUser/{uid}/{nickname}/{email}/{password}/{gender}")
     Call<User> postUpdateUser(@Path("uid") String uid,@Path("nickname") String nickname,@Path("email") String email,@Path("password") String password,@Path("gender")int gender );
+
+    //새로운 list 만들기
+    @POST("/list/addList/{city}/{start_date}/{finish_date}/{uid}/{gender}/{theme}/{weather}")
+    Call<CheckList> postCreateList(@Path("city") String city,
+                              @Path("start_date") String start_date,
+                              @Path("finish_date") String finish_date,
+                              @Path("uid") String uid,
+                              @Path("gender") int gender,
+                              @Path("theme") String theme,
+                              @Path("weather") String weather);
+
+
+    //한 명의 회원의 전체 체크리스트 불러오기
+    @GET("/list/readAllList/{uid}")
+    Call<List<CheckList>> readAllList(@Path("uid")String uid);
+
+    //해당 체크리스트의 모든아이템들 가져오기
+    @GET("/item/readCheckListItems/{list_num}")
+    Call<List<checkListItem>> readAllItem(@Path("list_num")int list_num);
+
+    //list에서 item하나 추가
+    @POST("/item/deleteCheckListItem/{list_num}/{name}")
+    Call<checkListItem> plusOneItem(@Path("list_num")int list_num, @Path("name")String name);
+
 
     @PUT("/posts/1")
     Call<User> putData(@Body User param);
