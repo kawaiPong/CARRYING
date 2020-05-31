@@ -12,9 +12,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
+import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
+import kr.hs.emirim.lyn.carrying.Retrofit.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
 
@@ -33,6 +43,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
 
     private ArrayList<Dictionary> mList;
+    private String userUid;
 
     public  class  CustomViewHolder extends RecyclerView.ViewHolder {
         protected TextView title;
@@ -77,7 +88,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     }
 
 
-    public CustomAdapter(ArrayList<Dictionary> list) {
+    public CustomAdapter(ArrayList<Dictionary> list, String userUid) {
+        this.userUid=userUid;
         this.mList = list;
     }
 
@@ -109,15 +121,54 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 Log.d("mytag",position +"");
                 Toast.makeText(context, position +"", Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(context,check_list.class);
-                intent.putExtra("userUid","32123");
+                intent.putExtra("userUid",userUid);
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+                Call<List<CheckList>> apiCall = apiService.readAllList(userUid);
+                apiCall.enqueue(new Callback<List<CheckList>>() {
+                    @Override
+                    public void onResponse(Call<List<CheckList>> call, Response<List<CheckList>> response) {
+                        List<CheckList> du = response.body();
+
+                        if (du != null) {
+                            for (int i = 0; i < du.size(); i++) {
+                                if(du.get(i).getTitle().equals(mList.get(position).getTitle())){
+                                    intent.putExtra("title",du.get(i).getTitle()+"");
+                                    Log.d("mytag CA",du.get(i).getTitle()+":"+mList.get(position).getTitle());
+                                    break;
+                                }
+                            }
+                            Log.e("getData2 end", "======================================");
+
+                        }
+                        mList.get(position).getTitle();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<CheckList>> call, Throwable t) {
+
+                    }
+
+                });
+
                 context.startActivity(intent);
+
+
+
+
 
             }
         });
 
-        viewholder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-        viewholder.start_date.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-        viewholder.finish_date.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+//        viewholder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+//        viewholder.start_date.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+//        viewholder.finish_date.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
 
         viewholder.title.setGravity(Gravity.CENTER);
         viewholder.start_date.setGravity(Gravity.CENTER);

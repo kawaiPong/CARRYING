@@ -61,10 +61,13 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
         EditText City=(EditText) findViewById(R.id.city);;
 
-        Today_year=cal.get(Calendar.YEAR);
-        Today_month=cal.get(Calendar.MONTH);
-        Today_date=cal.get((Calendar.DAY_OF_MONTH)+1);
+        Calendar cal = Calendar.getInstance();
 
+        Today_year=cal.get(cal.YEAR);
+        Today_month=cal.get(cal.MONTH) ;
+        Today_date=cal.get(cal.DATE) ;
+
+        Log.d("mytag 현재 날짜",Today_year+":"+Today_month+":"+Today_date);
         start_date=findViewById(R.id.start_date);
         finish_date=findViewById(R.id.finish_date);
 

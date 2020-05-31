@@ -61,6 +61,10 @@ public interface RetrofitExService {
     @GET("/list/readAllList/{uid}")
     Call<List<CheckList>> readAllList(@Path("uid")String uid);
 
+    //해당 체크리스트의 모든아이템들 가져오기
+    @GET("/item/readCheckListItems/{list_num}")
+    Call<List<checkListItem>> readAllItem(@Path("list_num")int list_num);
+
     //list에서 item하나 추가
     @POST("/item/deleteCheckListItem/{list_num}/{name}")
     Call<checkListItem> plusOneItem(@Path("list_num")int list_num, @Path("name")String name);

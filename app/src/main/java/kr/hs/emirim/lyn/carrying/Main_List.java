@@ -383,13 +383,13 @@ public class Main_List extends AppCompatActivity {
         });
 
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
+        RecyclerView mRecyclerView = (RecyclerView)findViewById(R.id.recyclerview_main_list);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
 
         mArrayList = new ArrayList<>();
-        mAdapter = new CustomAdapter(mArrayList);
+        mAdapter = new CustomAdapter(mArrayList,user_uid);
         mRecyclerView.setAdapter(mAdapter);
 
 

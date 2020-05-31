@@ -26,9 +26,16 @@ public class plusItemPopUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plus_item_pop_up);
 
+        Button cancelBtn =(Button)findViewById(R.id.cross);
         EditText plus_item_text=(EditText) findViewById(R.id.plus_item_popup);//추가하는 물품 텍스트
         Button submit=(Button)findViewById(R.id.check_popup);//확인버튼
 
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         submit.setOnClickListener(new View.OnClickListener() {//추가하는 retrofit
