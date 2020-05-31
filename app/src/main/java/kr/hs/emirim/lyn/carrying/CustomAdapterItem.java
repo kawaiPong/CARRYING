@@ -103,6 +103,8 @@ public class CustomAdapterItem extends RecyclerView.Adapter<CustomAdapterItem.Cu
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder viewholder, int position) {
         viewholder.checkBox.setText(mList.get(position).getName());
+        if(mList.get(position).getStatus()==1)viewholder.checkBox.setChecked(true);
+
 
     }
 
