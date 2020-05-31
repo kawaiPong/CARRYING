@@ -111,53 +111,24 @@
             app:layout_constraintTop_toBottomOf="@+id/start_date"
             app:srcCompat="@drawable/theme" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="23dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"
-            app:srcCompat="@drawable/theme_setting" />
-
         <ImageButton
             android:id="@+id/btn_alert"
             android:layout_width="30dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="4dp"
             android:background="#00FFFFFF"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintStart_toEndOf="@+id/recyclerView"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@id/addHash"
+            app:layout_constraintTop_toTopOf="@+id/addHash"
             app:srcCompat="@drawable/plus_bt_small" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="10dp"
-            android:gravity="center"
-            android:text="기본"
-            android:textColor="#555555"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            android:id="@+id/addHash"
+            android:layout_width="213dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

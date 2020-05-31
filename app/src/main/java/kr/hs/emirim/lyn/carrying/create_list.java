@@ -19,6 +19,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,10 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
     private CustomAdapter mAdapter;
     private ImageButton btnAlert;
 
+    RecyclerView mRecyclerView = null ;
+    ThemeAdapter mmAdapter = null ;
+    ArrayList<Addtheme> mList = new ArrayList<Addtheme>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +80,18 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-////        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.addHash);
-//        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-//        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView = (RecyclerView) findViewById(R.id.addHash);
+
+        // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
+        mmAdapter = new ThemeAdapter(mList) ;
+        mRecyclerView.setAdapter(mmAdapter) ;
+
+        // 리사이클러뷰에 LinearLayoutManager 지정. (vertical)
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL,false)) ;
+
 //
 //        mArrayList = new ArrayList<>();
-//        mAdapter = new CustomAdapter( mArrayList);
+//        mAdapter = new ThemeAdapter( mArrayList);
 //        mRecyclerView.setAdapter(mAdapter);
 //
 //        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
@@ -212,25 +223,27 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                //String msg="";
+                String msg="";
                 //선택한 항목 갯수만큼 선택한 항목 배열 돌리기
                 for (int i = 0; i < SelectedItems.size(); i++) {
                     //index에 0번방부터 선택한 항목 집어넣기
                     int index = (int) SelectedItems.get(i);
-                    //msg = msg+"\t"+ListItems.get(index);
+                    msg = msg+"\t"+ListItems.get(index);
                     //해시태그 이미지를 꺼내옴
                     int resId = getResources().getIdentifier(hashimg[i], "drawable",
                             "kr.hs.emirim.lyn.carrying");
 
                     image.setImageResource(resId);
 
+                    addItem(resId);
+
 //                    Dictionary data = new Dictionary(image);
 //
-//                    //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
+//                    mArrayList.add(0, data); //RecyclerView의 첫 줄에 삽입
 //                    mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입
 
                 }
-                //Toast.makeText(getApplicationContext(), msg , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), msg , Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -241,6 +254,14 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         });
 
         builder.show();
+    }
+
+    public void addItem(int icon) {
+        Addtheme item = new Addtheme();
+
+        item.setIcon(icon);
+
+        mList.add(item);
     }
 
     void showDate1() {

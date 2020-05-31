@@ -22,20 +22,20 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".SplashActivity"></activity>
         <activity android:name=".Login.FindPassword" />
         <activity android:name=".Login.GuestActivity" />
         <activity android:name=".Login.RegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Login.SignInActivity" />
         <activity android:name=".Change_info" />
-        <activity android:name=".create_list" />
+        <activity android:name=".create_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Main_List" />
 
     </application>

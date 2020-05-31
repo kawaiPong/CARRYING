@@ -1,5 +1,7 @@
 package kr.hs.emirim.lyn.carrying;
 
+import android.widget.ImageView;
+
 public class Dictionary {
     private String title;
     private String start_date;
