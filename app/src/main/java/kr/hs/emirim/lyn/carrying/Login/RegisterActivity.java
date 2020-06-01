@@ -49,7 +49,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000").client(okHttpClient)
+                .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000").client(okHttpClient)
 //                .baseUrl("http://localhost:1234").
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -113,6 +113,8 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 } else {
                     if (Password.equals(CheckPassword)) {
 
+                        Log.d("password equals", "비밀번호 맞음");
+
 //                        FirebaseAuth auth;
 //                        FirebaseUser user;
 //                        auth = FirebaseAuth.getInstance();
@@ -125,6 +127,8 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                                     if (task.isSuccessful()) {
                                         user = auth.getCurrentUser(); //master엔 없음
                                         uid = user.getUid();
+
+
 
                                         Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
                                         Log.d("SOWON retrofit",uid+":"+NickName+":"+Email+":"+Password+":"+gender+":");
