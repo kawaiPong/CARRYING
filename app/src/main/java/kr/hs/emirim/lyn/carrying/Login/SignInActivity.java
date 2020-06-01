@@ -80,15 +80,20 @@ public class SignInActivity extends BaseActivity {
         super.onStart();
         user = auth.getCurrentUser();
         checkCurrentUser(user);
+
     }
 
     public void checkCurrentUser(FirebaseUser user) {
         // [START check_current_user]
         if (user != null) {
+            //uid로 로그인하기
+            //readUser/:uid로 넘어가기
+            String id = user.getEmail();
+            Log.d("email", id);
             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
             Log.d("ProviderID", user.getProviderData().toString());
-            auth.signOut();
         } else {
             // No user is signed in
         }
@@ -112,40 +117,51 @@ public class SignInActivity extends BaseActivity {
                 if ((id.length() == 0) || (password.length() == 0)) {
                     Toast.makeText(getApplicationContext(), "이메일과 비밀번호를 다시확인해주세요.", Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), SignIn_pw.getText().toString().trim()+":::"+SignIn_pw.getText().toString().trim(), Toast.LENGTH_LONG).show();
-
-
                 } else {
-                    Retrofit retrofit = new Retrofit.Builder()
-                           .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
-//                            .baseUrl("http://192.168.219.142:4000")
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
+                    auth.signInWithEmailAndPassword(id, password)
+                            .addOnCompleteListener(SignInActivity.this, task -> {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "signInWithEmail:success");
+                                        user = auth.getCurrentUser();
 
-                    final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-                    Call<User> apiCall = apiService.getDataEmail(id);
-                    apiCall.enqueue(new Callback<User>() {
-                        @Override
-                        public void onResponse(Call<User> call, Response<User> response) {
-                            User du = response.body();
-                            Log.d("mytag 됨 Sign", du.toString());
-                            Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
-                            if(password.equals(du.getPassword())){
-                                Log.d("mytag 됨 Sign",password+"::"+du.getPassword()+":이메일은:"+id);
-                                Intent intent=new Intent(getApplicationContext(), Main_List.class);
-                                intent.putExtra("gender",du.getGender());
-                                intent.putExtra("uid",du.getUid());
-                                intent.putExtra("num","1");
-                                startActivity(intent);
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<User> call, Throwable t) {
-                            Log.d("mytag Sign", "안됨 fail : " + t.toString());
-                            Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
-//                    signIn_email(id, password);
+
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                               .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                    //                            .baseUrl("http://192.168.219.142:4000")
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+
+                                        final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+                                        Call<User> apiCall = apiService.getDataEmail(id);
+                                        apiCall.enqueue(new Callback<User>() {
+                                            @Override
+                                            public void onResponse(Call<User> call, Response<User> response) {
+                                                User du = response.body();
+                                                Log.d("mytag 됨 Sign", du.toString());
+                                                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
+                                                if(password.equals(du.getPassword())){
+                                                    Log.d("mytag 됨 Sign",password+"::"+du.getPassword()+":이메일은:"+id);
+                                                    Intent intent=new Intent(getApplicationContext(), Main_List.class);
+                                                    intent.putExtra("gender",du.getGender());
+                                                    intent.putExtra("uid",du.getUid());
+                                                    intent.putExtra("num","1");
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }
+                                            @Override
+                                            public void onFailure(Call<User> call, Throwable t) {
+                                                Log.d("mytag Sign", "안됨 fail : " + t.toString());
+                                                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                    //                    signIn_email(id, password);
+                                    } else {
+                                        Log.d(TAG, "signInWithEmail:failure", task.getException());
+                                    }
+                            });
                 }
 
             }
@@ -180,27 +196,27 @@ public class SignInActivity extends BaseActivity {
 
     }
 
-//    private void signIn_email(String id, String password) {
-//        auth.signInWithEmailAndPassword(id, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "signInWithEmail:success");
-//                            Log.d(TAG, "이메일 로그인 버튼");
-//                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-//                            startActivity(intent);
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-//                            Toast.makeText(SignInActivity.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//        // [END sign_in_with_email]
-//    }
+    private void signIn_email(String id, String password) {
+        auth.signInWithEmailAndPassword(id, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            Log.d(TAG, "이메일 로그인 버튼");
+                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(SignInActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        // [END sign_in_with_email]
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

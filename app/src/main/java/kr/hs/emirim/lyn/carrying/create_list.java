@@ -51,6 +51,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
         Intent intent=getIntent();
         String userUid=intent.getStringExtra("uid");//서버와 접촉할때 사용
+
         int userGender = intent.getExtras().getInt("gender");
         Log.d("mytag create_list","됨 ok : "+userUid+":"+userGender);
 

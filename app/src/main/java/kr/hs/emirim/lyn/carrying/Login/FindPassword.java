@@ -11,6 +11,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,9 @@ public class FindPassword extends AppCompatActivity {
         EditText pw=(EditText)findViewById(R.id.et_password);
         EditText pwr=(EditText)findViewById(R.id.et_passwordre);
         EditText eemail=(EditText)findViewById(R.id.et_eamil);
+
+        Intent intent=getIntent();
+        String userUid=intent.getStringExtra("uid");
 
         back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -80,7 +84,7 @@ public class FindPassword extends AppCompatActivity {
                                   public void onClick(View v) {
                                       if ((pw.getText().toString()).equals(pwr.getText().toString())) {
 
-                                          Call<User> apiCall = apiService.postUpdataPassword(email, pw.getText().toString());
+                                          Call<User> apiCall = apiService.postUpdataPassword(userUid, pw.getText().toString());
 
                                           apiCall.enqueue(new Callback<User>() {
                                               @Override

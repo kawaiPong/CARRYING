@@ -49,7 +49,8 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000").client(okHttpClient)
+                .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                .client(okHttpClient)
 //                .baseUrl("http://localhost:1234").
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -105,12 +106,16 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
 
                 if ((NickName.length() == 0) ||
-                        (Email.length() == 0) ||
-                        (Password.length() == 0) ||
-                        (CheckPassword.length() == 0)) {
+                        (Email.length() == 0)||
+                        (CheckPassword.length() < 8))
+                         {
                     Toast.makeText(getApplicationContext(), "모든 항목이 채워져있는지 확인해주세요", Toast.LENGTH_LONG).show();
 
-                } else {
+                }
+                else if((Password.length() < 8) ){
+                    Toast.makeText(getApplicationContext(), "비밀번호는 8자리 이상 입력해주세요", Toast.LENGTH_LONG).show();
+
+            } else {
                     if (Password.equals(CheckPassword)) {
 
                         Log.d("password equals", "비밀번호 맞음");
@@ -127,7 +132,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                                     if (task.isSuccessful()) {
                                         user = auth.getCurrentUser(); //master엔 없음
                                         uid = user.getUid();
-
+                                        Log.d("Uid : ", uid);
 
 
                                         Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
@@ -136,11 +141,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                                             @Override
                                             public void onResponse(Call<User> call, Response<User> response) {
                                                 User du = response.body();
-                                                Log.d("mytag 됨", du.toString());
-                                                Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
-
-
-
+                                                Log.d("회원가입", "성공");
                                             }
                                             @Override
                                             public void onFailure(Call<User> call, Throwable t) {

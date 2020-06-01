@@ -39,8 +39,8 @@ public interface RetrofitExService {
     Call<User> postData(@Path("uid") String uid,@Path("nickname") String nickname,@Path("email") String email,@Path("password") String password,@Path("gender")int gender );
 
     //비밀번호 수정
-    @POST("/user/updatePassword/{email}/{password}")
-    Call<User> postUpdataPassword(@Path("email") String email,@Path("password") String password);
+    @POST("/user/updatePassword/{uid}/{password}")
+    Call<User> postUpdataPassword(@Path("uid") String uid,@Path("password") String password);
 
     //
     @POST("/user/updateUser/{uid}/{nickname}/{email}/{password}/{gender}")

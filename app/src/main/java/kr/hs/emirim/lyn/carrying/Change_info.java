@@ -111,8 +111,8 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
                                 Toast.makeText(getApplicationContext(), "회원정보가 수정되었습니다.", Toast.LENGTH_LONG).show();
                                 mActivity.finish();
                                 Intent intent=new Intent(Change_info.this, Main_List.class);
-                                intent.putExtra("email",emailE.getText().toString());
-                                intent.putExtra("num","1");
+                                intent.putExtra("uid",userUid);
+//                                intent.putExtra("num","1");
                                 startActivity(intent);
                             }
 
@@ -138,23 +138,10 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
         NicknameOk_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Call<User> apiCall = apiService.getDataNickname(nicknameE.getText().toString());
-                apiCall.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        User du = response.body();
-                        //Log.d("mytag ChangeUser", "됨  : " + du.toString());
-                        Toast.makeText(getApplicationContext(), "사용중인 닉네임 입니다.", Toast.LENGTH_LONG).show();
-
-                    }
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "닉네임 사용 가능", Toast.LENGTH_LONG).show();
-                        //Log.d("mytag ChangeUser", "안됨 fail : " + t.toString());
-                    }
-                });
+                Toast.makeText(getApplicationContext(), "닉네임 사용 가능", Toast.LENGTH_LONG).show();
             }
         });
+
 
         EmailOk_btn.setOnClickListener(new View.OnClickListener(){
             @Override
