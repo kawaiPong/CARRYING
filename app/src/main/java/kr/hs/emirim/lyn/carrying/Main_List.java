@@ -259,6 +259,9 @@ import android.widget.TextView;
 
 //import com.google.android.material.navigation.NavigationView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -275,6 +278,9 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 public class Main_List extends AppCompatActivity {
+
+    private FirebaseAuth auth;
+    FirebaseUser user;
 
     private ArrayList<Dictionary> mArrayList;
     private CustomAdapter mAdapter;
@@ -560,9 +566,13 @@ public class Main_List extends AppCompatActivity {
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Main_List.this,SignInActivity.class);
-                finish();
+                auth = FirebaseAuth.getInstance();
+
+                auth.signOut();
+                Log.d(TAG, "로그아웃 버튼");
+                Intent intent = new Intent(Main_List.this, SignInActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

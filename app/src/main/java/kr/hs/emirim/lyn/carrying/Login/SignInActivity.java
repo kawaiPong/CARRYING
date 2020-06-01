@@ -44,6 +44,14 @@ public class SignInActivity extends BaseActivity {
     private LoginCallback mLoginCallback;
     private CallbackManager mCallbackManager;
 
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+            //                            .baseUrl("http://192.168.219.142:4000")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+
 //    EditText SignIn_email;
 //    EditText SignIn_pw;
     Button SignIn_btn;
@@ -88,12 +96,26 @@ public class SignInActivity extends BaseActivity {
         if (user != null) {
             //uid로 로그인하기
             //readUser/:uid로 넘어가기
-            String id = user.getEmail();
-            Log.d("email", id);
-            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            Log.d("ProviderID", user.getProviderData().toString());
+            String user_uid = user.getUid();
+            Log.d("email", user_uid);
+            apiService.getData(user_uid).enqueue(new Callback<User>() {//drawer에 닉네임이랑 이메일 뜨게하기 위한 작업
+                @Override
+                public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                    User du = response.body();
+                    Log.d("sowon drawer modify","됨 ok : "+ du.toString());
+                    Log.d("data.getNickname() : ", du.getNickname() + "");
+                    Intent intent = new Intent(SignInActivity.this, Main_List.class);
+                    intent.putExtra("gender",du.getGender());
+                    intent.putExtra("uid",du.getUid());
+                    intent.putExtra("num","1");
+                    startActivity(intent);
+                    finish();
+                }
+                @Override
+                public void onFailure(@NonNull Call<User> call,@NonNull Throwable t) {
+                    Log.d("mytag Main", "안됨 fail : " + t.toString());
+                }
+            });
         } else {
             // No user is signed in
         }
@@ -124,15 +146,6 @@ public class SignInActivity extends BaseActivity {
                                         Log.d(TAG, "signInWithEmail:success");
                                         user = auth.getCurrentUser();
 
-
-
-                                        Retrofit retrofit = new Retrofit.Builder()
-                                               .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
-                    //                            .baseUrl("http://192.168.219.142:4000")
-                                                .addConverterFactory(GsonConverterFactory.create())
-                                                .build();
-
-                                        final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
                                         Call<User> apiCall = apiService.getDataEmail(id);
                                         apiCall.enqueue(new Callback<User>() {
                                             @Override
