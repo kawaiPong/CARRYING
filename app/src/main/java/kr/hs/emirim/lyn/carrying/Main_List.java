@@ -268,6 +268,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -316,6 +317,8 @@ public class Main_List extends AppCompatActivity {
         Button compose=(Button)findViewById(R.id.compose);
         TextView userName=(TextView)findViewById(R.id.userName);
         TextView userEmail=(TextView)findViewById(R.id.userEmail);
+        TextView today_date=(TextView)findViewById(R.id.today_date);
+
 
         TextView now_temp=(TextView)findViewById(R.id.now_temp);
         ImageView now_des_sunny=(ImageView)findViewById(R.id.description_sunny);
@@ -479,6 +482,13 @@ public class Main_List extends AppCompatActivity {
         hamburger.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get (cal.YEAR);
+                int month = cal.get (cal.MONTH) + 1 ;
+                int date = cal.get (cal.DATE) ;
+
+                today_date.setText(year+"."+month+"."+date);
+
                 now_temp.setText(current_temp);
                 if(current_description.equals("clear sky"))now_des_sunny.setVisibility(View.VISIBLE);
                 else if(current_description.contains("cloud"))now_des_cloudy.setVisibility(View.VISIBLE);

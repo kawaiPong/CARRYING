@@ -2,13 +2,9 @@ package kr.hs.emirim.lyn.carrying;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
+
 import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
 import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
-import kr.hs.emirim.lyn.carrying.Retrofit.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +18,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -46,7 +41,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
     final Context context = this;
     private ArrayList<Dictionary> mArrayList;
-    private CustomAdapter mAdapter;
+    private CustomAdapterItem mAdapter;
     private ImageButton btnAlert;
 
     @Override

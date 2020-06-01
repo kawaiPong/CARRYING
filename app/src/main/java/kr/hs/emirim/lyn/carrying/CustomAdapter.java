@@ -3,7 +3,6 @@ package kr.hs.emirim.lyn.carrying;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
 import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
-import kr.hs.emirim.lyn.carrying.Retrofit.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -121,7 +119,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 Log.d("mytag",position +"");
                 Toast.makeText(context, position +"", Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(context,check_list.class);
-                intent.putExtra("userUid",userUid);
 
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
@@ -137,9 +134,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
                         if (du != null) {
                             for (int i = 0; i < du.size(); i++) {
+                                Log.d("mytag CA",du.get(i).toString());
                                 if(du.get(i).getTitle().equals(mList.get(position).getTitle())){
-                                    intent.putExtra("title",du.get(i).getTitle()+"");
-                                    Log.d("mytag CA",du.get(i).getTitle()+":"+mList.get(position).getTitle());
+                                    intent.putExtra("listNum",du.get(i).getNum());
+                                    intent.putExtra("userUid",userUid);
+                                    context.startActivity(intent);
                                     break;
                                 }
                             }
@@ -157,7 +156,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
                 });
 
-                context.startActivity(intent);
 
 
 
