@@ -30,7 +30,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
-
+    private FirebaseAuth auth;
+    private FirebaseUser user;
     Spinner spinner;
     String[] item;
     String uid;
@@ -48,13 +49,14 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000").client(okHttpClient)
+                .baseUrl("http://ec2-15-164-215-173.ap-northeast-2.compute.amazonaws.com:3000").client(okHttpClient)
 //                .baseUrl("http://localhost:1234").
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-        
 
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -111,17 +113,18 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 } else {
                     if (Password.equals(CheckPassword)) {
 
-                        FirebaseAuth auth;
-                        FirebaseUser user;
-                        auth = FirebaseAuth.getInstance();
-                        user = auth.getCurrentUser();
-
-                        Log.d("mytag 됨", Email+"+"+Password);
-                        Log.d("mytag 됨", auth.createUserWithEmailAndPassword(Email, Password).toString());
+//                        FirebaseAuth auth;
+//                        FirebaseUser user;
+//                        auth = FirebaseAuth.getInstance();
+//                        user = auth.getCurrentUser();
+//
+//                        Log.d("mytag 됨", Email+"+"+Password);
+//                        Log.d("mytag 됨", auth.createUserWithEmailAndPassword(Email, Password).toString());
                         auth.createUserWithEmailAndPassword(Email, Password)
                                 .addOnCompleteListener(RegisterActivity.this, task -> {
                                     if (task.isSuccessful()) {
-                                        uid = auth.getUid();
+                                        user = auth.getCurrentUser(); //master엔 없음
+                                        uid = user.getUid();
 
                                         Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
                                         Log.d("SOWON retrofit",uid+":"+NickName+":"+Email+":"+Password+":"+gender+":");
@@ -131,6 +134,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                                                 User du = response.body();
                                                 Log.d("mytag 됨", du.toString());
                                                 Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
+
 
 
                                             }

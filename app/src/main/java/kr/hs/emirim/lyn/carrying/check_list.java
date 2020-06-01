@@ -44,7 +44,6 @@ public class check_list extends AppCompatActivity {
         String user_uid=intent.getExtras().getString("userUid");
         int listNum=intent.getExtras().getInt("listNum");
 
-
         Log.d("mytag check_list uid",user_uid+":"+listNum);
 
         Button back=(Button)findViewById(R.id.back_checkList);
@@ -82,8 +81,8 @@ public class check_list extends AppCompatActivity {
                     checkListItem[] data = new checkListItem[du.size()];//자동으로 해줌
                     for (int i = 0; i < du.size(); i++) {
                         data[i] = new checkListItem(du.get(i).getCheck_num(),du.get(i).getName(),du.get(i).getStatus(),du.get(i).getList_num());
-                        Log.d("mytag",""+du.get(i).getName()+":"+i+"번째");
-                        Log.d("mytag",""+data[i].toString());
+//                        Log.d("mytag",""+du.get(i).getName()+":"+i+"번째");
+//                        Log.d("mytag",""+data[i].toString());
                         mArrayList.add(data[i]); // RecyclerView의 마지막 줄에 삽입
                     }
                     Log.e("getData2 end", "======================================");
@@ -113,6 +112,7 @@ public class check_list extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(check_list.this, plusItemPopUp.class);
+                intent.putExtra("listNum",listNum);
                 startActivity(intent);
 
             }

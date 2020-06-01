@@ -542,6 +542,7 @@ public class Main_List extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Main_List.this, FindPassword.class);
+                intent.putExtra("uid",user_uid);
                 startActivity(intent);
             }
         });
