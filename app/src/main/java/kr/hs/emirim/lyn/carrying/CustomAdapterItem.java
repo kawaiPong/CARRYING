@@ -208,24 +208,13 @@ public class CustomAdapterItem extends RecyclerView.Adapter<CustomAdapterItem.Cu
         viewholder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
                 if(isChecked) {
-
-
-
-
-
-
                     Log.d("mytag","checkcheck: "+mList.get(position).getName()+":"+mList.get(position).getCheck_num()+":"+position);
-
-
-
-
-
-
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
 
                     final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
                     Call<checkListItem> apiCall = apiService.checkOneItem(mList.get(position).getCheck_num());
@@ -248,6 +237,26 @@ public class CustomAdapterItem extends RecyclerView.Adapter<CustomAdapterItem.Cu
 
 
 
+                }
+                else{
+                    final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+                    Call<checkListItem> apiCall = apiService.checkOneItem(mList.get(position).getCheck_num());
+                    apiCall.enqueue(new Callback<checkListItem>() {
+                        @Override
+                        public void onResponse(Call<checkListItem> call, Response<checkListItem> response) {
+                            checkListItem du = response.body();
+
+                            Log.d("mytag status 변경",mList.get(position).getCheck_num()+"안클릭");
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<checkListItem> call, Throwable t) {
+                            Log.d("mytag status 변경","걍 실패");
+
+                        }
+
+                    });
                 }
             }
         });

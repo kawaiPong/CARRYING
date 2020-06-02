@@ -139,6 +139,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                                 if(du.get(i).getTitle().equals(mList.get(position).getTitle())){
                                     intent.putExtra("listNum",du.get(i).getNum());
                                     intent.putExtra("title",du.get(i).getTitle());
+                                    intent.putExtra("season",du.get(i).getSeason());
+                                    intent.putExtra("theme",du.get(i).getTheme());
                                     intent.putExtra("userUid",userUid);
                                     context.startActivity(intent);
                                     break;
