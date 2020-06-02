@@ -33,6 +33,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         void onItemClick(View v, int position) ;
     }
 
+
     // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener ;
@@ -137,6 +138,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                                 Log.d("mytag CA",du.get(i).toString());
                                 if(du.get(i).getTitle().equals(mList.get(position).getTitle())){
                                     intent.putExtra("listNum",du.get(i).getNum());
+                                    intent.putExtra("title",du.get(i).getTitle());
                                     intent.putExtra("userUid",userUid);
                                     context.startActivity(intent);
                                     break;

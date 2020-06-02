@@ -11,7 +11,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +45,7 @@ public class check_list extends AppCompatActivity {
 
 
         intent=getIntent();
+        String title=intent.getExtras().getString("title");
         String user_uid=intent.getExtras().getString("userUid");
         int listNum=intent.getExtras().getInt("listNum");
 
@@ -48,7 +53,9 @@ public class check_list extends AppCompatActivity {
 
         Button back=(Button)findViewById(R.id.back_checkList);
         Button plus_item=(Button)findViewById(R.id.plus_item_btn);
+        TextView title_activity=(TextView)findViewById(R.id.listTitle);
 
+        title_activity.setText(title);
 
         RecyclerView mRecyclerView = (RecyclerView)findViewById(R.id.checkBoxList);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
