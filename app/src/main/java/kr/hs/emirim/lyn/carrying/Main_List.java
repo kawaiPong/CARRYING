@@ -136,7 +136,7 @@ public class Main_List extends AppCompatActivity {
         String user_uid=intent.getExtras().getString("uid");
         int userGender = intent.getExtras().getInt("gender");
 
-        Log.d("sowon mytag Main_List","됨 ok : "+user_uid+":"+userGender);
+        Log.d("sowon mytag Main_List","됨 ok : "+user_uid+":"+userGender + ":" + intent.getExtras().getInt("num"));
         String num=intent.getExtras().getString("num");
 //        Log.d("sowon Main_List","됨 ok : "+num+"과"+user_uid);
 
@@ -198,7 +198,7 @@ public class Main_List extends AppCompatActivity {
                     Dictionary[] data = new Dictionary[du.size()];//자동으로 해줌
                     for (int i = 0; i < du.size(); i++) {
                         data[i] = new Dictionary(du.get(i).getNum(),du.get(i).getTitle(),du.get(i).getStart_date(), du.get(i).getFinish_date());
-                        Log.d("mytag",""+du.get(i).getTitle()+du.get(i).getStart_date()+du.get(i).getFinish_date());
+                        Log.d("mytag",""+du.get(i).getNum() + du.get(i).getTitle()+du.get(i).getStart_date()+du.get(i).getFinish_date());
                         //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
                         mArrayList.add(data[i]); // RecyclerView의 마지막 줄에 삽입
                     }

@@ -32,6 +32,7 @@ public class plusItemPopUp extends AppCompatActivity {
         Button submit=(Button)findViewById(R.id.check_popup);//확인버튼
         intent=getIntent();
         int listNum=intent.getExtras().getInt("listNum");
+        Log.d("plusItemPopUp", String.valueOf(listNum));
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +79,6 @@ public class plusItemPopUp extends AppCompatActivity {
 
                             Toast.makeText(getApplicationContext(), "아이템이 추가되었습니다.", Toast.LENGTH_LONG).show();
                             finish();
-
                         }
                         @Override
                         public void onFailure(Call<checkListItem> call, Throwable t) {
