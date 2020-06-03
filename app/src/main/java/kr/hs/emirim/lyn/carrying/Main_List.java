@@ -22,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,7 +65,6 @@ public class Main_List extends AppCompatActivity {
 
     public static Activity Main_List;
 
-
     //날씨 api
     private static final String TAG = "api";
     public static final int LOAD_SUCCESS = 101;
@@ -95,7 +95,7 @@ public class Main_List extends AppCompatActivity {
         Button logout_btn=(Button)findViewById(R.id.logOut);
         Button editInfo_btn=(Button)findViewById(R.id.EditInfo);
         Button pwChange=(Button)findViewById(R.id.PasswordChange);
-        Button compose=(Button)findViewById(R.id.compose);
+        Button compose=(Button)findViewById(R.id.deleteBtn);
         TextView userName=(TextView)findViewById(R.id.userName);
         TextView userEmail=(TextView)findViewById(R.id.userEmail);
         TextView today_date=(TextView)findViewById(R.id.today_date);
@@ -173,7 +173,7 @@ public class Main_List extends AppCompatActivity {
 
 
         mArrayList = new ArrayList<>();
-        mAdapter = new CustomAdapter(mArrayList,user_uid);
+        mAdapter = new CustomAdapter(mArrayList,user_uid,userGender);
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -197,7 +197,7 @@ public class Main_List extends AppCompatActivity {
                 if (du != null) {
                     Dictionary[] data = new Dictionary[du.size()];//자동으로 해줌
                     for (int i = 0; i < du.size(); i++) {
-                        data[i] = new Dictionary(du.get(i).getTitle(),du.get(i).getStart_date(), du.get(i).getFinish_date());
+                        data[i] = new Dictionary(du.get(i).getNum(),du.get(i).getTitle(),du.get(i).getStart_date(), du.get(i).getFinish_date());
                         Log.d("mytag",""+du.get(i).getTitle()+du.get(i).getStart_date()+du.get(i).getFinish_date());
                         //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
                         mArrayList.add(data[i]); // RecyclerView의 마지막 줄에 삽입
@@ -319,6 +319,7 @@ public class Main_List extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(Main_List.this, FindPassword.class);
                 intent.putExtra("uid",user_uid);
+                finish();
                 startActivity(intent);
             }
         });

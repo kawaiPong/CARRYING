@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String TAG = "MainActivity";
 
-
-
     private FirebaseAuth auth;
     FirebaseUser user;
     Button signOut_btn;

@@ -214,17 +214,16 @@ public class CustomAdapterItem extends RecyclerView.Adapter<CustomAdapterItem.Cu
                         .build();
 
                 if(isChecked) {
-                    Log.d("mytag","checkcheck: "+mList.get(position).getName()+":"+mList.get(position).getCheck_num()+":"+position);
+                    Log.d("mytag","checkcheck: "+mList.get(position).getName()+":"+mList.get(position).getList_num()+":"+mList.get(position).getCheck_num()+":"+position);
 
                     final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-                    Call<checkListItem> apiCall = apiService.checkOneItem(mList.get(position).getCheck_num());
+                    Call<checkListItem> apiCall = apiService.checkOneItem(mList.get(position).getList_num(),mList.get(position).getCheck_num());
                     apiCall.enqueue(new Callback<checkListItem>() {
                         @Override
                         public void onResponse(Call<checkListItem> call, Response<checkListItem> response) {
                             checkListItem du = response.body();
 
                             Log.d("mytag status 변경",mList.get(position).getCheck_num()+"성공");
-
                         }
 
                         @Override
@@ -240,19 +239,19 @@ public class CustomAdapterItem extends RecyclerView.Adapter<CustomAdapterItem.Cu
                 }
                 else{
                     final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-                    Call<checkListItem> apiCall = apiService.checkOneItem(mList.get(position).getCheck_num());
+                    Call<checkListItem> apiCall = apiService.checkOneItem(mList.get(position).getList_num(),mList.get(position).getCheck_num());
                     apiCall.enqueue(new Callback<checkListItem>() {
                         @Override
                         public void onResponse(Call<checkListItem> call, Response<checkListItem> response) {
                             checkListItem du = response.body();
 
-                            Log.d("mytag status 변경",mList.get(position).getCheck_num()+"안클릭");
+                            Log.d("mytag status 변경2",mList.get(position).getCheck_num()+"안클릭");
 
                         }
 
                         @Override
                         public void onFailure(Call<checkListItem> call, Throwable t) {
-                            Log.d("mytag status 변경","걍 실패");
+                            Log.d("mytag status 변경2","걍 실패");
 
                         }
 

@@ -65,20 +65,20 @@ public class check_list extends AppCompatActivity {
         theme_2.setVisibility(View.VISIBLE);
 
 
-        if(theme==0&&season==0)theme_2.setVisibility(View.INVISIBLE);
+        if(theme==10&&season==10)theme_2.setVisibility(View.INVISIBLE);
         switch(season) {
-            case 0:
+            case 10:
                 theme_2.setText("# 기본계절");
                 break;
-            case 1:
+            case 5:
                 theme_2.setText("# 봄/가을");
                 break;
 
-            case 2:
+            case 6:
                 theme_2.setText("# 여름");
                 break;
 
-            case 3:
+            case 7:
                 theme_2.setText("# 겨울");
                 break;
 
@@ -88,26 +88,26 @@ public class check_list extends AppCompatActivity {
         }
 
         switch(theme) {
-            case 0:
+            case 10:
                 theme_1.setText("# 기본테마");
                 break;
-            case 1:
+            case 0:
                 theme_1.setText("# 온천");
                 break;
 
-            case 2:
+            case 1:
                 theme_1.setText("# 등산");
                 break;
 
-            case 3:
+            case 2:
                 theme_1.setText("# 테마파크");
                 break;
 
-            case 4:
+            case 3:
                 theme_1.setText("# 문화체험");
                 break;
 
-            case 5:
+            case 4:
                 theme_1.setText("# 출장");
                 break;
 

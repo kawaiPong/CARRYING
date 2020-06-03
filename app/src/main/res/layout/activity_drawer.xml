@@ -6,7 +6,7 @@
     android:layout_width="280dp"
     android:layout_height="match_parent"
     android:layout_gravity="start"
-    android:background="#3234f0"
+    android:background="#0281ff"
     android:orientation="vertical"
     android:padding="0dp">
 
@@ -296,50 +296,50 @@
             android:layout_width="109.3dp"
             android:layout_height="96.3dp"
             android:layout_marginTop="25dp"
+            android:background="@drawable/ic_tshits"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recom_weather"
-            android:background="@drawable/ic_tshits"/>
+            app:layout_constraintTop_toBottomOf="@+id/recom_weather" />
 
         <ImageView
             android:id="@+id/cloth_cardigan"
             android:layout_width="115.3dp"
             android:layout_height="96.3dp"
             android:layout_marginTop="25dp"
+            android:background="@drawable/ic_cardigan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recom_weather"
-            android:background="@drawable/ic_cardigan" />
+            app:layout_constraintTop_toBottomOf="@+id/recom_weather" />
 
         <ImageView
             android:id="@+id/cloth_nasi"
             android:layout_width="66.8dp"
             android:layout_height="96.3dp"
             android:layout_marginTop="25dp"
+            android:background="@drawable/ic_nasi"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recom_weather"
-            android:background="@drawable/ic_nasi" />
+            app:layout_constraintTop_toBottomOf="@+id/recom_weather" />
 
         <ImageView
             android:id="@+id/cloth_zipup"
             android:layout_width="112.4dp"
             android:layout_height="96.4dp"
             android:layout_marginTop="25dp"
+            android:background="@drawable/ic_zipup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recom_weather"
-            android:background="@drawable/ic_zipup" />
+            app:layout_constraintTop_toBottomOf="@+id/recom_weather" />
 
         <ImageView
             android:id="@+id/cloth_coat"
             android:layout_width="98.7dp"
             android:layout_height="96.4dp"
             android:layout_marginTop="25dp"
+            android:background="@drawable/ic_coat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recom_weather"
-            android:background="@drawable/ic_coat" />
+            app:layout_constraintTop_toBottomOf="@+id/recom_weather" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
