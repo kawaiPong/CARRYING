@@ -47,14 +47,14 @@ public interface RetrofitExService {
     Call<User> postUpdateUser(@Path("uid") String uid,@Path("nickname") String nickname,@Path("email") String email,@Path("password") String password,@Path("gender")int gender );
 
     //새로운 list 만들기
-    @POST("/list/addList/{city}/{start_date}/{finish_date}/{uid}/{gender}/{theme}/{weather}")
+    @POST("/list/addList/{city}/{start_date}/{finish_date}/{uid}/{gender}/{theme}/{season}")
     Call<CheckList> postCreateList(@Path("city") String city,
                               @Path("start_date") String start_date,
                               @Path("finish_date") String finish_date,
                               @Path("uid") String uid,
                               @Path("gender") int gender,
                               @Path("theme") String theme,
-                              @Path("weather") String weather);
+                              @Path("season") String season);
 
 
     //한 명의 회원의 전체 체크리스트 불러오기
@@ -66,8 +66,12 @@ public interface RetrofitExService {
     Call<List<checkListItem>> readAllItem(@Path("list_num")int list_num);
 
     //list에서 item하나 추가
-    @POST("/item/deleteCheckListItem/{list_num}/{name}")
+    @POST("/item/addCheckListItem/{list_num}/{name}")
     Call<checkListItem> plusOneItem(@Path("list_num")int list_num, @Path("name")String name);
+
+    //item 체크한거 저장
+    @POST("/item/updateCheckListItem/{check_num}")
+    Call<checkListItem> checkOneItem(@Path("check_num")int check_num);
 
 
     @PUT("/posts/1")

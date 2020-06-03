@@ -11,7 +11,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,14 +45,82 @@ public class check_list extends AppCompatActivity {
 
 
         intent=getIntent();
+        String title=intent.getExtras().getString("title");
         String user_uid=intent.getExtras().getString("userUid");
         int listNum=intent.getExtras().getInt("listNum");
+        String seasonStr=intent.getExtras().getString("season");
+        String themeStr=intent.getExtras().getString("theme");
 
-        Log.d("mytag check_list uid",user_uid+":"+listNum);
+        int theme=Integer.parseInt(themeStr);
+        int season  = Integer.parseInt(seasonStr);
+
+        Log.d("mytag check_list intent",user_uid+":"+listNum+":"+season+":"+theme);
 
         Button back=(Button)findViewById(R.id.back_checkList);
         Button plus_item=(Button)findViewById(R.id.plus_item_btn);
+        Button theme_1=(Button)findViewById(R.id.theme1);
+        Button theme_2=(Button)findViewById(R.id.theme2);
+//        theme_1.setVisibility(View.INVISIBLE);
+        theme_1.setVisibility(View.VISIBLE);
+        theme_2.setVisibility(View.VISIBLE);
 
+
+        if(theme==0&&season==0)theme_2.setVisibility(View.INVISIBLE);
+        switch(season) {
+            case 0:
+                theme_2.setText("# 기본계절");
+                break;
+            case 1:
+                theme_2.setText("# 봄/가을");
+                break;
+
+            case 2:
+                theme_2.setText("# 여름");
+                break;
+
+            case 3:
+                theme_2.setText("# 겨울");
+                break;
+
+            default:
+                theme_2.setText("# 기본");
+                break;
+        }
+
+        switch(theme) {
+            case 0:
+                theme_1.setText("# 기본테마");
+                break;
+            case 1:
+                theme_1.setText("# 온천");
+                break;
+
+            case 2:
+                theme_1.setText("# 등산");
+                break;
+
+            case 3:
+                theme_1.setText("# 테마파크");
+                break;
+
+            case 4:
+                theme_1.setText("# 문화체험");
+                break;
+
+            case 5:
+                theme_1.setText("# 출장");
+                break;
+
+            default:
+                theme_1.setText("# 기본");
+                break;
+        }
+
+
+
+        TextView title_activity=(TextView)findViewById(R.id.listTitle);
+
+        title_activity.setText(title);
 
         RecyclerView mRecyclerView = (RecyclerView)findViewById(R.id.checkBoxList);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);

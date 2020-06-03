@@ -69,23 +69,14 @@ public class CheckList {
         this.gender = gender;
     }
 
-    public String getWeather() {
-        return weather;
+    public String getSeason() {
+        return season;
     }
 
-    public void setWeather(String weather) {
-        this.weather = weather;
+    public void setSeason(String season) {
+        this.season = season;
     }
 
-    public int getListNum() {
-        return listNum;
-    }
-
-    public void setListNum(int listNum) {
-        this.listNum = listNum;
-    }
-
-    private int listNum;
     private int num;
     private String title;
     private String city;
@@ -94,11 +85,11 @@ public class CheckList {
     private String uid;
     private String theme;
     private int gender;
-    private String weather;
+    private String season;
+//    private String weather;
 
-    public CheckList(int listnum, int num, String title, String city, String start_date, String finish_date, String uid, String theme, int gender, String weather) {
 
-        this.listNum = listnum;
+    public CheckList(int num, String title, String city, String start_date, String finish_date, String uid, String theme, int gender, String season) {
         this.num = num;
         this.title = title;
         this.city = city;
@@ -107,14 +98,13 @@ public class CheckList {
         this.uid = uid;
         this.theme = theme;
         this.gender = gender;
-        this.weather = weather;
+        this.season = season;
     }
 
     @Override
     public String toString() {
         return "CheckList{" +
-                "listnum=" + listNum +
-                ", num=" + num +
+                "num=" + num +
                 ", title='" + title + '\'' +
                 ", city='" + city + '\'' +
                 ", start_date='" + start_date + '\'' +
@@ -122,7 +112,7 @@ public class CheckList {
                 ", uid='" + uid + '\'' +
                 ", theme='" + theme + '\'' +
                 ", gender=" + gender +
-                ", weather='" + weather + '\'' +
+                ", season='" + season + '\'' +
                 '}';
     }
 }

@@ -21,10 +21,6 @@
             android:theme="@style/popupTheme" />
         <activity android:name=".check_list" />
 
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

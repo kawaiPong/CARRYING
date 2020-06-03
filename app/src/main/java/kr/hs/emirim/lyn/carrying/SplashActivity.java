@@ -46,6 +46,7 @@ public class SplashActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
+                //FirebaseAuth.getInstance().signOut();
                 checkCurrentUser(user);
             }
         }, 1800);
@@ -88,8 +89,8 @@ public class SplashActivity extends AppCompatActivity {
             Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
             startActivity(intent);
 
-            finish();
-        }
-        // [END check_current_user]
+                finish();
+            }
+
     }
 }
