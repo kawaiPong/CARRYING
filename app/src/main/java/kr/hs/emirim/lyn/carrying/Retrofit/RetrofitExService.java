@@ -65,13 +65,17 @@ public interface RetrofitExService {
     @GET("/item/readCheckListItems/{list_num}")
     Call<List<checkListItem>> readAllItem(@Path("list_num")int list_num);
 
+
     //list에서 item하나 추가
     @POST("/item/addCheckListItem/{list_num}/{name}")
     Call<checkListItem> plusOneItem(@Path("list_num")int list_num, @Path("name")String name);
 
+    @POST("/list/deleteSelectedList/{num}")
+    Call<CheckList> deleteList(@Path("num")int num);
+
     //item 체크한거 저장
-    @POST("/item/updateCheckListItem/{check_num}")
-    Call<checkListItem> checkOneItem(@Path("check_num")int check_num);
+    @POST("/item/updateCheckListItem/{list_num}/{check_num}")
+    Call<checkListItem> checkOneItem(@Path("list_num")int list_num,@Path("check_num")int check_num);
 
 
     @PUT("/posts/1")

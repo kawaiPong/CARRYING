@@ -1,5 +1,6 @@
 package kr.hs.emirim.lyn.carrying;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +45,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     private ArrayList<Dictionary> mList;
     private String userUid;
+    private int gender;
 
     public  class  CustomViewHolder extends RecyclerView.ViewHolder {
+        private final Button deleteButton;
         protected TextView title;
         protected TextView start_date;
         protected TextView finish_date;
@@ -71,6 +75,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             this.title = (TextView) view.findViewById(R.id.title_item);
             this.start_date = (TextView) view.findViewById(R.id.start_date);
             this.finish_date = (TextView) view.findViewById(R.id.finish_date);
+            this.deleteButton=(Button)view.findViewById(R.id.deleteBtn);
             // 레이아웃 객체화 findViewById
         }
 
@@ -87,9 +92,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     }
 
 
-    public CustomAdapter(ArrayList<Dictionary> list, String userUid) {
+    public CustomAdapter(ArrayList<Dictionary> list, String userUid, int gender ) {
         this.userUid=userUid;
         this.mList = list;
+        this.gender=gender;
     }
 
 
@@ -155,6 +161,51 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
                     @Override
                     public void onFailure(Call<List<CheckList>> call, Throwable t) {
+
+                    }
+
+                });
+
+
+
+
+
+
+            }
+        });
+
+        viewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Log.d("mytag","클릭");
+
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+                Call<CheckList> apiCall = apiService.deleteList(mList.get(position).getNum());
+                apiCall.enqueue(new Callback<CheckList>() {
+                    @Override
+                    public void onResponse(Call<CheckList> call, Response<CheckList> response) {
+                        CheckList du = response.body();
+
+                        Log.d("mytag CA","됨"+mList.get(position).getNum());
+                        mList.get(position).getNum();
+
+                        Intent refresh = new Intent(context, Main_List.class);
+                        refresh.putExtra("gender",gender);
+                        refresh.putExtra("uid",userUid);
+                        context.startActivity(refresh);
+                        ((Activity)context).finish();
+//                        context.finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<CheckList> call, Throwable t) {
 
                     }
 

@@ -30,6 +30,11 @@ import java.util.Calendar;
 import java.util.List;
 
 public class create_list extends AppCompatActivity implements View.OnClickListener {
+    final List<String> ListItems = new ArrayList<>();
+    final List SelectedItems  = new ArrayList();
+
+    String theme01="10";
+    String theme02="10";
 
     Button start_date;
     Button finish_date;
@@ -48,6 +53,16 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_list);
+
+
+        ListItems.add("온천");
+        ListItems.add("등산");
+        ListItems.add("테마파크");
+        ListItems.add("문화체험");
+        ListItems.add("출장");
+        ListItems.add("봄, 가을");
+        ListItems.add("여름");
+        ListItems.add("겨울");
 
         Intent intent=getIntent();
         String userUid=intent.getStringExtra("uid");//서버와 접촉할때 사용
@@ -91,13 +106,21 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         add_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                if(!(SelectedItems.size()==0)){
+                    theme01=(String)SelectedItems.get(0).toString();
+                    theme02=(String)SelectedItems.get(1).toString();
+                }
+                if((SelectedItems.size()==1)){
+                    theme01=(String)SelectedItems.get(0).toString();
+                }
+
                 Intent intent = new Intent(create_list.this, Main_List.class);
                 if((City.getText().toString().length()==0)||sd==0||fd==0){
                     Toast.makeText(getApplicationContext(), "빈칸이 있습니다.", Toast.LENGTH_LONG).show();
                     Log.d("mytag ","빈칸확인");
                 }
-                else{//여기가 ㄹㅇ중요함
-
+                else{
                     Log.d("mytag ","레트로핏시작전");
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
@@ -114,15 +137,14 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                             fy+"-"+fm+"-"+fd,
                             userUid+"",
                             userGender,
-                            "1",
-                            "1"
+                            theme01+"",
+                            theme02+""
                     );
 
                     Log.d("mytag 이렇게 들어감",City.getText().toString()+""+
                             sy+"-"+sm+"-"+sd+
                             fy+"-"+fm+"-"+fd+
-                            userUid+""+
-                            "0");
+                            userUid+":"+theme01+":"+theme02);
                     Log.d("mytag ","요청 후"+apiCall.toString());
 
                     apiCall.enqueue(new Callback<CheckList>() {
@@ -138,8 +160,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                             Toast.makeText(getApplicationContext(), "해당 이메일이 없습니다.", Toast.LENGTH_LONG).show();
                         }
                     });
-
-
 //                    intent.putExtra("email",userEmail);
 //                    intent.putExtra("num","2");
 //                    intent.putExtra("city",City.getText().toString());
@@ -147,8 +167,8 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 //                    intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
 //                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
                     intent.putExtra("uid",userUid);
+                    finish();
                     startActivity(intent);
-
 
                 }
             }
@@ -173,27 +193,18 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         // 클릭 이벤트
         btnAlert.setOnClickListener(this);
 
+
+
     } //onCreate()
 
     public void onClick(View v) {
         show();
+
+
     }
 
     void show(){
-
-        final List<String> ListItems = new ArrayList<>();
-            ListItems.add("온천");
-            ListItems.add("등산");
-            ListItems.add("테마파크");
-            ListItems.add("문화체험");
-            ListItems.add("봄, 가을");
-            ListItems.add("여름");
-            ListItems.add("겨울");
-
         final CharSequence[] items =  ListItems.toArray(new String[ListItems.size()]);
-        final List SelectedItems  = new ArrayList();
-
-        final String[] hashimg = { "theme02", "theme03", "theme04", "theme05", "theme06", "theme07", "theme08" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.DialogTheme);
         builder.setTitle("추가할 여행 테마 추가");
@@ -201,7 +212,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if (isChecked) {
-                    //사용자가 체크한 경우 리스트에 추가
                     SelectedItems.add(which);
                 } else if (SelectedItems.contains(which)) {
                     //이미 리스트에 들어있던 아이템이면 제거
@@ -210,40 +220,10 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        ImageView image = new ImageView(this);
-
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                //String msg="";
-                //선택한 항목 갯수만큼 선택한 항목 배열 돌리기
-                for (int i = 0; i < SelectedItems.size(); i++) {
-                    //index에 0번방부터 선택한 항목 집어넣기
-                    int index = (int) SelectedItems.get(i);
-                    //msg = msg+"\t"+ListItems.get(index);
-                    //해시태그 이미지를 꺼내옴
-                    int resId = getResources().getIdentifier(hashimg[i], "drawable",
-                            "kr.hs.emirim.lyn.carrying");
-
-                    image.setImageResource(resId);
-
-//                    Dictionary data = new Dictionary(image);
-//
-//                    //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
-//                    mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입
-
-                }
-                //Toast.makeText(getApplicationContext(), msg , Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-
         builder.show();
     }
+
+
 
     void showDate1() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
