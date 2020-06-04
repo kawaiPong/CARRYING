@@ -51,6 +51,7 @@ public class check_list extends AppCompatActivity {
         String seasonStr=intent.getExtras().getString("season");
         String themeStr=intent.getExtras().getString("theme");
 
+        Log.d("mytag check",listNum+"");
         int theme=Integer.parseInt(themeStr);
         int season  = Integer.parseInt(seasonStr);
 
@@ -184,7 +185,11 @@ public class check_list extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(check_list.this, plusItemPopUp.class);
+                intent.putExtra("title",title);
+                intent.putExtra("userUid",user_uid);
                 intent.putExtra("listNum",listNum);
+                intent.putExtra("season",seasonStr);
+                intent.putExtra("theme",themeStr);
                 startActivity(intent);
 
             }

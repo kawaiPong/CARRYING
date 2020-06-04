@@ -38,6 +38,8 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
     Button start_date;
     Button finish_date;
+    Button themebtn01;
+    Button themebtn02;
     public int sy=0, sm=0, sd=0;//출발날짜
     public int fy=0, fm=0,fd=0;//도착날짜
     public int Today_year,Today_month,Today_date;
@@ -54,6 +56,9 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_list);
 
+
+        themebtn01=(Button)findViewById(R.id.theme1);
+        themebtn02=(Button)findViewById(R.id.theme2);
 
         ListItems.add("온천");
         ListItems.add("등산");
@@ -107,12 +112,25 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
 
-                if(!(SelectedItems.size()==0)){
+                Log.d("mytag length",SelectedItems.size()+":");
+                Log.d("mytag 찍기",(Integer.parseInt(SelectedItems.get(0).toString())<5)+"");
+
+                if((SelectedItems.size()==1)&&(Integer.parseInt(SelectedItems.get(0).toString())<5)){
+                    theme01=(String)SelectedItems.get(0).toString();
+//                    themebtn01.setText(ListItems.get(Integer.parseInt(SelectedItems.get(0).toString())).toString());
+//                    themebtn02.setVisibility(View.GONE);
+
+                }
+                else if((SelectedItems.size()==1)&&(Integer.parseInt(SelectedItems.get(0).toString())>=5)){
+                    theme02=(String)SelectedItems.get(0).toString();
+//                    themebtn01.setText(ListItems.get(Integer.parseInt(SelectedItems.get(1).toString())).toString());
+//                    themebtn02.setVisibility(View.GONE);
+                }
+                else{
                     theme01=(String)SelectedItems.get(0).toString();
                     theme02=(String)SelectedItems.get(1).toString();
-                }
-                if((SelectedItems.size()==1)){
-                    theme01=(String)SelectedItems.get(0).toString();
+//                    themebtn01.setText(ListItems.get(Integer.parseInt(SelectedItems.get(0).toString())).toString());
+//                    themebtn02.setText(ListItems.get(Integer.parseInt(SelectedItems.get(1).toString())).toString());
                 }
 
                 Intent intent = new Intent(create_list.this, Main_List.class);

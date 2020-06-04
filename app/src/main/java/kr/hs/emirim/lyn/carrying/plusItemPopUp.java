@@ -2,6 +2,8 @@ package kr.hs.emirim.lyn.carrying;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,8 +33,15 @@ public class plusItemPopUp extends AppCompatActivity {
         EditText plus_item_text=(EditText) findViewById(R.id.plus_item_popup);//추가하는 물품 텍스트
         Button submit=(Button)findViewById(R.id.check_popup);//확인버튼
         intent=getIntent();
+
+        String title=intent.getExtras().getString("title");
+        String user_uid=intent.getExtras().getString("userUid");
         int listNum=intent.getExtras().getInt("listNum");
-        Log.d("plusItemPopUp", String.valueOf(listNum));
+        String seasonStr=intent.getExtras().getString("season");
+        String themeStr=intent.getExtras().getString("theme");
+
+//        Log.d("mytag plus ",listNum+":");
+//        Log.d("plusItemPopUp", String.valueOf(listNum));
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +54,8 @@ public class plusItemPopUp extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {//추가하는 retrofit
             @Override
             public void onClick(View v) {
+                Context context = v.getContext();
+
                 plus_item_text.getText().toString();
                 Log.d("sowon plus item popUp",plus_item_text.getText().toString()+":::"+listNum);
 
@@ -78,17 +89,32 @@ public class plusItemPopUp extends AppCompatActivity {
 //                            Log.d("sowon du.getListnum", du.getList_num()+"");//item이름이 잘 들어갔나 확인
 
                             Toast.makeText(getApplicationContext(), "아이템이 추가되었습니다.", Toast.LENGTH_LONG).show();
-                            finish();
+                            Intent refresh = new Intent(context, check_list.class);
+                            refresh.putExtra("title",title);
+                            refresh.putExtra("userUid",user_uid);
+                            refresh.putExtra("listNum ",listNum );
+                            refresh.putExtra("season",seasonStr);
+                            refresh.putExtra("theme",themeStr);
+
+                            context.startActivity(refresh);
+                            ((Activity)context).finish();
                         }
                         @Override
                         public void onFailure(Call<checkListItem> call, Throwable t) {
                             Log.d("mytag", "안됨 fail : " + t.toString());
-                            Toast.makeText(getApplicationContext(), "아이템추가에 실패했습니다.", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getApplicationContext(), "아이템추가에 실패했습니다.", Toast.LENGTH_LONG).show();
+                            Intent refresh = new Intent(context, check_list.class);
+                            refresh.putExtra("title",title);
+                            refresh.putExtra("userUid",user_uid);
+                            refresh.putExtra("listNum",listNum );
+                            refresh.putExtra("theme",themeStr);
+                            refresh.putExtra("season",seasonStr);
+
+                            context.startActivity(refresh);
+                            ((Activity)context).finish();
+
                         }
                     });
-
-
-
 
 
 

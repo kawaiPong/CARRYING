@@ -136,7 +136,7 @@ public class Main_List extends AppCompatActivity {
         String user_uid=intent.getExtras().getString("uid");
         int userGender = intent.getExtras().getInt("gender");
 
-        Log.d("sowon mytag Main_List","됨 ok : "+user_uid+":"+userGender + ":" + intent.getExtras().getInt("num"));
+//        Log.d("sowon mytag Main_List","됨 ok : "+user_uid+":"+userGender + ":" + intent.getExtras().getInt("num"));
         String num=intent.getExtras().getString("num");
 //        Log.d("sowon Main_List","됨 ok : "+num+"과"+user_uid);
 
