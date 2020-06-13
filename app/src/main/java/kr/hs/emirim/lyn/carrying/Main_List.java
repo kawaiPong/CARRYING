@@ -27,6 +27,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -253,7 +255,8 @@ public class Main_List extends AppCompatActivity {
 
         Log.d("sowon","getJSON()함수 끝");
 
-
+        final Animation animTransRight = AnimationUtils
+                .loadAnimation(this, R.anim.roundanimation);
 
         hamburger.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -266,46 +269,71 @@ public class Main_List extends AppCompatActivity {
                 today_date.setText(year+"."+month+"."+date);
 
                 now_temp.setText(current_temp);
-                if(current_description.equals("clear sky"))now_des_sunny.setVisibility(View.VISIBLE);
-                else if(current_description.contains("cloud"))now_des_cloudy.setVisibility(View.VISIBLE);
-                else if(current_description.contains("rain")||current_description.contains("mist"))now_des_rainy.setVisibility(View.VISIBLE);
-                else if(current_description.contains("snow"))now_des_snowy.setVisibility(View.VISIBLE);
+                if(current_description.equals("clear sky")){
+                    now_des_sunny.setVisibility(View.VISIBLE);
+                    now_des_sunny.startAnimation(animTransRight);
+                }
+                else if(current_description.contains("cloud")){
+                    now_des_cloudy.setVisibility(View.VISIBLE);
+                    now_des_cloudy.startAnimation(animTransRight);
+                }
+                else if(current_description.contains("rain")||current_description.contains("mist")){
+                    now_des_rainy.setVisibility(View.VISIBLE);
+                    now_des_rainy.startAnimation(animTransRight);
+                }
+                else if(current_description.contains("snow")){
+                    now_des_snowy.setVisibility(View.VISIBLE);
+                    now_des_snowy.startAnimation(animTransRight);
+                }
                 int temp=Integer.parseInt(current_temp);
 
 
                 if(temp<=4){
                     recom_weather.setText("패딩, 목도리 등 두꺼운 겨울 옷을 준비하면 좋아요");
                     Cloth_padding.setVisibility(View.VISIBLE);
+                    Cloth_padding.startAnimation(animTransRight);
                     Log.d("sowon","visible");
                 }
                 else if(temp>=5&&temp<=11){
                     recom_weather.setText("코트, 니트 등 따듯한 옷을 준비하면 좋아요");
                     Cloth_coat.setVisibility(View.VISIBLE);
+                    Cloth_coat.startAnimation(animTransRight);
+
                     Log.d("sowon","visible");
                 }
                 else if(temp>=12&&temp<=16){
                     recom_weather.setText("후드집업, 가디건 등 걸칠 수 있는 옷을 준비하면 좋아요");
                     Cloth_zp.setVisibility(View.VISIBLE);
+                    Cloth_zp.startAnimation(animTransRight);
+
                     Log.d("sowon","visible");
                 }
                 else if(temp>=17&&temp<=19){
                     recom_weather.setText("얇은 니트, 얇은 가디건 등 가볍게 걸칠 수 있는 옷을 준비하면 좋아요");
                     Cloth_cardigan.setVisibility(View.VISIBLE);
+                    Cloth_cardigan.startAnimation(animTransRight);
+
                     Log.d("sowon","visible");
                 }
                 else if(temp>=20&&temp<=22){
                     recom_weather.setText("긴팔, 얇은 가디건 등 가벼운 옷을 준비하면 좋아요");
                     Cloth_sweatShirts.setVisibility(View.VISIBLE);
+                    Cloth_sweatShirts.startAnimation(animTransRight);
+
                     Log.d("sowon","visible");
                 }
                 else if(temp>=23&&temp<=27){
                     recom_weather.setText("반팔이나 얇은 셔츠 등 얇은 옷을 준비하면 좋아요");
                     Cloth_ts.setVisibility(View.VISIBLE);
+                    Cloth_ts.startAnimation(animTransRight);
+
                     Log.d("sowon","visible");
                 }
                 else if(temp>=28){
                     recom_weather.setText("민소매, 반팔 등 더울 수 있으니 얇은 옷을 준비하면 좋아요");
                     Cloth_ns.setVisibility(View.VISIBLE);
+                    Cloth_ns.startAnimation(animTransRight);
+
                     Log.d("sowon","visible");
                 }
 
