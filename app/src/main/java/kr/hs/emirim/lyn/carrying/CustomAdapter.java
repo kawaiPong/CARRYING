@@ -92,9 +92,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     }
 
 
-    public CustomAdapter(ArrayList<Dictionary> list, String userUid, int gender ) {
+    public CustomAdapter(ArrayList<Dictionary> list, String userUid, int gender) {
         this.userUid=userUid;
-        this.mList = list;
+        this.mList=list;
         this.gender=gender;
     }
 
@@ -167,50 +167,26 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 });
 
 
-
-
-
-
             }
         });
 
         viewholder.mView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Log.d("sowon Long","Long");
                 Context context = v.getContext();
+                Intent intent = new Intent(context, deletePopUp.class);
+                Log.d("sowon",mList.get(position).getNum()+"");
+
+                Log.d("deletePopup sowon",":"+gender+":"+userUid);
+
+                intent.putExtra("gender",gender);
+                intent.putExtra("uid",userUid);
+                intent.putExtra("title",mList.get(position).getNum());
+                context.startActivity(intent);
+
+                Log.d("sowon Long","Long");
                 Log.d("mytag","클릭");
 
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-                Call<CheckList> apiCall = apiService.deleteList(mList.get(position).getNum());
-                apiCall.enqueue(new Callback<CheckList>() {
-                    @Override
-                    public void onResponse(Call<CheckList> call, Response<CheckList> response) {
-                        CheckList du = response.body();
-
-                        Log.d("mytag CA","됨"+mList.get(position).getNum());
-                        mList.get(position).getNum();
-
-                        Intent refresh = new Intent(context, Main_List.class);
-                        refresh.putExtra("gender",gender);
-                        refresh.putExtra("uid",userUid);
-                        context.startActivity(refresh);
-                        ((Activity)context).finish();
-//                        context.finish();
-                    }
-
-                    @Override
-                    public void onFailure(Call<CheckList> call, Throwable t) {
-
-                    }
-
-                });
 
 
                 return false;
