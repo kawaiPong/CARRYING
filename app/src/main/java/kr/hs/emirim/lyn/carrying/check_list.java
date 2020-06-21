@@ -68,18 +68,15 @@ public class check_list extends AppCompatActivity {
 
         if(theme==10&&season==10)theme_2.setVisibility(View.INVISIBLE);
         switch(season) {
-            case 10:
-                theme_2.setText("# 기본계절");
-                break;
-            case 5:
+            case 0:
                 theme_2.setText("# 봄/가을");
                 break;
 
-            case 6:
+            case 1:
                 theme_2.setText("# 여름");
                 break;
 
-            case 7:
+            case 2:
                 theme_2.setText("# 겨울");
                 break;
 
@@ -89,9 +86,6 @@ public class check_list extends AppCompatActivity {
         }
 
         switch(theme) {
-            case 10:
-                theme_1.setText("# 기본테마");
-                break;
             case 0:
                 theme_1.setText("# 온천");
                 break;
@@ -113,7 +107,7 @@ public class check_list extends AppCompatActivity {
                 break;
 
             default:
-                theme_1.setText("# 기본");
+                theme_1.setText("# 기본계절");
                 break;
         }
 
@@ -138,7 +132,7 @@ public class check_list extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

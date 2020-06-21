@@ -25,7 +25,7 @@ public interface RetrofitExService {
 
     //로그인할 때
     @GET("/user/readUser/{uid}")
-    Call<User> getData(@Path("uid") String email);
+    Call<User> getData(@Path("uid") String uid);
 
     @GET("/user/existEmail/{email}")
     Call<User>getDataEmail(@Path("email")String email);

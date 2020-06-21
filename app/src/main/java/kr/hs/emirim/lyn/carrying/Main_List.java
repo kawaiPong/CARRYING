@@ -144,7 +144,7 @@ public class Main_List extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
 //                .baseUrl("http://192.168.219.142:4000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -164,7 +164,7 @@ public class Main_List extends AppCompatActivity {
             }
             @Override
             public void onFailure(@NonNull Call<User> call,@NonNull Throwable t) {
-                Log.d("mytag Main", "안됨 fail : " + t.toString());
+                Log.d("mytag Main_List.java", "안됨 fail : " + t.toString());
             }
         });
 
@@ -212,6 +212,7 @@ public class Main_List extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<List<CheckList>> call,@NonNull Throwable t) {
+                Log.d("mytag Main_List.java2", "안됨 fail : " + t.toString());
 
             }
 

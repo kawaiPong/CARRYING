@@ -128,7 +128,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 Intent intent=new Intent(context,check_list.class);
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                        .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -174,15 +174,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             }
         });
 
-        viewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
+        viewholder.mView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
+                Log.d("sowon Long","Long");
                 Context context = v.getContext();
                 Log.d("mytag","클릭");
 
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                        .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -212,8 +213,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 });
 
 
-
-
+                return false;
+            }
+        });
+        viewholder.deleteButton.setOnClickListener(new View.OnClickListener() {//deleteButton 이지만,, 삭제가 아니라 수정버튼임;;
+            @Override
+            public void onClick(View v) {
 
 
             }

@@ -30,12 +30,14 @@ import java.util.Calendar;
 import java.util.List;
 
 public class create_list extends AppCompatActivity implements View.OnClickListener {
-    final List<String> ListItems = new ArrayList<>();
-    final List SelectedItems  = new ArrayList();
+    final List<String> ListItemsSeason = new ArrayList<>();
+    final List<String> ListItemsTheme = new ArrayList<>();
 
     String theme01="10";
     String theme02="10";
 
+
+    Button themeBtn;
     Button start_date;
     Button finish_date;
     Button themebtn01;
@@ -56,18 +58,19 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_list);
 
-
+        themeBtn=(Button)findViewById(R.id.themeBtn);
         themebtn01=(Button)findViewById(R.id.theme1);
         themebtn02=(Button)findViewById(R.id.theme2);
 
-        ListItems.add("온천");
-        ListItems.add("등산");
-        ListItems.add("테마파크");
-        ListItems.add("문화체험");
-        ListItems.add("출장");
-        ListItems.add("봄, 가을");
-        ListItems.add("여름");
-        ListItems.add("겨울");
+
+        ListItemsTheme.add("온천");
+        ListItemsTheme.add("등산");
+        ListItemsTheme.add("테마파크");
+        ListItemsTheme.add("문화체험");
+        ListItemsTheme.add("출장");
+        ListItemsSeason.add("봄, 가을");
+        ListItemsSeason.add("여름");
+        ListItemsSeason.add("겨울");
 
         Intent intent=getIntent();
         String userUid=intent.getStringExtra("uid");//서버와 접촉할때 사용
@@ -112,26 +115,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
 
-                Log.d("mytag length",SelectedItems.size()+":");
-                Log.d("mytag 찍기",(Integer.parseInt(SelectedItems.get(0).toString())<5)+"");
 
-                if((SelectedItems.size()==1)&&(Integer.parseInt(SelectedItems.get(0).toString())<5)){
-                    theme01=(String)SelectedItems.get(0).toString();
-//                    themebtn01.setText(ListItems.get(Integer.parseInt(SelectedItems.get(0).toString())).toString());
-//                    themebtn02.setVisibility(View.GONE);
-
-                }
-                else if((SelectedItems.size()==1)&&(Integer.parseInt(SelectedItems.get(0).toString())>=5)){
-                    theme02=(String)SelectedItems.get(0).toString();
-//                    themebtn01.setText(ListItems.get(Integer.parseInt(SelectedItems.get(1).toString())).toString());
-//                    themebtn02.setVisibility(View.GONE);
-                }
-                else{
-                    theme01=(String)SelectedItems.get(0).toString();
-                    theme02=(String)SelectedItems.get(1).toString();
-//                    themebtn01.setText(ListItems.get(Integer.parseInt(SelectedItems.get(0).toString())).toString());
-//                    themebtn02.setText(ListItems.get(Integer.parseInt(SelectedItems.get(1).toString())).toString());
-                }
 
                 Intent intent = new Intent(create_list.this, Main_List.class);
                 if((City.getText().toString().length()==0)||sd==0||fd==0){
@@ -141,7 +125,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                 else{
                     Log.d("mytag ","레트로핏시작전");
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                            .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
 //                .baseUrl("http://192.168.219.142:4000")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
@@ -191,6 +175,26 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                 }
             }
         });
+//        themeBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                show1();
+//            }
+//        });
+
+        themebtn01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show1();
+            }
+        });
+
+        themebtn02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show2();
+            }
+        });
 
         start_date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,34 +211,98 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        btnAlert = (ImageButton) findViewById(R.id.btn_alert);
-        // 클릭 이벤트
-        btnAlert.setOnClickListener(this);
+//        btnAlert = (ImageButton) findViewById(R.id.btn_alert);
+//        // 클릭 이벤트
+//        btnAlert.setOnClickListener(this);
 
 
 
     } //onCreate()
 
     public void onClick(View v) {
-        show();
+        show1();
 
 
     }
 
-    void show(){
-        final CharSequence[] items =  ListItems.toArray(new String[ListItems.size()]);
+    void show1(){
+        final CharSequence[] items =  ListItemsTheme.toArray(new String[ListItemsTheme.size()]);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.DialogTheme);
-        builder.setTitle("추가할 여행 테마 추가");
+        builder.setTitle("여행 테마 선택");
         builder.setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if (isChecked) {
-                    SelectedItems.add(which);
-                } else if (SelectedItems.contains(which)) {
-                    //이미 리스트에 들어있던 아이템이면 제거
-                    SelectedItems.remove(Integer.valueOf(which));
+//                    SelectedItems.add(which);
+                    theme01=which+"";
+                    // 0: 온천
+                    // 1: 등산
+                    // 3: 테마파크
+                    // 4: 문화체험
+                    // 5: 출장
+                    switch (theme01){
+                        case("0"):
+                            themebtn01.setBackgroundResource(R.drawable.theme02create);
+                            break;
+                        case("1"):
+                            themebtn01.setBackgroundResource(R.drawable.theme03create);
+                            break;
+
+                        case("2"):
+                            themebtn01.setBackgroundResource(R.drawable.theme04create);
+                            break;
+
+                        case("3"):
+                            themebtn01.setBackgroundResource(R.drawable.theme05create);
+                            break;
+
+//                        case("4"):
+//                            themebtn01.setBackgroundResource(R.drawable.theme01create);
+//                            break;
+
+                        default:
+                            themebtn01.setBackgroundResource(R.drawable.theme01create);
+                            break;
+
+                    }
                 }
+
+            }
+        });
+
+        builder.show();
+    }
+
+    void show2(){
+        final CharSequence[] items =  ListItemsSeason.toArray(new String[ListItemsSeason.size()]);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.DialogTheme);
+        builder.setTitle("여행 계절 선택");
+        builder.setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+//                    SelectedItems.add(which);
+                    theme02=which+"";
+                    //0: 봄, 가을
+                    //1: 여름
+                    //2: 겨울
+                    switch (theme02) {
+                        case ("0"):
+                            themebtn02.setBackgroundResource(R.drawable.theme06create);
+                            break;
+                        case("1"):
+                            themebtn02.setBackgroundResource(R.drawable.theme07create);
+                            break;
+                        case("2"):
+                            themebtn02.setBackgroundResource(R.drawable.theme08create);
+                            break;
+                        default:
+                            themebtn02.setBackgroundResource(R.drawable.theme01create);
+                    }
+                }
+
             }
         });
 

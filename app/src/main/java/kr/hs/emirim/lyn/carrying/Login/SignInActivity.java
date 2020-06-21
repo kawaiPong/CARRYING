@@ -50,7 +50,7 @@ public class SignInActivity extends BaseActivity  {
     private GoogleSignInClient mGoogleSignInClient;
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+            .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
             //                            .baseUrl("http://192.168.219.142:4000")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
@@ -121,7 +121,7 @@ public class SignInActivity extends BaseActivity  {
                 }
                 @Override
                 public void onFailure(@NonNull Call<User> call,@NonNull Throwable t) {
-                    Log.d("mytag Main", "안됨 fail : " + t.toString());
+                    Log.d("mytag checkCurrent", "안됨 fail : " + t.toString());
                 }
             });
         } else {
@@ -153,7 +153,7 @@ public class SignInActivity extends BaseActivity  {
 
 
                     Retrofit retrofit = new Retrofit.Builder()
-                           .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                           .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
 //                            .baseUrl("http://192.168.219.142:4000")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();

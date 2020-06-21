@@ -111,52 +111,45 @@
             app:layout_constraintTop_toBottomOf="@+id/start_date"
             app:srcCompat="@drawable/theme" />
 
-        <ImageButton
-            android:id="@+id/btn_alert"
-            android:layout_width="30dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:background="#00FFFFFF"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout7"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout7"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout7"
-            app:srcCompat="@drawable/plus_bt_small" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout7"
+        <Button
+            android:id="@+id/themeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:background="#00FFFFFF"
+            android:text="변경하기"
+            android:textColor="#999999"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+            app:layout_constraintEnd_toEndOf="@+id/finish_date"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/themeBtn"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3">
+            app:layout_constraintTop_toBottomOf="@+id/themeBtn"
+            app:layout_constraintVertical_bias="1.0">
 
             <Button
-                android:id="@+id/theme01"
-                android:layout_width="80dp"
-                android:layout_height="26dp"
-                android:background="@drawable/ic_themebox"
-                android:text="# 기본"
-                android:textColor="#555555"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/theme1"
+                android:layout_width="0dp"
+                android:layout_height="53.3dp"
+                android:background="@drawable/theme01create"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/theme_setting" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/theme02"
-                android:layout_width="80dp"
-                android:layout_height="26dp"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/ic_themebox"
-                android:text="# 기본"
-                android:textColor="#555555"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/theme01"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/theme_setting" />
-
+                android:id="@+id/theme2"
+                android:layout_width="wrap_content"
+                android:layout_height="53.3dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/theme01create"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/theme1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
