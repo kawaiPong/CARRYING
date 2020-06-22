@@ -1,30 +1,10 @@
 package kr.hs.emirim.lyn.carrying;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import kr.hs.emirim.lyn.carrying.Login.FindPassword;
-import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
-import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
-import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
-import kr.hs.emirim.lyn.carrying.Retrofit.User;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -35,7 +15,14 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-//import com.google.android.material.navigation.NavigationView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,12 +42,26 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class Main_List extends AppCompatActivity {
+import kr.hs.emirim.lyn.carrying.Login.FindPassword;
+import kr.hs.emirim.lyn.carrying.Login.SignInActivity;
+import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
+import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
+import kr.hs.emirim.lyn.carrying.Retrofit.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+//import com.google.android.material.navigation.NavigationView;
+
+public class Main_List extends AppCompatActivity  {
 
     private FirebaseAuth auth;
     FirebaseUser user;
 
     private ArrayList<Dictionary> mArrayList;
+    private ArrayList<Dictionary> mArrayList2;
     private CustomAdapter mAdapter;
     private int count = -1;
     Intent intent;
@@ -84,12 +85,22 @@ public class Main_List extends AppCompatActivity {
     static String current_temp=new String();
     static String current_description;
 
+    static String user_uid;
+
+//        mSwipeRefreshLayout.OnRefreshListener;
+
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__list);
+//        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.recyclerview_main_list);
 
         Main_List=Main_List.this;
+
+        mSwipeRefreshLayout = findViewById(R.id.swipe_container);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout) ;
         Button hamburger=(Button)findViewById(R.id.hamburger);
@@ -135,7 +146,7 @@ public class Main_List extends AppCompatActivity {
 
 
         intent=getIntent();
-        String user_uid=intent.getExtras().getString("uid");
+        user_uid=intent.getExtras().getString("uid");
         int userGender = intent.getExtras().getInt("gender");
 
 //        Log.d("sowon mytag Main_List","됨 ok : "+user_uid+":"+userGender + ":" + intent.getExtras().getInt("num"));
@@ -179,6 +190,7 @@ public class Main_List extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
 
+
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
                 mLinearLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
@@ -188,7 +200,6 @@ public class Main_List extends AppCompatActivity {
         Log.d("mytag","레트로핏 전");
         Call<List<CheckList>> apiCallList = apiService.readAllList(user_uid);
         apiService.readAllList(user_uid).enqueue(new Callback<List<CheckList>>() { //uid사용자의 전체 리스트를 불러오기 위한 작업
-            //근데 CheckList에 있는 값을 다 반환하는지는 모르겠음
             @Override
             public void onResponse(@NonNull Call<List<CheckList>> call, @NonNull Response<List<CheckList>> response) {
                 Log.d("mytag","성공");
@@ -220,37 +231,6 @@ public class Main_List extends AppCompatActivity {
 
 
 
-        /*if(num.equals("2")){//
-            //서버 연결하기 전 임시로 intent 한거라 수정해야함
-            //intent 필요없이 uid로 @GET 해서 리스트 가져와야함
-            String City=intent.getStringExtra("city");
-            String start_date=intent.getStringExtra("start_date");
-            String finish_date=intent.getStringExtra("finish_date");
-            String userEmail2=intent.getStringExtra("userEmail");
-//            RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
-//            LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-//            mRecyclerView.setLayoutManager(mLinearLayoutManager);
-//
-//
-//            mArrayList = new ArrayList<>();
-//            mAdapter = new CustomAdapter( mArrayList);
-//            mRecyclerView.setAdapter(mAdapter);
-//
-//
-//            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-//                    mLinearLayoutManager.getOrientation());
-//            mRecyclerView.addItemDecoration(dividerItemDecoration);
-//
-//
-//
-//            Dictionary data = new Dictionary(City,start_date, finish_date);
-//
-//            //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
-//            mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입
-//
-//            mAdapter.notifyDataSetChanged();
-        }
-*/
 
         getJSON();//api
 
@@ -360,6 +340,7 @@ public class Main_List extends AppCompatActivity {
                 intent.putExtra("gender",userGender);
                 intent.putExtra("uid",user_uid);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -387,6 +368,55 @@ public class Main_List extends AppCompatActivity {
 
 
 
+
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                Log.d("sowon refresh","sown");
+//                Intent intent=new Intent(Main_List.this, Main_List.class);
+//                intent.putExtra("uid",user_uid);
+//                intent.putExtra("gender",userGender);
+//                finish();
+//                startActivity(intent);
+                mSwipeRefreshLayout.setRefreshing(false);
+
+                mArrayList2 = new ArrayList<>();
+                mAdapter = new CustomAdapter(mArrayList2,user_uid,userGender);
+                mRecyclerView.setAdapter(mAdapter);
+
+                Call<List<CheckList>> apiCallList = apiService.readAllList(user_uid);
+                apiService.readAllList(user_uid).enqueue(new Callback<List<CheckList>>() { //uid사용자의 전체 리스트를 불러오기 위한 작업
+                    @Override
+                    public void onResponse(@NonNull Call<List<CheckList>> call, @NonNull Response<List<CheckList>> response) {
+                        Log.d("mytag","성공");
+
+                        List<CheckList> du = response.body();
+                        Log.d("mytag","성공 : "+du.toString());
+
+                        if (du != null) {
+                            Dictionary[] data = new Dictionary[du.size()];//자동으로 해줌
+                            for (int i = 0; i < du.size(); i++) {
+                                data[i] = new Dictionary(du.get(i).getNum(),du.get(i).getTitle(),du.get(i).getStart_date(), du.get(i).getFinish_date());
+                                mArrayList2.add(data[i]); // RecyclerView의 마지막 줄에 삽입
+                            }
+                            Log.e("getData2 end", "======================================");
+                            mAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<CheckList>> call,@NonNull Throwable t) {
+                        Log.d("mytag Main_List.java2", "안됨 fail : " + t.toString());
+
+                    }
+
+                });
+
+
+            }
+        });
 
 
     }//oncreate

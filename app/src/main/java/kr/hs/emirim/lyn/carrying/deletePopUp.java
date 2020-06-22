@@ -51,15 +51,17 @@ public class deletePopUp extends AppCompatActivity {
                 apiCall.enqueue(new Callback<CheckList>() {
                     @Override
                     public void onResponse(Call<CheckList> call, Response<CheckList> response) {
-                        Context context = v.getContext();
-                        ((Activity)context).finish();
-                        Log.d("mytag CA","됨"+title);
 
-                        intent=new Intent(deletePopUp.this, Main_List.class);
-                        intent.putExtra("gender",gender);
-                        intent.putExtra("uid",userUid);
-                        startActivity(intent);
+
+//                        Intent refresh = new Intent(context, Main_List.class);
+//                        refresh.putExtra("gender",gender);
+//                        refresh.putExtra("uid",userUid);
+//
+//                        context.startActivity(refresh);
+//                        ((Activity)context).finish();
                         finish();
+
+
                     }
 
                     @Override

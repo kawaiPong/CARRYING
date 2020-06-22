@@ -3,6 +3,7 @@ package kr.hs.emirim.lyn.carrying;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,9 +38,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
 
     // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.mListener = listener ;
-    }
+//    public void setOnItemClickListener(OnItemClickListener listener) {
+//        this.mListener = listener ;
+//    }
 
 
 
@@ -183,7 +184,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 intent.putExtra("uid",userUid);
                 intent.putExtra("title",mList.get(position).getNum());
                 context.startActivity(intent);
-
                 Log.d("sowon Long","Long");
                 Log.d("mytag","클릭");
 
