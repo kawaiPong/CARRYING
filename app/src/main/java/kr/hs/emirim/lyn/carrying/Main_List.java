@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,6 +57,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 //import com.google.android.material.navigation.NavigationView;
 
 public class Main_List extends AppCompatActivity  {
+
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long   backPressedTime = 0;
 
     private FirebaseAuth auth;
     FirebaseUser user;
@@ -210,7 +214,14 @@ public class Main_List extends AppCompatActivity  {
                 if (du != null) {
                     Dictionary[] data = new Dictionary[du.size()];//자동으로 해줌
                     for (int i = 0; i < du.size(); i++) {
-                        data[i] = new Dictionary(du.get(i).getNum(),du.get(i).getTitle(),du.get(i).getStart_date(), du.get(i).getFinish_date());
+                        data[i] = new Dictionary(
+                                du.get(i).getCity(),
+                                du.get(i).getTheme(),
+                                du.get(i).getSeason(),
+                                du.get(i).getNum(),
+                                du.get(i).getTitle(),
+                                du.get(i).getStart_date(),
+                                du.get(i).getFinish_date());
                         Log.d("mytag",""+du.get(i).getNum() + du.get(i).getTitle()+du.get(i).getStart_date()+du.get(i).getFinish_date());
                         //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
                         mArrayList.add(data[i]); // RecyclerView의 마지막 줄에 삽입
@@ -397,7 +408,14 @@ public class Main_List extends AppCompatActivity  {
                         if (du != null) {
                             Dictionary[] data = new Dictionary[du.size()];//자동으로 해줌
                             for (int i = 0; i < du.size(); i++) {
-                                data[i] = new Dictionary(du.get(i).getNum(),du.get(i).getTitle(),du.get(i).getStart_date(), du.get(i).getFinish_date());
+                                data[i] = new Dictionary(
+                                        du.get(i).getCity(),
+                                        du.get(i).getTheme(),
+                                        du.get(i).getSeason(),
+                                        du.get(i).getNum(),
+                                        du.get(i).getTitle(),
+                                        du.get(i).getStart_date(),
+                                        du.get(i).getFinish_date());
                                 mArrayList2.add(data[i]); // RecyclerView의 마지막 줄에 삽입
                             }
                             Log.e("getData2 end", "======================================");
@@ -539,6 +557,23 @@ public class Main_List extends AppCompatActivity  {
 
     }
 
+
+    @Override
+    public void onBackPressed()
+    {
+        long tempTime        = System.currentTimeMillis();
+        long intervalTime    = tempTime - backPressedTime;
+
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
+        {
+            super.onBackPressed();
+        }
+        else
+        {
+            backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(), "한번 더 뒤로가기를 누르면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 

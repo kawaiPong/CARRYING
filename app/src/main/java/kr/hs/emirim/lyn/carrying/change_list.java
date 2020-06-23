@@ -3,16 +3,7 @@ package kr.hs.emirim.lyn.carrying;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
-import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,20 +12,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class create_list extends AppCompatActivity implements View.OnClickListener {
+public class change_list extends AppCompatActivity {
+
     final List<String> ListItemsSeason = new ArrayList<>();
     final List<String> ListItemsTheme = new ArrayList<>();
 
     String theme01="10";
     String theme02="10";
+
 
     Button themeBtn;
     Button start_date;
@@ -47,12 +37,10 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
     Calendar cal=Calendar.getInstance();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_list);
+        setContentView(R.layout.activity_change_list);
 
         themeBtn=(Button)findViewById(R.id.themeBtn);
         themebtn01=(Button)findViewById(R.id.theme1);
@@ -70,21 +58,36 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
 
         Intent intent=getIntent();
         String userUid=intent.getStringExtra("uid");//서버와 접촉할때 사용
-
         int userGender = intent.getExtras().getInt("gender");
-        Log.d("mytag create_list","됨 ok : "+userUid+":"+userGender);
+        String city=intent.getStringExtra("city");
+        String start_dateGet=intent.getStringExtra("start_date");
+        String finish_dateGet=intent.getStringExtra("finish_date");
+        String theme = intent.getExtras().getString("theme");
+        String season = intent.getExtras().getString("season");
+
+
+        Log.d("mytag change_list","됨 ok : "+userUid+":"+userGender+":"+city+":"+start_dateGet+":"+finish_dateGet+":"+theme+":"+season);
 
         EditText City=(EditText) findViewById(R.id.city);;
+        start_date=findViewById(R.id.start_date);
+        finish_date=findViewById(R.id.finish_date);
+        Button add_btn=(Button)findViewById(R.id.add);
+
+        start_date.setText(start_dateGet);
+        finish_date.setText(finish_dateGet);
+        City.setText(city);
 
         Calendar cal = Calendar.getInstance();
-
         Today_year=cal.get(cal.YEAR);
         Today_month=cal.get(cal.MONTH) ;
         Today_date=cal.get(cal.DATE) ;
 
-        Log.d("mytag 현재 날짜",Today_year+":"+Today_month+":"+Today_date);
-        start_date=findViewById(R.id.start_date);
-        finish_date=findViewById(R.id.finish_date);
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         Button back = (Button)findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener(){
@@ -93,79 +96,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                 finish();
             }
         });
-
-
-        Button add_btn=(Button)findViewById(R.id.add);
-        add_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-
-
-                Intent intent = new Intent(create_list.this, Main_List.class);
-                if((City.getText().toString().length()==0)||sd==0||fd==0){
-                    Toast.makeText(getApplicationContext(), "빈칸이 있습니다.", Toast.LENGTH_LONG).show();
-                    Log.d("mytag ","빈칸확인");
-                }
-                else{
-                    Log.d("mytag ","레트로핏시작전");
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
-//                .baseUrl("http://192.168.219.142:4000")
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-
-                    final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-                    Log.d("mytag ","요청 전");
-
-                    Call<CheckList> apiCall = apiService.postCreateList(
-                            City.getText().toString()+"",//city
-                            sy+"-"+sm+"-"+sd,
-                            fy+"-"+fm+"-"+fd,
-                            userUid+"",
-                            userGender,
-                            theme01+"",
-                            theme02+""
-                    );
-
-                    Log.d("mytag 이렇게 들어감",City.getText().toString()+""+
-                            sy+"-"+sm+"-"+sd+
-                            fy+"-"+fm+"-"+fd+
-                            userUid+":"+theme01+":"+theme02);
-                    Log.d("mytag ","요청 후"+apiCall.toString());
-
-                    apiCall.enqueue(new Callback<CheckList>() {
-                        @Override
-                        public void onResponse(Call<CheckList> call, Response<CheckList> response) {
-                            CheckList du = response.body();
-                            Log.d("mytag ","성공");
-                            Toast.makeText(getApplicationContext(), "확인된 이메일", Toast.LENGTH_LONG).show();
-                        }
-                        @Override
-                        public void onFailure(Call<CheckList> call, Throwable t) {
-                            Log.d("mytag", "안됨 fail : " + t.toString());
-                            Toast.makeText(getApplicationContext(), "해당 이메일이 없습니다.", Toast.LENGTH_LONG).show();
-                        }
-                    });
-//                    intent.putExtra("email",userEmail);
-//                    intent.putExtra("num","2");
-//                    intent.putExtra("city",City.getText().toString());
-////                    intent.putExtra("city","오사카");
-//                    intent.putExtra("start_date",sy+"-"+sm+"-"+sd);
-//                    intent.putExtra("finish_date",fy+"-"+fm+"-"+fd);
-                    intent.putExtra("uid",userUid);
-                    finish();
-                    startActivity(intent);
-
-                }//else
-            }
-        });
-//        themeBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                show1();
-//            }
-//        });
 
         themebtn01.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,13 +127,52 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         });
 
 
+        switch (theme){
+            case("0"):
+                themebtn01.setBackgroundResource(R.drawable.theme02create);
+                break;
+            case("1"):
+                themebtn01.setBackgroundResource(R.drawable.theme03create);
+                break;
+
+            case("2"):
+                themebtn01.setBackgroundResource(R.drawable.theme04create);
+                break;
+
+            case("3"):
+                themebtn01.setBackgroundResource(R.drawable.theme05create);
+                break;
+
+            case("4"):
+                themebtn01.setBackgroundResource(R.drawable.theme09create);
+                break;
+
+            default:
+                themebtn01.setBackgroundResource(R.drawable.theme01create);
+                break;
+
+        }
+
+        switch (season) {
+            case ("0"):
+                themebtn02.setBackgroundResource(R.drawable.theme06create);
+                break;
+            case("1"):
+                themebtn02.setBackgroundResource(R.drawable.theme07create);
+                break;
+            case("2"):
+                themebtn02.setBackgroundResource(R.drawable.theme08create);
+                break;
+            default:
+                themebtn02.setBackgroundResource(R.drawable.theme01create);
+        }
 
 
-    } //onCreate()
+
+    }
 
     public void onClick(View v) {
         show1();
-
 
     }
 
@@ -216,7 +185,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if (isChecked) {
-//                    SelectedItems.add(which);
                     theme01=which+"";
                     // 0: 온천
                     // 1: 등산
@@ -265,7 +233,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if (isChecked) {
-//                    SelectedItems.add(which);
                     theme02=which+"";
                     //0: 봄, 가을
                     //1: 여름
@@ -325,8 +292,5 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         datePickerDialog.show();
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 }
+

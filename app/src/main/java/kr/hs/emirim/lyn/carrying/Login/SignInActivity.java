@@ -173,6 +173,7 @@ public class SignInActivity extends BaseActivity  {
                                 intent.putExtra("uid",du.getUid());
                                 intent.putExtra("num","1");
                                 startActivity(intent);
+                                finish();
                             }
                         }
                         @Override
@@ -317,6 +318,7 @@ public class SignInActivity extends BaseActivity  {
                             Log.d(TAG, "익명 로그인 버튼");
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInAnonymously:failure", task.getException());

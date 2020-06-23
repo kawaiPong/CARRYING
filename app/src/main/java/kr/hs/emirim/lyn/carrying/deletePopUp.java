@@ -52,13 +52,6 @@ public class deletePopUp extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<CheckList> call, Response<CheckList> response) {
 
-
-//                        Intent refresh = new Intent(context, Main_List.class);
-//                        refresh.putExtra("gender",gender);
-//                        refresh.putExtra("uid",userUid);
-//
-//                        context.startActivity(refresh);
-//                        ((Activity)context).finish();
                         finish();
 
 

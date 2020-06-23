@@ -15,9 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".deletePopUp"
+        <activity android:name=".change_list"></activity>
+        <activity
+            android:name=".deletePopUp"
             android:screenOrientation="unspecified"
-            android:theme="@style/popupTheme"></activity>
+            android:theme="@style/popupTheme" />
         <activity
             android:name=".plusItemPopUp"
             android:screenOrientation="unspecified"

@@ -195,14 +195,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         viewholder.deleteButton.setOnClickListener(new View.OnClickListener() {//deleteButton 이지만,, 삭제가 아니라 수정버튼임;;
             @Override
             public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, change_list.class);
+                intent.putExtra("city",mList.get(position).getCity());
+                intent.putExtra("start_date",mList.get(position).getStart_date());
+                intent.putExtra("finish_date",mList.get(position).getFinish_date());
+                intent.putExtra("uid",userUid);
+                intent.putExtra("gender",gender);
+                intent.putExtra("theme",mList.get(position).getTheme());
+                intent.putExtra("season",mList.get(position).getSeason());
 
+                context.startActivity(intent);
 
             }
         });
 
-//        viewholder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-//        viewholder.start_date.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-//        viewholder.finish_date.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
 
         viewholder.title.setGravity(Gravity.CENTER);
         viewholder.start_date.setGravity(Gravity.CENTER);
