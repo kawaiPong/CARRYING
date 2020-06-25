@@ -108,13 +108,12 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
                 String text = spinner.getSelectedItem().toString();
 
-
                 if(text.contains("남성"))gender=1;
                 else if(text.contains("여성"))gender=2;
                 else if(text.contains("둘 다 선택"))gender=3;
-                else if(text.contains("선택하지 않음"))gender=4;
+                else if(text.contains("선택하지 않음"))gender=0;
 
-                Log.d("sowon register",gender+"");
+
                 EditText NickNameE = (EditText) findViewById(R.id.et_name_changeU);
                 EditText EmailE = (EditText) findViewById(R.id.et_eamil);
                 EditText PasswordE = (EditText) findViewById(R.id.et_password);
@@ -142,13 +141,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
                         Log.d("password equals", "비밀번호 맞음");
 
-//                        FirebaseAuth auth;
-//                        FirebaseUser user;
-//                        auth = FirebaseAuth.getInstance();
-//                        user = auth.getCurrentUser();
-//
-//                        Log.d("mytag 됨", Email+"+"+Password);
-//                        Log.d("mytag 됨", auth.createUserWithEmailAndPassword(Email, Password).toString());
+
                         auth.createUserWithEmailAndPassword(Email, Password)
                                 .addOnCompleteListener(RegisterActivity.this, task -> {
                                     if (task.isSuccessful()) {
@@ -158,7 +151,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
 
                                         Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
-                                        Log.d("SOWON retrofit",uid+":"+NickName+":"+Email+":"+Password+":"+gender+":");
+                                        Log.d("sowon register",uid+":"+NickName+":"+Email+":"+Password+":"+gender+":");
                                         apiCall.enqueue(new Callback<User>() {
                                             @Override
                                             public void onResponse(Call<User> call, Response<User> response) {
@@ -203,6 +196,6 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
     }
 
-    
+
 
 }

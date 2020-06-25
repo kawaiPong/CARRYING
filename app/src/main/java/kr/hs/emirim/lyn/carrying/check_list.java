@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,13 +37,14 @@ public class check_list extends AppCompatActivity {
     private CustomAdapterItem mAdapter;
 
     private ArrayList<checkListItem> mArrayList;
-
-
+    private ArrayList<checkListItem> mArrayList2;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_list);
 
+        mSwipeRefreshLayout = findViewById(R.id.swipe_container2);
 
         intent=getIntent();
         String title=intent.getExtras().getString("title");
@@ -137,6 +139,7 @@ public class check_list extends AppCompatActivity {
                 .build();
 
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+
         apiService.readAllItem(listNum).enqueue(new Callback<List<checkListItem>>() {
             @Override
             public void onResponse(@NonNull Call<List<checkListItem>> call, @NonNull Response<List<checkListItem>> response) {
@@ -190,6 +193,49 @@ public class check_list extends AppCompatActivity {
         });
 
 
-    }
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+
+                mArrayList2 = new ArrayList<>();
+                mAdapter = new CustomAdapterItem(mArrayList2);
+                mRecyclerView.setAdapter(mAdapter);
+
+                apiService.readAllItem(listNum).enqueue(new Callback<List<checkListItem>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<checkListItem>> call, @NonNull Response<List<checkListItem>> response) {
+                        Log.d("mytag CL","성공");
+
+                        List<checkListItem> du = response.body();
+
+                        if (du != null) {
+                            checkListItem[] data = new checkListItem[du.size()];//자동으로 해줌
+                            for (int i = 0; i < du.size(); i++) {
+                                data[i] = new checkListItem(du.get(i).getCheck_num(),du.get(i).getName(),du.get(i).getStatus(),du.get(i).getList_num());
+//                        Log.d("mytag",""+du.get(i).getName()+":"+i+"번째");
+//                        Log.d("mytag",""+data[i].toString());
+                                mArrayList2.add(data[i]); // RecyclerView의 마지막 줄에 삽입
+                            }
+                            Log.e("getData2 end", "======================================");
+                            mAdapter.notifyDataSetChanged();
+                        }//for문
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<checkListItem>> call, Throwable t) {
+
+                    }
+
+
+                });
+
+
+            }
+        });
+
+    }//oncreate
 
 }

@@ -84,37 +84,15 @@ public class plusItemPopUp extends AppCompatActivity {
                         public void onResponse(Call<checkListItem> call, Response<checkListItem> response) {
 
                             checkListItem du = response.body();
-//                            Log.d("sowon mytag ","됨 ok아이템 : "+ du.toString());
-//                            Log.d("sowon du.getName", du.getName());//item이름이 잘 들어갔나 확인
-//                            Log.d("sowon du.getListnum", du.getList_num()+"");//item이름이 잘 들어갔나 확인
 
                             Toast.makeText(getApplicationContext(), "아이템이 추가되었습니다.", Toast.LENGTH_LONG).show();
                             finish();
-                            Intent refresh = new Intent(context, check_list.class);
-                            refresh.putExtra("title",title);
-                            refresh.putExtra("userUid",user_uid);
-                            refresh.putExtra("listNum ",listNum );
-                            refresh.putExtra("season",seasonStr);
-                            refresh.putExtra("theme",themeStr);
-
-//                            context.startActivity(refresh);
-                            ((Activity)context).finish();
                         }
                         @Override
                         public void onFailure(Call<checkListItem> call, Throwable t) {
                             Log.d("mytag", "안됨 fail : " + t.toString());
-//                            Toast.makeText(getApplicationContext(), "아이템추가에 실패했습니다.", Toast.LENGTH_LONG).show();
-                            Intent refresh = new Intent(context, check_list.class);
-                            refresh.putExtra("title",title);
-                            refresh.putExtra("userUid",user_uid);
-                            refresh.putExtra("listNum",listNum );
-                            refresh.putExtra("theme",themeStr);
-                            refresh.putExtra("season",seasonStr);
-
-                            context.startActivity(refresh);
-                            ((Activity)context).finish();
-
-
+                            Toast.makeText(getApplicationContext(), "아이템이 추가되었습니다.", Toast.LENGTH_LONG).show();
+                            finish();
                         }
                     });
 

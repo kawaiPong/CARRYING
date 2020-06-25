@@ -277,6 +277,11 @@ public class Main_List extends AppCompatActivity  {
                     now_des_snowy.setVisibility(View.VISIBLE);
                     now_des_snowy.startAnimation(animTransRight);
                 }
+                else{
+                    now_des_cloudy.setVisibility(View.VISIBLE);
+                    now_des_cloudy.startAnimation(animTransRight);
+                }
+
                 int temp=Integer.parseInt(current_temp);
 
 

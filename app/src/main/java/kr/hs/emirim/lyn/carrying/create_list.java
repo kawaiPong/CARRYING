@@ -137,12 +137,12 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                         public void onResponse(Call<CheckList> call, Response<CheckList> response) {
                             CheckList du = response.body();
                             Log.d("mytag ","성공");
-                            Toast.makeText(getApplicationContext(), "확인된 이메일", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "회원가입 되었습니다.", Toast.LENGTH_LONG).show();
                         }
                         @Override
                         public void onFailure(Call<CheckList> call, Throwable t) {
                             Log.d("mytag", "안됨 fail : " + t.toString());
-                            Toast.makeText(getApplicationContext(), "해당 이메일이 없습니다.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "회원가입이 실패했습니다.", Toast.LENGTH_LONG).show();
                         }
                     });
 
