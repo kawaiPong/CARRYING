@@ -197,6 +197,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, change_list.class);
+                intent.putExtra("num",mList.get(position).getNum());
                 intent.putExtra("city",mList.get(position).getCity());
                 intent.putExtra("start_date",mList.get(position).getStart_date());
                 intent.putExtra("finish_date",mList.get(position).getFinish_date());

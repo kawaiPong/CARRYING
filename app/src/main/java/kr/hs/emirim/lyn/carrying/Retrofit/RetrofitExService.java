@@ -57,6 +57,15 @@ public interface RetrofitExService {
                               @Path("season") String season);
 
 
+    //list 수정
+    @POST("list/updateSelectedList/{num}/{start_date}/{finish_date}/{gender}/{theme}/{season}")
+    Call<CheckList> updateSelectedList(@Path("num") String num,
+                                   @Path("start_date") String start_date,
+                                   @Path("finish_date") String finish_date,
+                                   @Path("gender") int gender,
+                                   @Path("theme") String theme,
+                                   @Path("season") String season);
+
     //한 명의 회원의 전체 체크리스트 불러오기
     @GET("/list/readAllList/{uid}")
     Call<List<CheckList>> readAllList(@Path("uid")String uid);

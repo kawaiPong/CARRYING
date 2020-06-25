@@ -89,6 +89,7 @@ public class plusItemPopUp extends AppCompatActivity {
 //                            Log.d("sowon du.getListnum", du.getList_num()+"");//item이름이 잘 들어갔나 확인
 
                             Toast.makeText(getApplicationContext(), "아이템이 추가되었습니다.", Toast.LENGTH_LONG).show();
+                            finish();
                             Intent refresh = new Intent(context, check_list.class);
                             refresh.putExtra("title",title);
                             refresh.putExtra("userUid",user_uid);
@@ -96,7 +97,7 @@ public class plusItemPopUp extends AppCompatActivity {
                             refresh.putExtra("season",seasonStr);
                             refresh.putExtra("theme",themeStr);
 
-                            context.startActivity(refresh);
+//                            context.startActivity(refresh);
                             ((Activity)context).finish();
                         }
                         @Override
@@ -112,6 +113,7 @@ public class plusItemPopUp extends AppCompatActivity {
 
                             context.startActivity(refresh);
                             ((Activity)context).finish();
+
 
                         }
                     });
