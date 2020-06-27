@@ -58,6 +58,9 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         themebtn01=(Button)findViewById(R.id.theme1);
         themebtn02=(Button)findViewById(R.id.theme2);
 
+        themebtn01.setVisibility(View.INVISIBLE);
+        themebtn02.setVisibility(View.INVISIBLE);
+
 
         ListItemsTheme.add("온천");
         ListItemsTheme.add("등산");
@@ -159,7 +162,6 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
         themeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 show2();
                 show1();
             }
@@ -215,6 +217,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if (isChecked) {
+                    themebtn01.setVisibility(View.VISIBLE);
 //                    SelectedItems.add(which);
                     theme01=which+"";
                     // 0: 온천
@@ -264,6 +267,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if (isChecked) {
+                    themebtn02.setVisibility(View.VISIBLE);
 //                    SelectedItems.add(which);
                     theme02=which+"";
                     //0: 봄, 가을
