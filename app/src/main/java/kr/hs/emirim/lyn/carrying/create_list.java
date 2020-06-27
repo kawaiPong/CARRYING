@@ -153,12 +153,18 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                 }//else
             }
         });
-//        themeBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                show1();
-//            }
-//        });
+
+
+
+        themeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                show2();
+                show1();
+            }
+        });
+
 
         themebtn01.setOnClickListener(new View.OnClickListener() {
             @Override

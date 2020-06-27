@@ -125,7 +125,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             public void onClick(View v) {
                 Context context = v.getContext();
                 Log.d("mytag",position +"");
-                Toast.makeText(context, position +"", Toast.LENGTH_LONG).show();
+//                Toast.makeText(context, position +"", Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(context,check_list.class);
 
                 Retrofit retrofit = new Retrofit.Builder()

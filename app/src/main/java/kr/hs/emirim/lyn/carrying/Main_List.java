@@ -383,9 +383,6 @@ public class Main_List extends AppCompatActivity  {
         });
 
 
-
-
-
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
