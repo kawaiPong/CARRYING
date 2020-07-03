@@ -1,4 +1,4 @@
-# CARRYING
+# CARRYING :jp:
 ### 2020 일본글로벌인턴십 전시작
 > TEAM KAWAIPONG  
 
