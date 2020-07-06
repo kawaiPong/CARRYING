@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,13 +37,14 @@ public class check_list extends AppCompatActivity {
     private CustomAdapterItem mAdapter;
 
     private ArrayList<checkListItem> mArrayList;
-
-
+    private ArrayList<checkListItem> mArrayList2;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_list);
 
+        mSwipeRefreshLayout = findViewById(R.id.swipe_container2);
 
         intent=getIntent();
         String title=intent.getExtras().getString("title");
@@ -51,6 +53,7 @@ public class check_list extends AppCompatActivity {
         String seasonStr=intent.getExtras().getString("season");
         String themeStr=intent.getExtras().getString("theme");
 
+        Log.d("mytag check",listNum+"");
         int theme=Integer.parseInt(themeStr);
         int season  = Integer.parseInt(seasonStr);
 
@@ -67,18 +70,15 @@ public class check_list extends AppCompatActivity {
 
         if(theme==10&&season==10)theme_2.setVisibility(View.INVISIBLE);
         switch(season) {
-            case 10:
-                theme_2.setText("# 기본계절");
-                break;
-            case 5:
+            case 0:
                 theme_2.setText("# 봄/가을");
                 break;
 
-            case 6:
+            case 1:
                 theme_2.setText("# 여름");
                 break;
 
-            case 7:
+            case 2:
                 theme_2.setText("# 겨울");
                 break;
 
@@ -88,9 +88,6 @@ public class check_list extends AppCompatActivity {
         }
 
         switch(theme) {
-            case 10:
-                theme_1.setText("# 기본테마");
-                break;
             case 0:
                 theme_1.setText("# 온천");
                 break;
@@ -112,7 +109,7 @@ public class check_list extends AppCompatActivity {
                 break;
 
             default:
-                theme_1.setText("# 기본");
+                theme_1.setText("# 기본계절");
                 break;
         }
 
@@ -138,10 +135,12 @@ public class check_list extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
+
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
+
         apiService.readAllItem(listNum).enqueue(new Callback<List<checkListItem>>() {
             @Override
             public void onResponse(@NonNull Call<List<checkListItem>> call, @NonNull Response<List<checkListItem>> response) {
@@ -184,13 +183,60 @@ public class check_list extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(check_list.this, plusItemPopUp.class);
+                intent.putExtra("title",title);
+                intent.putExtra("userUid",user_uid);
                 intent.putExtra("listNum",listNum);
+                intent.putExtra("season",seasonStr);
+                intent.putExtra("theme",themeStr);
                 startActivity(intent);
 
             }
         });
 
 
-    }
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+
+                mArrayList2 = new ArrayList<>();
+                mAdapter = new CustomAdapterItem(mArrayList2);
+                mRecyclerView.setAdapter(mAdapter);
+
+                apiService.readAllItem(listNum).enqueue(new Callback<List<checkListItem>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<checkListItem>> call, @NonNull Response<List<checkListItem>> response) {
+                        Log.d("mytag CL","성공");
+
+                        List<checkListItem> du = response.body();
+
+                        if (du != null) {
+                            checkListItem[] data = new checkListItem[du.size()];//자동으로 해줌
+                            for (int i = 0; i < du.size(); i++) {
+                                data[i] = new checkListItem(du.get(i).getCheck_num(),du.get(i).getName(),du.get(i).getStatus(),du.get(i).getList_num());
+//                        Log.d("mytag",""+du.get(i).getName()+":"+i+"번째");
+//                        Log.d("mytag",""+data[i].toString());
+                                mArrayList2.add(data[i]); // RecyclerView의 마지막 줄에 삽입
+                            }
+                            Log.e("getData2 end", "======================================");
+                            mAdapter.notifyDataSetChanged();
+                        }//for문
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<checkListItem>> call, Throwable t) {
+
+                    }
+
+
+                });
+
+
+            }
+        });
+
+    }//oncreate
 
 }
