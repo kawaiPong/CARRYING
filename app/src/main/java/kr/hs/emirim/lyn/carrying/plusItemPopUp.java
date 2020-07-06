@@ -55,7 +55,7 @@ public class plusItemPopUp extends AppCompatActivity {
                 else{//여기가 ㄹㅇ중요함
 
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                            .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
 
@@ -72,7 +72,7 @@ public class plusItemPopUp extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<checkListItem> call, Response<checkListItem> response) {
 
-                            checkListItem du = response.body();
+                             checkListItem du = response.body();
 //                            Log.d("sowon mytag ","됨 ok아이템 : "+ du.toString());
 //                            Log.d("sowon du.getName", du.getName());//item이름이 잘 들어갔나 확인
 //                            Log.d("sowon du.getListnum", du.getList_num()+"");//item이름이 잘 들어갔나 확인

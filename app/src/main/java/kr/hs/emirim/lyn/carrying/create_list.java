@@ -123,7 +123,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                 else{
                     Log.d("mytag ","레트로핏시작전");
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                            .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
 //                .baseUrl("http://192.168.219.142:4000")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();

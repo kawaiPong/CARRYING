@@ -128,7 +128,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 Intent intent=new Intent(context,check_list.class);
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                        .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -182,7 +182,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-54-180-82-41.ap-northeast-2.compute.amazonaws.com:3000")
+                        .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
