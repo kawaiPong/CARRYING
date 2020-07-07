@@ -50,7 +50,7 @@ public class SignInActivity extends BaseActivity  {
     private GoogleSignInClient mGoogleSignInClient;
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
+            .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
             //                            .baseUrl("http://192.168.219.142:4000")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
@@ -153,7 +153,7 @@ public class SignInActivity extends BaseActivity  {
 
 
                     Retrofit retrofit = new Retrofit.Builder()
-                           .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
+                           .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
 //                            .baseUrl("http://192.168.219.142:4000")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();

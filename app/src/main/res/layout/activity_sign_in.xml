@@ -8,182 +8,158 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/whiteBox"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="232dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="270dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/login_path" />
-
-    <Button
-        android:id="@+id/anonymous"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="153dp"
-        android:layout_marginEnd="153dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/guest_login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/guest_login" />
-
-    <Button
-        android:id="@+id/check"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="75dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/find_password"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewdv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/whiteBox"
-        app:srcCompat="@drawable/signup" />
-
-    <Button
-        android:id="@+id/signup"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="75dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="110dp"
-        android:background="@drawable/signup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewdv"
-        app:layout_constraintTop_toBottomOf="@+id/whiteBox"
-        app:srcCompat="@drawable/find_password" />
-
-    <Button
-        android:id="@+id/Signin"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="40dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="160dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/login"
-        app:layout_constraintBottom_toBottomOf="@+id/whiteBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/whiteBox"
-        app:srcCompat="@drawable/login" />
-
-    <EditText
-        android:id="@+id/signin_email"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="70dp"
-        android:backgroundTint="#bce0fd"
-        android:ems="20"
-        android:hint="이메일 주소"
-        android:inputType="textEmailAddress"
-        android:textColor="#555555"
-        android:textColorHint="#999999"
-        android:textSize="13.3sp"
-        app:layout_constraintBottom_toTopOf="@+id/signIn_pw"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/whiteBox" />
-
-    <EditText
-        android:id="@+id/signIn_pw"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="5dp"
-        android:backgroundTint="#bce0fd"
-        android:ems="20"
-        android:hint="비밀번호"
-        android:inputType="textPassword"
-        android:textColor="#555555"
-        android:textColorHint="#999999"
-        android:textSize="13.3sp"
-        app:layout_constraintBottom_toTopOf="@+id/Signin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/welcome"
-        android:layout_width="150dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="30dp"
-        android:background="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/whiteBox"
-        app:srcCompat="@drawable/welcome" />
-
-    <ImageView
-        android:id="@+id/imageView19"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginEnd="72dp"
-        app:layout_constraintBottom_toTopOf="@+id/signin_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome"
-        app:srcCompat="@drawable/carrying_info" />
-
-    <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="189.3dp"
-        android:layout_height="189.3dp"
-        android:layout_marginStart="105.7dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="105.7dp"
-        android:layout_marginBottom="11dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/whiteBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/carrying" />
 
-    <ImageView
-        android:id="@+id/imageViewdv"
-        android:layout_width="0.3dp"
-        android:layout_height="8.3dp"
-        android:layout_marginTop="8dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/whiteBox"
-        app:srcCompat="@drawable/devide_line" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3">
+
+        <ImageView
+            android:id="@+id/whiteBox"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/login_path" />
+
+        <ImageView
+            android:id="@+id/welcome"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/whiteBox"
+            app:srcCompat="@drawable/welcome" />
+
+        <ImageView
+            android:id="@+id/imageView19"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcome"
+            app:srcCompat="@drawable/carrying_info" />
+
+        <EditText
+            android:id="@+id/signin_email"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:backgroundTint="#bce0fd"
+            android:ems="20"
+            android:hint="이메일 주소"
+            android:inputType="textEmailAddress"
+            android:textColor="#555555"
+            android:textColorHint="#999999"
+            android:textSize="13.3sp"
+            app:layout_constraintEnd_toEndOf="@+id/whiteBox"
+            app:layout_constraintStart_toStartOf="@+id/whiteBox"
+            app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+        <EditText
+            android:id="@+id/signIn_pw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="35dp"
+            android:backgroundTint="#bce0fd"
+            android:ems="20"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:textColor="#555555"
+            android:textColorHint="#999999"
+            android:textSize="13.3sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signin_email" />
+
+        <Button
+            android:id="@+id/Signin"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="40dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/login"
+            app:layout_constraintBottom_toBottomOf="@+id/whiteBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/whiteBox"
+            app:layout_constraintTop_toBottomOf="@+id/signIn_pw"
+            app:srcCompat="@drawable/login" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+        <Button
+            android:id="@+id/check"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="75dp"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/find_password"
+            android:gravity="right"
+            app:srcCompat="@drawable/signup" />
+
+        <ImageView
+            android:id="@+id/imageViewdv"
+            android:layout_width="0.3dp"
+            android:layout_height="8.3dp"
+            app:srcCompat="@drawable/devide_line" />
+
+        <Button
+            android:id="@+id/signup"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="75dp"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/signup"
+            app:srcCompat="@drawable/find_password" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/google_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84.7dp"
-        android:layout_marginTop="141dp"
-        android:layout_marginEnd="84.7dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="2sp"
         android:text="Google 계정으로 간편 로그인을 할 수 있습니다."
         android:textColor="#e8e8e8"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/google"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/check"
-        app:layout_constraintVertical_bias="0.48000002" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/google"
@@ -191,9 +167,7 @@
         android:layout_height="60dp"
         android:layout_marginStart="23dp"
         android:layout_marginEnd="23dp"
-        android:layout_marginBottom="68dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/anonymous"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/google_info"
@@ -210,6 +184,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/anonymous"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:background="@drawable/guest_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/google"
+        app:layout_constraintVertical_bias="0.852"
+        app:srcCompat="@drawable/guest_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

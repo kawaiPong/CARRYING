@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import kr.hs.emirim.lyn.carrying.Retrofit.CheckList;
 import kr.hs.emirim.lyn.carrying.Retrofit.RetrofitExService;
@@ -39,10 +40,11 @@ public class deletePopUp extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Context context = v.getContext();
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
+                        .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -51,7 +53,7 @@ public class deletePopUp extends AppCompatActivity {
                 apiCall.enqueue(new Callback<CheckList>() {
                     @Override
                     public void onResponse(Call<CheckList> call, Response<CheckList> response) {
-
+                        Log.d("sowon","실패");
                         finish();
 
 
@@ -59,7 +61,8 @@ public class deletePopUp extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<CheckList> call, Throwable t) {
-
+                        Toast.makeText(getApplicationContext(), "리스트 삭제 실패.", Toast.LENGTH_LONG).show();
+                        finish();
                     }
 
                 });

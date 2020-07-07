@@ -73,7 +73,7 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
+                .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

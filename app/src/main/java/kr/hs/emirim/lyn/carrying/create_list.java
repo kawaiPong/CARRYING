@@ -111,7 +111,7 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                 else{
                     Log.d("mytag ","레트로핏시작전");
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
+                            .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
 //                .baseUrl("http://192.168.219.142:4000")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
@@ -140,12 +140,12 @@ public class create_list extends AppCompatActivity implements View.OnClickListen
                         public void onResponse(Call<CheckList> call, Response<CheckList> response) {
                             CheckList du = response.body();
                             Log.d("mytag ","성공");
-                            Toast.makeText(getApplicationContext(), "회원가입 되었습니다.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "리스트가 생성되었습니다.", Toast.LENGTH_LONG).show();
                         }
                         @Override
                         public void onFailure(Call<CheckList> call, Throwable t) {
                             Log.d("mytag", "안됨 fail : " + t.toString());
-                            Toast.makeText(getApplicationContext(), "회원가입이 실패했습니다.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "리스트생성에 실패했습니다.", Toast.LENGTH_LONG).show();
                         }
                     });
 

@@ -60,7 +60,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
         listGender.add("둘다 선택함");
         listGender.add("둘다 선택하지 않음");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-13-125-110-97.ap-northeast-2.compute.amazonaws.com:3000")
+                .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
                 .client(okHttpClient)
 //                .baseUrl("http://localhost:1234").
                 .addConverterFactory(GsonConverterFactory.create())
