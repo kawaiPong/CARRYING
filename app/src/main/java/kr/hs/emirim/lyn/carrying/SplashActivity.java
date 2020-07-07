@@ -26,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
+
             //                            .baseUrl("http://192.168.219.142:4000")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
@@ -65,7 +66,7 @@ public class SplashActivity extends AppCompatActivity {
             //uid로 로그인하기
             //readUser/:uid로 넘어가기
             String user_uid = user.getUid();
-            Log.d("email", user_uid);
+            Log.d("user_uid", user_uid);
             apiService.getData(user_uid).enqueue(new Callback<User>() {//drawer에 닉네임이랑 이메일 뜨게하기 위한 작업
                 @Override
                 public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
@@ -82,6 +83,10 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Call<User> call,@NonNull Throwable t) {
                     Log.d("mytag Main", "안됨 fail : " + t.toString());
+                    Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
+                    startActivity(intent);
+
+                    finish();
                 }
             });
         } else {

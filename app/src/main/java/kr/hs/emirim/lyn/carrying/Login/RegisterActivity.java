@@ -1,5 +1,6 @@
 package kr.hs.emirim.lyn.carrying.Login;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +13,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -29,6 +34,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
+    final List<String> listGender = new ArrayList<>();
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -37,6 +43,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
     String uid;
 
 
+    int gender;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +55,14 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .build();
 
+        listGender.add("여성");
+        listGender.add("남성");
+        listGender.add("둘다 선택함");
+        listGender.add("둘다 선택하지 않음");
         Retrofit retrofit = new Retrofit.Builder()
+
                 .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
+
                 .client(okHttpClient)
 //                .baseUrl("http://localhost:1234").
                 .addConverterFactory(GsonConverterFactory.create())
@@ -63,7 +76,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
         spinner.setOnItemSelectedListener(this);
 
-        item = new String[]{"    남성", "    여성", "    둘 다 선택", "    둘 다 선택하지 않음"};
+        item = new String[]{"    여성", "    남성", "    둘 다 선택", "    선택하지 않음"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, item);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
@@ -88,10 +101,20 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
             }
         });
 
+
+
         Button joinbtn = (Button) findViewById(R.id.joinbtn);
         joinbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String text = spinner.getSelectedItem().toString();
+
+                if(text.contains("남성"))gender=1;
+                else if(text.contains("여성"))gender=2;
+                else if(text.contains("둘 다 선택"))gender=3;
+                else if(text.contains("선택하지 않음"))gender=0;
+
 
                 EditText NickNameE = (EditText) findViewById(R.id.et_name_changeU);
                 EditText EmailE = (EditText) findViewById(R.id.et_eamil);
@@ -120,13 +143,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
                         Log.d("password equals", "비밀번호 맞음");
 
-//                        FirebaseAuth auth;
-//                        FirebaseUser user;
-//                        auth = FirebaseAuth.getInstance();
-//                        user = auth.getCurrentUser();
-//
-//                        Log.d("mytag 됨", Email+"+"+Password);
-//                        Log.d("mytag 됨", auth.createUserWithEmailAndPassword(Email, Password).toString());
+
                         auth.createUserWithEmailAndPassword(Email, Password)
                                 .addOnCompleteListener(RegisterActivity.this, task -> {
                                     if (task.isSuccessful()) {
@@ -136,7 +153,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
 
 
                                         Call<User> apiCall = apiService.postData(uid,NickName,Email,Password,gender);
-                                        Log.d("SOWON retrofit",uid+":"+NickName+":"+Email+":"+Password+":"+gender+":");
+                                        Log.d("sowon register",uid+":"+NickName+":"+Email+":"+Password+":"+gender+":");
                                         apiCall.enqueue(new Callback<User>() {
                                             @Override
                                             public void onResponse(Call<User> call, Response<User> response) {
@@ -166,7 +183,10 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 }
             }
         });
-    }
+
+
+
+    }//oncreate
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -177,4 +197,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+
+
 }

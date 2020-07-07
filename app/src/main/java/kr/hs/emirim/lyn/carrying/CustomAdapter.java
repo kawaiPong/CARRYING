@@ -3,6 +3,7 @@ package kr.hs.emirim.lyn.carrying;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,9 +38,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
 
     // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.mListener = listener ;
-    }
+//    public void setOnItemClickListener(OnItemClickListener listener) {
+//        this.mListener = listener ;
+//    }
 
 
 
@@ -92,9 +93,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     }
 
 
-    public CustomAdapter(ArrayList<Dictionary> list, String userUid, int gender ) {
+    public CustomAdapter(ArrayList<Dictionary> list, String userUid, int gender) {
         this.userUid=userUid;
-        this.mList = list;
+        this.mList=list;
         this.gender=gender;
     }
 
@@ -124,7 +125,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             public void onClick(View v) {
                 Context context = v.getContext();
                 Log.d("mytag",position +"");
-                Toast.makeText(context, position +"", Toast.LENGTH_LONG).show();
+//                Toast.makeText(context, position +"", Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(context,check_list.class);
 
                 Retrofit retrofit = new Retrofit.Builder()
@@ -167,61 +168,49 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 });
 
 
-
-
-
-
             }
         });
 
-        viewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
+        viewholder.mView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 Context context = v.getContext();
+                Intent intent = new Intent(context, deletePopUp.class);
+                Log.d("sowon",mList.get(position).getNum()+"");
+
+                Log.d("deletePopup sowon",":"+gender+":"+userUid);
+
+                intent.putExtra("gender",gender);
+                intent.putExtra("uid",userUid);
+                intent.putExtra("title",mList.get(position).getNum());
+                context.startActivity(intent);
+                Log.d("sowon Long","Long");
                 Log.d("mytag","클릭");
 
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
 
-                final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
-                Call<CheckList> apiCall = apiService.deleteList(mList.get(position).getNum());
-                apiCall.enqueue(new Callback<CheckList>() {
-                    @Override
-                    public void onResponse(Call<CheckList> call, Response<CheckList> response) {
-                        CheckList du = response.body();
+                return false;
+            }
+        });
+        viewholder.deleteButton.setOnClickListener(new View.OnClickListener() {//deleteButton 이지만,, 삭제가 아니라 수정버튼임;;
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, change_list.class);
+                intent.putExtra("num",mList.get(position).getNum());
+                intent.putExtra("city",mList.get(position).getCity());
+                intent.putExtra("start_date",mList.get(position).getStart_date());
+                intent.putExtra("finish_date",mList.get(position).getFinish_date());
+                intent.putExtra("uid",userUid);
+                intent.putExtra("gender",gender);
+                intent.putExtra("theme",mList.get(position).getTheme());
+                intent.putExtra("season",mList.get(position).getSeason());
 
-                        Log.d("mytag CA","됨"+mList.get(position).getNum());
-                        mList.get(position).getNum();
-
-                        Intent refresh = new Intent(context, Main_List.class);
-                        refresh.putExtra("gender",gender);
-                        refresh.putExtra("uid",userUid);
-                        context.startActivity(refresh);
-                        ((Activity)context).finish();
-//                        context.finish();
-                    }
-
-                    @Override
-                    public void onFailure(Call<CheckList> call, Throwable t) {
-
-                    }
-
-                });
-
-
-
-
-
+                context.startActivity(intent);
 
             }
         });
 
-//        viewholder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-//        viewholder.start_date.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-//        viewholder.finish_date.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
 
         viewholder.title.setGravity(Gravity.CENTER);
         viewholder.start_date.setGravity(Gravity.CENTER);

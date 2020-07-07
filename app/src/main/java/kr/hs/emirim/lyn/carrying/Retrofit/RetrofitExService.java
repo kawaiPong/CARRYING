@@ -25,7 +25,7 @@ public interface RetrofitExService {
 
     //로그인할 때
     @GET("/user/readUser/{uid}")
-    Call<User> getData(@Path("uid") String email);
+    Call<User> getData(@Path("uid") String uid);
 
     @GET("/user/existEmail/{email}")
     Call<User>getDataEmail(@Path("email")String email);
@@ -57,6 +57,15 @@ public interface RetrofitExService {
                               @Path("season") String season);
 
 
+    //list 수정
+    @POST("list/updateSelectedList/{num}/{start_date}/{finish_date}/{gender}/{theme}/{season}")
+    Call<CheckList> updateSelectedList(@Path("num") String num,
+                                   @Path("start_date") String start_date,
+                                   @Path("finish_date") String finish_date,
+                                   @Path("gender") int gender,
+                                   @Path("theme") String theme,
+                                   @Path("season") String season);
+
     //한 명의 회원의 전체 체크리스트 불러오기
     @GET("/list/readAllList/{uid}")
     Call<List<CheckList>> readAllList(@Path("uid")String uid);
@@ -64,7 +73,6 @@ public interface RetrofitExService {
     //해당 체크리스트의 모든아이템들 가져오기
     @GET("/item/readCheckListItems/{list_num}")
     Call<List<checkListItem>> readAllItem(@Path("list_num")int list_num);
-
 
     //list에서 item하나 추가
     @POST("/item/addCheckListItem/{list_num}/{name}")

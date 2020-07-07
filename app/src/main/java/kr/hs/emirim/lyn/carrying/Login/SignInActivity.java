@@ -37,6 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.HEAD;
 
 public class SignInActivity extends BaseActivity  {
 
@@ -51,7 +52,7 @@ public class SignInActivity extends BaseActivity  {
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
-            //                            .baseUrl("http://192.168.219.142:4000")
+            // .baseUrl("http://192.168.219.142:4000")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -121,7 +122,7 @@ public class SignInActivity extends BaseActivity  {
                 }
                 @Override
                 public void onFailure(@NonNull Call<User> call,@NonNull Throwable t) {
-                    Log.d("mytag Main", "안됨 fail : " + t.toString());
+                    Log.d("mytag checkCurrent", "안됨 fail : " + t.toString());
                 }
             });
         } else {
@@ -146,7 +147,7 @@ public class SignInActivity extends BaseActivity  {
 
                 if ((id.length() == 0) || (password.length() == 0)) {
                     Toast.makeText(getApplicationContext(), "이메일과 비밀번호를 다시확인해주세요.", Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(), SignIn_pw.getText().toString().trim()+":::"+SignIn_pw.getText().toString().trim(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), SignIn_pw.getText().toString().trim()+":::"+SignIn_pw.getText().toString().trim(), Toast.LENGTH_LONG).show();
 
 
                 } else {
@@ -173,6 +174,7 @@ public class SignInActivity extends BaseActivity  {
                                 intent.putExtra("uid",du.getUid());
                                 intent.putExtra("num","1");
                                 startActivity(intent);
+                                finish();
                             }
                         }
                         @Override
@@ -317,6 +319,7 @@ public class SignInActivity extends BaseActivity  {
                             Log.d(TAG, "익명 로그인 버튼");
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInAnonymously:failure", task.getException());

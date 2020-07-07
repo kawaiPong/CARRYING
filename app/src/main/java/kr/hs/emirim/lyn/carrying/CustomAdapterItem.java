@@ -260,6 +260,10 @@ public class CustomAdapterItem extends RecyclerView.Adapter<CustomAdapterItem.Cu
             }
         });
 
+
+        if(mList.get(position).getStatus()==0){
+            viewholder.checkBox.setChecked(false);
+        }
     }
 
     @Override
