@@ -52,7 +52,7 @@ public class SignInActivity extends BaseActivity  {
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
-            // .baseUrl("http://192.168.219.142:4000")
+            //                            .baseUrl("http://192.168.219.142:4000")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -228,7 +228,7 @@ public class SignInActivity extends BaseActivity  {
     private void signIn_google() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
+}
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -275,13 +275,20 @@ public class SignInActivity extends BaseActivity  {
                             String name = user.getDisplayName().toString();
                             String provideId = user.getProviderId().toString();
 
-                            Call<User> apiCall = apiService.postData(uid,name,email,provideId,0);
-                            Log.d("SOWON retrofit",uid+":"+name+":"+email+":"+provideId+":"+0+":");
+                            Call<User> apiCall = apiService.postData(uid,name,email,provideId,2);
+                            Log.d("SOWON retrofit",uid+":"+name+":"+email+":"+provideId+":"+2+":");
                             apiCall.enqueue(new Callback<User>() {
                                 @Override
                                 public void onResponse(Call<User> call, Response<User> response) {
                                     User du = response.body();
-                                    Log.d("회원가입", "성공");
+                                    Log.d("구글 회원가입", "성공");
+
+                                    Intent intent=new Intent(getApplicationContext(), Main_List.class);
+                                    intent.putExtra("gender",2);
+                                    intent.putExtra("uid",du.getUid());
+                                    intent.putExtra("num","1");
+                                    startActivity(intent);
+                                    finish();
                                 }
                                 @Override
                                 public void onFailure(Call<User> call, Throwable t) {
@@ -290,9 +297,7 @@ public class SignInActivity extends BaseActivity  {
 
                                 }
                             });
-                            Intent intent = new Intent(SignInActivity.this, SignInActivity.class);
-                            startActivity(intent);
-                            finish();
+
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -317,9 +322,34 @@ public class SignInActivity extends BaseActivity  {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInAnonymously:success");
                             Log.d(TAG, "익명 로그인 버튼");
-                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+
+                            FirebaseUser user = auth.getCurrentUser();
+
+                            Call<User> apiCall = apiService.postData(user.getUid(),"익명","anonymous", user.getProviderId(),2);
+                            Log.d("SOWON retrofit",user.getUid()+": 익명 : anonymous :"+user.getProviderId()+":"+2+":");
+                            apiCall.enqueue(new Callback<User>() {
+                                @Override
+                                public void onResponse(Call<User> call, Response<User> response) {
+                                    User du = response.body();
+                                    Log.d("익명", "성공");
+
+                                    Intent intent=new Intent(getApplicationContext(), Main_List.class);
+                                    intent.putExtra("gender",2);
+                                    intent.putExtra("uid",du.getUid());
+                                    intent.putExtra("num","1");
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                @Override
+                                public void onFailure(Call<User> call, Throwable t) {
+                                    Log.d("mytag", "안됨 fail : " + t.toString());
+                                    Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_LONG).show();
+
+                                }
+                            });
+//                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInAnonymously:failure", task.getException());

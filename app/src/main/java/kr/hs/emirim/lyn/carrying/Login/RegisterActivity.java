@@ -60,9 +60,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
         listGender.add("둘다 선택함");
         listGender.add("둘다 선택하지 않음");
         Retrofit retrofit = new Retrofit.Builder()
-
                 .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
-
                 .client(okHttpClient)
 //                .baseUrl("http://localhost:1234").
                 .addConverterFactory(GsonConverterFactory.create())
@@ -132,7 +130,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                         (Email.length() == 0)||
                         (CheckPassword.length() < 8))
                          {
-                    Toast.makeText(getApplicationContext(), "모든 항목이 채워져있는지 확인해주세요", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "모든 항목이 올바르게 채워져있는지 확인해주세요", Toast.LENGTH_LONG).show();
 
                 }
                 else if((Password.length() < 8) ){
@@ -171,7 +169,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                                         startActivity(intent);
                                         finish();
                                     } else {
-                                        Toast.makeText(RegisterActivity.this, "등록 에러", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, "사용중인 이메일입니다.", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 

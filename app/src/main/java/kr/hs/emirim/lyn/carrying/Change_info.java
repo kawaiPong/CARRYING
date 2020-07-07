@@ -26,6 +26,7 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
 
     Spinner spinner;
     String[] item;
+    boolean emailCheck = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,6 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
-
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -102,6 +102,7 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
         Change_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(emailCheck) {
                     if ((password).equals(passwordre)) {
                         Call<User> apiCall2 = apiService.postUpdateUser(uid[0], nicknameE.getText().toString(), emailE.getText().toString(), passwordE.getText().toString(), gender);
                         apiCall2.enqueue(new Callback<User>() {
@@ -111,8 +112,8 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
                                 uid[0] = du.getUid();
                                 Toast.makeText(getApplicationContext(), "회원정보가 수정되었습니다.", Toast.LENGTH_LONG).show();
                                 mActivity.finish();
-                                Intent intent=new Intent(Change_info.this, Main_List.class);
-                                intent.putExtra("uid",userUid);
+                                Intent intent = new Intent(Change_info.this, Main_List.class);
+                                intent.putExtra("uid", userUid);
 //                                intent.putExtra("num","1");
                                 startActivity(intent);
                             }
@@ -123,15 +124,13 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
                                 Toast.makeText(getApplicationContext(), "회원정보 수정 실패", Toast.LENGTH_LONG).show();
                             }
                         });
-                    }
-                    else{
+                    } else {
                         Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_LONG).show();
 
                     }
 
 
-
-
+                }
             }
         });
 
@@ -154,12 +153,13 @@ public class Change_info extends AppCompatActivity implements AdapterView.OnItem
                         User du = response.body();
                         //Log.d("mytag ChangeUser", "됨  : " + du.getEmail());
                         Toast.makeText(getApplicationContext(), "이미 사용중인 이메일입니다.", Toast.LENGTH_LONG).show();
-
+                        emailCheck = false;
                     }
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
                         //Log.d("mytag ChangeUser", "안됨 fail : " + t.toString());
                         Toast.makeText(getApplicationContext(), "이메일 사용 가능", Toast.LENGTH_LONG).show();
+                        emailCheck = true;
                     }
                 });
             }

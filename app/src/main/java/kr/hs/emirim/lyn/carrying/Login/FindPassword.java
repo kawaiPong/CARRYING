@@ -40,13 +40,13 @@ public class FindPassword extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Log.d("sowon","왜애ㅣ래");
                 finish();
             }
         });
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-54-180-93-190.ap-northeast-2.compute.amazonaws.com:3000")
-
 //                .baseUrl("http://192.168.219.142:4000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -54,28 +54,31 @@ public class FindPassword extends AppCompatActivity {
         final RetrofitExService apiService = retrofit.create(RetrofitExService.class);
 
 
-
-
         check.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 //                checkButton_pressed =1;
                 email=eemail.getText().toString();
-                Call<User> apiCall = apiService.getDataEmail(email);
-                apiCall.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        User du = response.body();
-                        Log.d("mytag ","됨 ok : "+ du.toString());
-                        Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
-                        Toast.makeText(getApplicationContext(), "확인된 이메일", Toast.LENGTH_LONG).show();
-                    }
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        Log.d("ChangePassword", "안됨 fail : " + t.toString());
-                        Toast.makeText(getApplicationContext(), "해당 이메일이 없습니다.", Toast.LENGTH_LONG).show();
-                    }
-                });
+                if(email.equals("")){
+                    Toast.makeText(getApplicationContext(), "이메일을 입력해주세요", Toast.LENGTH_LONG).show();
+                } else {
+                    Call<User> apiCall = apiService.getDataEmail(email);
+                    apiCall.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            User du = response.body();
+                            Log.d("mytag ", "됨 ok : " + du.toString());
+                            Log.d("data.getUserId() 닉네임 : ", du.getNickname() + "");
+                            Toast.makeText(getApplicationContext(), "확인된 이메일", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Log.d("ChangePassword", "안됨 fail : " + t.toString());
+                            Toast.makeText(getApplicationContext(), "해당 이메일이 없습니다.", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
         });
 
